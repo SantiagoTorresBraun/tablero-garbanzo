@@ -1,0 +1,3 @@
+# Este tablero es publico por necesidad (GitHub Pages) pero no queremos que se indexe.
+User-agent: *
+Disallow: /

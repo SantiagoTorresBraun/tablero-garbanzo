@@ -1,0 +1,1181 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow, noarchive">
+<meta name="description" content="Tablero de procesamiento de garbanzo, campana 25/26.">
+<meta name="color-scheme" content="light dark">
+<title>Tablero Garbanzo 25/26</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>
+:root{
+  --plane:#f2f5f8; --surface:#fbfcfd; --surface-2:#f6f8fa; --surface-3:#eef2f6;
+  --ink:#10141a; --ink2:#545c68; --muted:#858d99;
+  --grid:#e2e7ec; --axis:#c8d0d9; --hair:rgba(16,20,26,.11);
+  --s1:#2a78d6; --s2:#eb6834; --s3:#1baf7a;
+  --s1-track:#cde2fb;
+  --good:#0ca30c; --warn:#fab219; --crit:#d03b3b;
+  --good-ink:#006300; --crit-ink:#b02c2c;
+  --shadow:0 1px 2px rgba(16,20,26,.05), 0 8px 24px -18px rgba(16,20,26,.28);
+  --sans:"IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --disp:"Archivo", "IBM Plex Sans", system-ui, sans-serif;
+  --mono:"IBM Plex Mono", ui-monospace, "Cascadia Mono", monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root:where(:not([data-theme="light"])){
+    --plane:#0e1114; --surface:#191c20; --surface-2:#1f2328; --surface-3:#23272d;
+    --ink:#f3f5f7; --ink2:#a6aeb9; --muted:#7d848f;
+    --grid:#272c33; --axis:#39404a; --hair:rgba(255,255,255,.11);
+    --s1:#3987e5; --s2:#d95926; --s3:#199e70;
+    --s1-track:#184f95;
+    --good-ink:#0ca30c; --crit-ink:#e46a6a;
+    --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 24px -18px rgba(0,0,0,.8);
+  }
+}
+:root[data-theme="dark"]{
+  --plane:#0e1114; --surface:#191c20; --surface-2:#1f2328; --surface-3:#23272d;
+  --ink:#f3f5f7; --ink2:#a6aeb9; --muted:#7d848f;
+  --grid:#272c33; --axis:#39404a; --hair:rgba(255,255,255,.11);
+  --s1:#3987e5; --s2:#d95926; --s3:#199e70;
+  --s1-track:#184f95;
+  --good-ink:#0ca30c; --crit-ink:#e46a6a;
+  --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 24px -18px rgba(0,0,0,.8);
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--plane);color:var(--ink);font-family:var(--sans);font-size:14px;line-height:1.5;
+  -webkit-font-smoothing:antialiased}
+.wrap{max-width:1380px;margin:0 auto;padding:0 20px 72px}
+
+/* ---------- header ---------- */
+.masthead{padding:26px 0 18px;display:flex;flex-wrap:wrap;gap:18px;align-items:flex-end;justify-content:space-between}
+.brand h1{font-family:var(--disp);font-weight:700;font-size:27px;line-height:1.15;margin:0;letter-spacing:-.015em;text-wrap:balance}
+.brand p{margin:5px 0 0;color:var(--ink2);font-size:13px;max-width:62ch}
+.idstrip{display:flex;gap:0;border:1px solid var(--hair);border-radius:10px;overflow:hidden;background:var(--surface);box-shadow:var(--shadow)}
+.idstrip div{padding:9px 15px;border-right:1px solid var(--hair)}
+.idstrip div:last-child{border-right:0}
+.idstrip dt{font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin:0}
+.idstrip dd{margin:2px 0 0;font-size:14px;font-weight:600;font-family:var(--mono)}
+
+/* ---------- filtros ---------- */
+.filters{position:sticky;top:0;z-index:30;background:var(--plane);
+  padding:10px 0 12px;margin-bottom:22px;border-bottom:1px solid var(--hair);
+  display:flex;flex-wrap:wrap;gap:10px 14px;align-items:flex-end}
+.fld{display:flex;flex-direction:column;gap:4px}
+.fld label{font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-weight:600}
+.fld select{font-family:var(--sans);font-size:13px;color:var(--ink);background:var(--surface);
+  border:1px solid var(--hair);border-radius:7px;padding:7px 9px;min-width:150px}
+.fld select:focus-visible,.chk:focus-within,button:focus-visible{outline:2px solid var(--s1);outline-offset:2px}
+.chk{display:flex;align-items:center;gap:7px;font-size:12.5px;color:var(--ink2);
+  background:var(--surface);border:1px solid var(--hair);border-radius:7px;padding:7px 11px;cursor:pointer}
+.chk input{accent-color:var(--s1);margin:0}
+.spacer{flex:1 1 20px}
+.ghost{font-family:var(--sans);font-size:12.5px;color:var(--ink2);background:var(--surface);
+  border:1px solid var(--hair);border-radius:7px;padding:7px 11px;cursor:pointer}
+.ghost:hover{background:var(--surface-3);color:var(--ink)}
+
+/* ---------- notas de datos ---------- */
+.notes{background:var(--surface);border:1px solid var(--hair);border-left:3px solid var(--warn);
+  border-radius:10px;padding:16px 18px;margin-bottom:24px;box-shadow:var(--shadow)}
+.notes h2{font-family:var(--disp);font-size:14.5px;margin:0 0 4px;font-weight:600}
+.notes>p{margin:0 0 10px;color:var(--ink2);font-size:12.5px}
+.notes ol{margin:0;padding-left:20px;display:grid;gap:7px}
+.notes li{font-size:12.5px;color:var(--ink2)}
+.notes li b{color:var(--ink);font-weight:600}
+.notes code{font-family:var(--mono);font-size:11.5px;background:var(--surface-3);padding:1px 5px;border-radius:4px}
+
+/* ---------- secciones ---------- */
+.sec{margin:34px 0 0}
+.sec>header{display:flex;align-items:baseline;gap:12px;padding-bottom:9px;margin-bottom:16px;
+  border-bottom:1px solid var(--hair)}
+.sec>header h2{font-family:var(--disp);font-size:18px;font-weight:600;margin:0;letter-spacing:-.01em}
+.sec>header span{font-size:12px;color:var(--muted)}
+
+.grid{display:grid;gap:16px;grid-template-columns:repeat(12,1fr)}
+.card{grid-column:span 12;background:var(--surface);border:1px solid var(--hair);border-radius:12px;
+  padding:17px 18px 15px;box-shadow:var(--shadow);min-width:0;display:flex;flex-direction:column}
+.c6{grid-column:span 6}.c4{grid-column:span 4}.c8{grid-column:span 8}.c5{grid-column:span 5}.c7{grid-column:span 7}
+@media(max-width:1080px){.c6,.c4,.c8,.c5,.c7{grid-column:span 12}}
+.card>header{margin-bottom:13px}
+.eyebrow{display:flex;flex-wrap:wrap;align-items:center;gap:7px;margin-bottom:5px}
+.pin{font-family:var(--mono);font-size:10px;font-weight:500;letter-spacing:.04em;
+  background:var(--s1);color:#fff;padding:2px 6px;border-radius:4px}
+.src{font-size:10px;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);font-weight:600}
+.scope{font-size:10px;color:var(--muted);font-family:var(--mono)}
+.card h3{font-family:var(--disp);font-size:15.5px;font-weight:600;margin:0;letter-spacing:-.01em;text-wrap:balance}
+.card>header p{margin:5px 0 0;font-size:12.5px;color:var(--ink2);max-width:70ch}
+.body{flex:1;min-width:0}
+.foot{margin-top:12px;padding-top:10px;border-top:1px solid var(--hair);display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.foot p{margin:0;font-size:11.5px;color:var(--muted);flex:1;min-width:180px}
+
+/* ---------- tiles ---------- */
+.tiles{display:grid;gap:10px;grid-template-columns:repeat(auto-fit,minmax(132px,1fr))}
+.tile{background:var(--surface-2);border:1px solid var(--hair);border-radius:9px;padding:11px 13px 12px;min-width:0}
+.tile .lb{font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:600;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tile .un{font-size:10.5px;color:var(--muted);font-family:var(--mono)}
+.tile .vl{font-size:24px;font-weight:600;letter-spacing:-.02em;line-height:1.1;margin-top:1px}
+.tile .sub{font-size:11px;color:var(--ink2);margin-top:3px}
+.tile.hero{grid-column:1/-1;background:var(--surface-2)}
+.tile.hero .vl{font-size:48px;letter-spacing:-.03em}
+@media(min-width:700px){.tile.hero{grid-column:span 2}}
+.tile.flag{background:transparent;border-color:var(--s1);border-width:1.5px}
+.dl{display:inline-flex;align-items:center;gap:4px;font-size:11.5px;font-weight:600;margin-top:4px}
+.dl.up{color:var(--good-ink)}.dl.dn{color:var(--crit-ink)}.dl.flat{color:var(--muted)}
+
+/* ---------- charts ---------- */
+.chart{position:relative;width:100%}
+.chart svg{display:block;width:100%;height:auto;overflow:visible}
+.gl{stroke:var(--grid);stroke-width:1;fill:none}
+.ax{stroke:var(--axis);stroke-width:1;fill:none}
+.tk{fill:var(--muted);font-size:10.5px;font-family:var(--mono)}
+.ct{fill:var(--ink2);font-size:11px}
+.vlab{fill:var(--ink);font-size:10.5px;font-weight:600;font-family:var(--mono)}
+.vlab.inv{fill:var(--surface)}
+.hit{fill:transparent;cursor:default}
+.gapring{stroke:var(--surface);stroke-width:2;fill:none}
+.legend{display:flex;flex-wrap:wrap;gap:6px 16px;margin:0 0 9px}
+.legend span{display:inline-flex;align-items:center;gap:6px;font-size:11.5px;color:var(--ink2)}
+.legend i{width:11px;height:11px;border-radius:3px;display:block;flex:none}
+.tip{position:absolute;pointer-events:none;opacity:0;transition:opacity .1s;z-index:20;
+  background:var(--ink);color:var(--plane);border-radius:7px;padding:7px 10px;font-size:11.5px;
+  box-shadow:0 6px 20px rgba(0,0,0,.3);min-width:110px;max-width:250px}
+.tip b{display:block;font-size:11px;letter-spacing:.05em;text-transform:uppercase;opacity:.7;margin-bottom:3px;font-weight:600}
+.tip div{display:flex;justify-content:space-between;gap:12px;font-family:var(--mono);font-size:11px}
+.tip div span:first-child{opacity:.75}
+.splitleg{display:flex;flex-wrap:wrap;gap:7px 20px;margin:11px 0 0}
+.splitleg>div{display:inline-flex;align-items:center;gap:7px;font-size:11.5px;min-width:0}
+.splitleg i{width:11px;height:11px;border-radius:3px;flex:none;display:block}
+.splitleg b{font-weight:600;color:var(--ink)}
+.splitleg em{font-family:var(--mono);font-style:normal;color:var(--ink2);font-variant-numeric:tabular-nums}
+
+/* ---------- tablas ---------- */
+.tbl{display:none;margin-top:12px;overflow-x:auto}
+.tbl.on{display:block}
+.tbl table{border-collapse:collapse;font-size:11.5px;width:100%;min-width:min-content}
+.tbl caption{text-align:left;font-size:11px;color:var(--muted);padding-bottom:6px;letter-spacing:.04em;text-transform:uppercase;font-weight:600}
+.tbl th,.tbl td{padding:5px 9px;text-align:right;white-space:nowrap;border-bottom:1px solid var(--hair)}
+.tbl th:first-child,.tbl td:first-child{text-align:left}
+.tbl thead th{color:var(--muted);font-weight:600;font-size:10px;letter-spacing:.05em;text-transform:uppercase;
+  border-bottom:1px solid var(--axis)}
+.tbl td{font-family:var(--mono);font-variant-numeric:tabular-nums}
+.tbl td:first-child{font-family:var(--sans)}
+.tbl tr.tot td{font-weight:600;border-top:1px solid var(--axis);border-bottom:0}
+.tbl td.g{color:var(--good-ink);font-weight:600}
+.tbl td.b{color:var(--crit-ink);font-weight:600}
+.tbl+.tbl{margin-top:16px}
+.mx{overflow-x:auto}
+.mx table{border-collapse:collapse;font-size:11px;width:100%;min-width:760px}
+.mx th,.mx td{padding:6px 8px;text-align:right;white-space:nowrap;border-bottom:1px solid var(--hair);
+  font-family:var(--mono);font-variant-numeric:tabular-nums}
+.mx thead th{background:var(--surface-3);color:var(--ink2);font-weight:600;font-size:9.5px;
+  letter-spacing:.04em;text-transform:uppercase;font-family:var(--sans);position:sticky;top:0}
+.mx th:first-child,.mx td:first-child{text-align:left;font-family:var(--sans);font-weight:600;
+  position:sticky;left:0;background:var(--surface);z-index:1}
+.mx thead th:first-child{background:var(--surface-3);z-index:2}
+.mx tr.dv td{border-top:1px solid var(--axis);font-weight:600}
+.mx tr.dv td:first-child{background:var(--surface)}
+.mx td.g{color:var(--good-ink)}.mx td.b{color:var(--crit-ink)}
+.mx td.z{color:var(--muted)}
+
+.empty{padding:22px 14px;text-align:center;color:var(--muted);font-size:12.5px;
+  background:var(--surface-2);border-radius:9px;border:1px dashed var(--hair)}
+.warnbox{margin-top:11px;padding:9px 12px;background:var(--surface-2);border-left:2px solid var(--warn);
+  border-radius:0 7px 7px 0;font-size:11.5px;color:var(--ink2)}
+.warnbox b{color:var(--ink)}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="masthead">
+    <div class="brand">
+      <h1>Procesamiento de garbanzo &mdash; campaña 25/26</h1>
+      <p>Los 17 análisis de la solapa <b>Analisis</b>, cada uno contra la solapa que el pedido indica. Proyección (PY), simulación y realidad (PT) proceso por proceso, en dos plantas de selección.</p>
+    </div>
+    <dl class="idstrip" id="idstrip"></dl>
+  </div>
+
+  <div class="filters">
+    <div class="fld"><label for="fPlanta">Planta</label><select id="fPlanta"></select></div>
+    <div class="fld"><label for="fProceso">Proceso</label><select id="fProceso"></select></div>
+    <div class="fld"><label for="fCalibre">Calibre <span style="text-transform:none;letter-spacing:0">(secciones por calibre)</span></label><select id="fCalibre"></select></div>
+    <label class="chk"><input type="checkbox" id="fFix" checked> Corregir PY duplicado de GI&#8209;81</label>
+    <div class="spacer"></div>
+    <button class="ghost" id="bTabs">Mostrar todas las tablas</button>
+    <button class="ghost" id="bTheme">Tema</button>
+  </div>
+
+  <div class="notes">
+    <h2>Antes de leer los números</h2>
+    <p>Cinco cosas que salieron al perfilar el libro y que cambian cómo hay que interpretar tres de los análisis.</p>
+    <ol>
+      <li><b>El PY de <code>GI-81</code> está duplicado</b> en <code>Base Datos GZ</code>: 150.081 kg contra 75.040 kg de MP y de PT. Es el origen completo del desvío de ~75.000 kg de Cereales Viel. El tablero lo corrige por defecto; destildá la casilla de arriba para ver el dato crudo.</li>
+      <li><b>Las filas <code>Tipo=PY</code> de <code>Base Datos GZ</code> no son una proyección independiente</b>: replican, calibre por calibre, uno de los dos escenarios de <code>PY vs. Real GZ</code> &mdash; 17 procesos copian la Simulación, 6 copian el PY y 4 no coinciden con ninguno. Por eso todo lo de proyección contra realidad (ítems 8, 15 y 16) se calcula desde <code>PY vs. Real GZ</code>, que es la única solapa donde los tres escenarios están separados y etiquetados.</li>
+      <li><b>Los daños proyectados no están en <code>Base Datos GZ</code></b>: ahí las filas PY tienen los defectos casi todos en cero. Los ítems 7 y 9 se calculan desde <code>Daños MP PY Real</code>, que sí los tiene y reconcilia exacto con la eficiencia de <code>MP vs PT</code>.</li>
+      <li><b>El descarte proyectado tiene 5 tipos y el real tiene 13.</b> El ítem 10 compara sólo los 5 que existen en las dos puntas (agrupando las tres mesas y leyendo COLOR como COLORIMETRICA) y lista aparte los que nunca se proyectaron.</li>
+      <li><b>Datos sueltos:</b> <code>Variedad</code> vale <code>0.0</code> en 86 filas (11,6 %), una celda de <code>Insectos</code> trae <code>09865320/*%</code>, y <code>Reproceso</code> y <code>Calibre_Descarte</code> están vacías en las 741 filas. <code>PR 603</code> es el único proceso sin <code>Fin Proceso</code> y el único ausente de <code>MP vs PT</code>: está en curso.</li>
+    </ol>
+  </div>
+
+  <div id="sections"></div>
+
+  <p style="margin:38px 0 0;font-size:11.5px;color:var(--muted);max-width:80ch">
+    El libro numera los análisis 1&ndash;16 salteando el 12 (fila vacía) y repitiendo el 16 en dos filas distintas;
+    acá figuran como <b>16</b> y <b>16-bis</b>. Balance de masa verificado: MP 3.095.360 kg = PT comercial 2.730.176 kg + descartes 365.184 kg,
+    porque las filas PT incluyen los descartes como valores de <code style="font-family:var(--mono)">Calibre</code>.
+  </p>
+</div>
+
+<script>
+const RAW = {"meta": {"campania": "25_26", "producto": "GARBANZO", "fechaMin": "2025-10-22", "fechaMax": "2026-07-14", "plantas": ["4 Pulses", "Cereales Viel"], "nProcesos": 27, "comercial": ["10mm", "7mm", "8mm", "9mm", "BZ", "BZ/CORIANDRO", "CORIANDRO"], "danos": ["Partidos", "Roidos", "Picados", "Moho", "Brotados", "Verdes", "Ardidos y Chuzos", "Lavados", "Blanqueados", "Sucios", "Manchados", "Tocados", "Pelados/Decorticados"], "danoCols": ["Partidos", "Roidos", "Picados", "Moho", "Brotados", "Verdes", "Ardidos y Chuzos", "Lavados", "Blanqueados", "Sucios", "Manchados", "Tocados", "Pelados/Decorticados"]}, "procesos": [{"proceso": "PR 570", "planta": "4 Pulses", "cliente": "Aci Agro/Argan", "clientes": ["ACI AGRO", "ARGAN"], "variedades": ["FELIPE"], "fm": ["CN25-092"], "fechaMin": "2025-10-23", "fechaMax": "2025-11-20", "inicio": "2025-11-10", "fin": "2025-11-18", "finalizado": true, "kgNoDisp": 0, "tdCal": {"8mm": 0.13088418079096045, "7mm": 0.061033333333333335}, "kgCal": {"8mm": 243375, "7mm": 69000}, "kgMP": 335900, "kgPY": 335900, "kgPT": 335900, "kgComercial": 312375, "kgDescarte": 23525, "kgVolatil": 325, "calReal": {"ME/CICLON": 1444, "MOLIDO": 939, "8mm": 243375, "7mm": 69000, "MESA": 6485, "MESA 7mm": 3761, "BAJO ZARANDA": 3720, "PARTIDO": 6851, "VOLATIL": 325}, "calPYbase": {"8mm": 234057, "9mm": 0, "7mm": 80521, "DESCARTES": 21322}, "descReal": {"ME/CICLON": 1444, "MOLIDO": 939, "MESA": 6485, "MESA 7mm": 3761, "BAJO ZARANDA": 3720, "PARTIDO": 6851, "VOLATIL": 325}, "arrastreDesc": {"ME/CICLON": 0, "MOLIDO": 0, "MESA": 4079, "MESA 7mm": 410, "BAJO ZARANDA": 160, "PARTIDO": 754, "VOLATIL": 0}, "descPY": {"ME/CICLON": 1903, "PRELIMPIEZA": 8990, "BAJO ZARANDA": 2279, "MESA": 3317, "COLOR": 1528}, "danosMP": {"Partidos": 0.021424947901161062, "Roidos": 0.004316552545400417, "Picados": 0.0, "Moho": 0.004120333432569217, "Brotados": 0.002451652277463531, "Verdes": 0.013657189639773741, "Ardidos y Chuzos": 0.011030812741887466, "Lavados": 0.0, "Blanqueados": 0.00017782077999404586, "Sucios": 0.05280244120273891, "Manchados": 0.005644001190830604, "Tocados": 0.0013896100029770768, "Pelados/Decorticados": 0.0785377791009229, "Total Granos Buenos": 0.7931158678178031, "Total Defectos": 0.19555314081571898, "H°": 0.1135384935992855}, "danosPTcom": {"Partidos": 0.0028188475390156058, "Roidos": 0.0010790316126450582, "Picados": 0.0, "Moho": 0.0032788715486194485, "Brotados": 0.001655062024809924, "Verdes": 0.01014485794317727, "Ardidos y Chuzos": 0.002953421368547419, "Lavados": 0.0, "Blanqueados": 0.00042320928371348545, "Sucios": 0.015906002400960382, "Manchados": 0.007055342136854742, "Tocados": 0.0008344537815126051, "Pelados/Decorticados": 0.06930584233693478, "Total Granos Buenos": 0.8845450580232092, "Total Defectos": 0.11545494197679071, "H°": 0.11203137254901961}, "danos": {"MP": {"Partidos": 0.021, "Roidos": 0.004, "Picados": 0.0, "Moho": 0.004, "Brotados": 0.002, "Verdes": 0.014, "Ardidos y Chuzos": 0.011, "Lavados": 0.0, "Blanqueados": 0.0, "Sucios": 0.053, "Manchados": 0.006, "Tocados": 0.001, "Pelados/Decorticados": 0.079}, "PY": {"Partidos": 0.002, "Roidos": 0.002, "Picados": 0.0, "Moho": 0.004, "Brotados": 0.001, "Verdes": 0.014, "Ardidos y Chuzos": 0.004, "Lavados": 0.0, "Blanqueados": 0.0, "Sucios": 0.037, "Manchados": 0.006, "Tocados": 0.001, "Pelados/Decorticados": 0.071}, "PT": {"Partidos": 0.003, "Roidos": 0.001, "Picados": 0.0, "Moho": 0.003, "Brotados": 0.002, "Verdes": 0.01, "Ardidos y Chuzos": 0.003, "Lavados": 0.0, "Blanqueados": 0.0, "Sucios": 0.016, "Manchados": 0.007, "Tocados": 0.001, "Pelados/Decorticados": 0.069}}, "merma": {"PARTIDO ESTIMADO": 8276.0, "PARTIDO REAL": 11017.0, "ARRASTRE ESTIMADO": 3305.0, "ARRASTRE REAL": 5403.0}, "esc": {"real": {"9mm": 0.0, "8mm": 243375.0, "7mm": 69000.0, "CORIANDRO": 0.0, "DESCARTES": 23200.0, "VOLATIL": 325.0, "total": 335900.0}, "py": {"9mm": 0.0, "8mm": 234056.0, "7mm": 80521.0, "CORIANDRO": 0.0, "DESCARTES": 21323.0, "VOLATIL": 0.0, "total": 335900.0}, "sim": {"9mm": 0.0, "8mm": 228291.0, "7mm": 85994.0, "CORIANDRO": 0.0, "DESCARTES": 21615.0, "VOLATIL": 0.0, "total": 335900.0}}, "seAcerco": "PY", "seAcercoBase": {"PY": 35}, "mvp": {"kg": 335900.0, "calMP": 0.196, "calPT": 0.115, "eficiencia": 0.4132653061, "mermaSol": 0.07, "mermaReal": 0.07, "difMerma": 0.0, "kgDif": 0.0, "kgVolatilTab": null}}, {"proceso": "PR 571", "planta": "4 Pulses", "cliente": "Parra/BRC", "clientes": ["BRAUN REL. COMERCIALES", "PARRA AGROPECUARIA"], "variedades": ["NORTEÑO BRC"], "fm": ["CN25-113"], "fechaMin": "2025-11-15", "fechaMax": "2025-11-26", "inicio": "2025-11-19", "fin": "2025-11-25", "finalizado": true, "kgNoDisp": 671, "tdCal": {"8mm": 0.05445406360424028, "7mm": 0.055}, "kgCal": {"8mm": 155650, "7mm": 19900}, "kgMP": 189380, "kgPY": 189380, "kgPT": 189380, "kgComercial": 175550, "kgDescarte": 13830, "kgVolatil": 671, "calReal": {"ME/CICLON": 2587, "MOLIDO": 1342, "8mm": 155650, "7mm": 19900, "MESA": 3246, "COLORIMETRICA": 1033, "BAJO ZARANDA": 1686, "PARTIDO": 3265, "VOLATIL": 671}, "calPYbase": {"8mm": 157469, "7mm": 20054, "DESCARTES": 11857}, "descReal": {"ME/CICLON": 2587, "MOLIDO": 1342, "MESA": 3246, "COLORIMETRICA": 1033, "BAJO ZARANDA": 1686, "PARTIDO": 3265, "VOLATIL": 671}, "arrastreDesc": {"ME/CICLON": 0, "MOLIDO": 0, "MESA": 493, "COLORIMETRICA": 772, "BAJO ZARANDA": 44, "PARTIDO": 46, "VOLATIL": 0}, "descPY": {"ME/CICLON": 1641, "PRELIMPIEZA": 5140, "BAJO ZARANDA": 1037, "MESA": 832, "COLOR": 1350}, "danosMP": {"Partidos": 0.022362815503221035, "Roidos": 0.0008784454535853839, "Picados": 0.0, "Moho": 0.00027753722673988805, "Brotados": 0.0, "Verdes": 0.00889354736508607, "Ardidos y Chuzos": 0.006046678635547576, "Lavados": 0.0, "Blanqueados": 0.0, "Sucios": 0.021057925863343544, "Manchados": 0.0024469320942021333, "Tocados": 0.015970852254725946, "Pelados/Decorticados": 0.021136234026824373, "Total Granos Buenos": 0.8835998521491181, "Total Defectos": 0.09907096842327597, "H°": 0.12695522230436163}, "danosPTcom": {"Partidos": 0.0013581600683565936, "Roidos": 0.000538877812589006, "Picados": 0.0, "Moho": 0.00036399886072344063, "Brotados": 0.0, "Verdes": 0.006441754485901454, "Ardidos y Chuzos": 0.0017235830247792647, "Lavados": 0.0, "Blanqueados": 0.0, "Sucios": 0.005480489888920536, "Manchados": 0.003263742523497579, "Tocados": 0.018575619481629165, "Pelados/Decorticados": 0.016769723725434352, "Total Granos Buenos": 0.9454840501281686, "Total Defectos": 0.054515949871831386, "H°": 0.130033323839362}, "danos": {"MP": {"Partidos": 0.022, "Roidos": 0.001, "Picados": 0.0, "Moho": 0.0, "Brotados": 0.0, "Verdes": 0.009, "Ardidos y Chuzos": 0.006, "Lavados": 0.0, "Blanqueados": 0.0, "Sucios": 0.021, "Manchados": 0.002, "Tocados": 0.016, "Pelados/Decorticados": 0.021}, "PY": {"Partidos": 0.003, "Roidos": 0.0, "Picados": 0.0, "Moho": 0.0, "Brotados": 0.0, "Verdes": 0.004, "Ardidos y Chuzos": 0.002, "Lavados": 0.0, "Blanqueados": 0.0, "Sucios": 0.017, "Manchados": 0.002, "Tocados": 0.014, "Pelados/Decorticados": 0.019}, "PT": {"Partidos": 0.001, "Roidos": 0.0, "Picados": 0.0, "Moho": 0.0, "Brotados": 0.0, "Verdes": 0.008, "Ardidos y Chuzos": 0.001, "Lavados": 0.0, "Blanqueados": 0.0, "Sucios": 0.007, "Manchados": 0.003, "Tocados": 0.016, "Pelados/Decorticados": 0.023}}, "merma": {"PARTIDO ESTIMADO": 4659.0, "PARTIDO REAL": 4953.0, "ARRASTRE ESTIMADO": 1857.0, "ARRASTRE REAL": 1355.0}, "esc": {"real": {"9mm": 0.0, "8mm": 155650.0, "7mm": 19900.0, "CORIANDRO": 0.0, "DESCARTES": 13159.0, "VOLATIL": 671.0, "total": 189380.0}, "py": {"9mm": 0.0, "8mm": 157469.0, "7mm": 20054.0, "CORIANDRO": 0.0, "DESCARTES": 11857.0, "VOLATIL": 0.0, "total": 189380.0}, "sim": {"9mm": 0.0, "8mm": 146959.0, "7mm": 28786.0, "CORIANDRO": 0.0, "DESCARTES": 13635.0, "VOLATIL": 0.0, "total": 189380.0}}, "seAcerco": "PY", "seAcercoBase": {"PY": 25}, "mvp": {"kg": 189380.0, "calMP": 0.099, "calPT": 0.059, "eficiencia": 0.404040404, "mermaSol": 0.065, "mermaReal": 0.073, "difMerma": -0.008, "kgDif": -1515.04, "kgVolatilTab": null}}, {"proceso": "PR 573", "planta": "4 Pulses", "cliente": "WF/BRC", "clientes": ["BRAUN REL. COMERCIALES", "FONTANELLAS WALTER"], "variedades": ["NORTEÑO VLZ"], "fm": ["CN25-107"], "fechaMin": "2025-11-05", "fechaMax": "2025-12-04", "inicio": "2025-12-01", "fin": "2025-12-03", "finalizado": true, "kgNoDisp": 0, "tdCal": {"7mm": 0.05212731039465055, "8mm": 0.03219565217391304, "9mm": 0.0455}, "kgCal": {"7mm": 25525, "8mm": 63250, "9mm": 9025}, "kgMP": 104300, "kgPY": 104300, "kgPT": 104300, "kgComercial": 97800, "kgDescarte": 6500, "kgVolatil": 72, "calReal": {"7mm": 25525, "8mm": 63250, "9mm": 9025, "BAJO ZARANDA": 2871, "MESA 7mm": 1010, "MESA 8mm": 500, "MOLIDO": 427, "PARTIDO": 1620, "VOLATIL": 72}, "calPYbase": {"8mm": 61714, "7mm": 32489, "9mm": 5903, "DESCARTES": 4194}, "descReal": {"BAJO ZARANDA": 2871, "MESA 7mm": 1010, "MESA 8mm": 500, "MOLIDO": 427, "PARTIDO": 1620, "VOLATIL": 72}, "arrastreDesc": {"BAJO ZARANDA": 840, "MESA 7mm": 183, "MESA 8mm": 361, "MOLIDO": 0, "PARTIDO": 5, "VOLATIL": 0}, "descPY": {"ME/CICLON": 223, "PRELIMPIEZA": 1601, "BAJO ZARANDA": 1486, "MESA": 385, "COLOR": 191}, "danosMP": {"Partidos": 0.012912464046021093, "Roidos": 0.0, "Picados": 0.0, "Moho": 0.0008720038350910834, "Brotados": 0.0, "Verdes": 0.0064559923298178334, "Ardidos y Chuzos": 0.01447142857142857, "Lavados": 0.0, "Blanqueados": 0.0010464046021093, "Sucios": 0.005422627037392138, "Manchados": 0.013105944391179292, "Tocados": 0.004198178331735379, "Pelados/Decorticados": 0.018056567593480344, "Total Granos Buenos": 0.9191899328859061, "Total Defectos": 0.07654161073825504, "H°": 0.10442147651006711}, "danosPTcom": {"Partidos": 0.0028535245346976985, "Roidos": 0.0001606597391857207, "Picados": 0.0, "Moho": 0.0014066957764561215, "Brotados": 0.0, "Verdes": 0.005504469842799366, "Ardidos y Chuzos": 0.011260975015710656, "Lavados": 0.0, "Blanqueados": 0.0021186124397315088, "Sucios": 0.0009288086915461843, "Manchados": 0.002046904872869961, "Tocados": 0.002071569734353403, "Pelados/Decorticados": 0.010273139348052239, "Total Granos Buenos": 0.9613746400045972, "Total Defectos": 0.03862535999540286, "H°": 0.10811554208768806}, "danos": {"MP": {"Partidos": 0.013, "Roidos": 0.0, "Picados": 0.0, "Moho": 0.001, "Brotados": 0.0, "Verdes": 0.006, "Ardidos y Chuzos": 0.014, "Lavados": 0.0, "Blanqueados": 0.001, "Sucios": 0.005, "Manchados": 0.013, "Tocados": 0.004, "Pelados/Decorticados": 0.018}, "PY": {"Partidos": 0.002, "Roidos": 0.0, "Picados": 0.0, "Moho": 0.001, "Brotados": 0.0, "Verdes": 0.006, "Ardidos y Chuzos": 0.006, "Lavados": 0.0, "Blanqueados": 0.0, "Sucios": 0.004, "Manchados": 0.013, "Tocados": 0.004, "Pelados/Decorticados": 0.016}, "PT": {"Partidos": 0.003, "Roidos": 0.0, "Picados": 0.0, "Moho": 0.001, "Brotados": 0.0, "Verdes": 0.006, "Ardidos y Chuzos": 0.011, "Lavados": 0.0, "Blanqueados": 0.002, "Sucios": 0.001, "Manchados": 0.002, "Tocados": 0.002, "Pelados/Decorticados": 0.01}}, "merma": {"PARTIDO ESTIMADO": 1481.0, "PARTIDO REAL": 2422.0, "ARRASTRE ESTIMADO": 568.0, "ARRASTRE REAL": 1388.0}, "esc": {"real": {"9mm": 9025.0, "8mm": 63250.0, "7mm": 25525.0, "CORIANDRO": 0.0, "DESCARTES": 6428.0, "VOLATIL": 72.0, "total": 104300.0}, "py": {"9mm": 6809.0, "8mm": 66795.0, "7mm": 26241.0, "CORIANDRO": 0.0, "DESCARTES": 4455.0, "VOLATIL": 0.0, "total": 104300.0}, "sim": {"9mm": 5903.0, "8mm": 61714.0, "7mm": 32489.0, "CORIANDRO": 0.0, "DESCARTES": 4194.0, "VOLATIL": 0.0, "total": 104300.0}}, "seAcerco": "Simulacion", "seAcercoBase": {"Simulacion": 24}, "mvp": {"kg": 104300.0, "calMP": 0.077, "calPT": 0.039, "eficiencia": 0.4935064935, "mermaSol": 0.04, "mermaReal": 0.062, "difMerma": -0.022, "kgDif": -2294.6, "kgVolatilTab": null}}, {"proceso": "PR 574", "planta": "4 Pulses", "cliente": "WF/BRC", "clientes": ["BRAUN REL. COMERCIALES", "FONTANELLAS WALTER"], "variedades": ["NORTEÑO U"], "fm": ["CN25-107"], "fechaMin": "2025-11-05", "fechaMax": "2025-12-12", "inicio": "2025-12-03", "fin": "2025-12-05", "finalizado": true, "kgNoDisp": 0, "tdCal": {"7mm": 0.052, "8mm": 0.025148001440403314, "9mm": 0.01976470588235294}, "kgCal": {"7mm": 2175, "8mm": 69425, "9mm": 56100}, "kgMP": 136120, "kgPY": 136120, "kgPT": 136120, "kgComercial": 127700, "kgDescarte": 8420, "kgVolatil": 275, "calReal": {"7mm": 2175, "8mm": 69425, "9mm": 56100, "BAJO ZARANDA": 2295, "ME/CICLON": 1264, "MESA 7mm": 100, "MESA 8mm": 1883, "MESA 9mm": 677, "MOLIDO": 487, "PARTIDO": 1439, "VOLATIL": 275}, "calPYbase": {"8mm": 66658, "9mm": 58967, "7mm": 6411, "DESCARTES": 4084}, "descReal": {"BAJO ZARANDA": 2295, "ME/CICLON": 1264, "MESA 7mm": 100, "MESA 8mm": 1883, "MESA 9mm": 677, "MOLIDO": 487, "PARTIDO": 1439, "VOLATIL": 275}, "arrastreDesc": {"BAJO ZARANDA": 507, "ME/CICLON": 0, "MESA 7mm": 14, "MESA 8mm": 343, "MESA 9mm": 508, "MOLIDO": 0, "PARTIDO": 0, "VOLATIL": 0}, "descPY": {"ME/CICLON": 293, "PRELIMPIEZA": 1828, "BAJO ZARANDA": 468, "MESA": 336, "COLOR": 168}, "danosMP": {"Partidos": 0.012612253893623275, "Roidos": 0.0005110196885101382, "Picados": 0.0, "Moho": 0.00026212165736115193, "Brotados": 0.0, "Verdes": 0.0018311783720246842, "Ardidos y Chuzos": 0.0051409785483397, "Lavados": 0.0, "Blanqueados": 0.00047428739347634444, "Sucios": 0.004533279459300617, "Manchados": 0.00454444607699089, "Tocados": 0.0038707757860711135, "Pelados/Decorticados": 0.01255664119894211, "Total Granos Buenos": 0.9493623273582134, "Total Defectos": 0.04633698207464003, "H°": 0.12481104907434616}, "danosPTcom": {"Partidos": 0.000836139389193422, "Roidos": 4.2580266249021144e-05, "Picados": 0.0, "Moho": 0.0, "Brotados": 0.0, "Verdes": 0.0037920908379013313, "Ardidos y Chuzos": 0.004110219263899765, "Lavados": 0.0, "Blanqueados": 0.0, "Sucios": 0.0018129404855129207, "Manchados": 0.0020228073610023493, "Tocados": 0.0029561472200469847, "Pelados/Decorticados": 0.007667482380579483, "Total Granos Buenos": 0.9767595927956148, "Total Defectos": 0.02324040720438528, "H°": 0.1252842599843383}, "danos": {"MP": {"Partidos": 0.013, "Roidos": 0.001, "Picados": 0.0, "Moho": 0.0, "Brotados": 0.0, "Verdes": 0.002, "Ardidos y Chuzos": 0.005, "Lavados": 0.0, "Blanqueados": 0.0, "Sucios": 0.005, "Manchados": 0.005, "Tocados": 0.004, "Pelados/Decorticados": 0.013}, "PY": {"Partidos": 0.002, "Roidos": 0.0, "Picados": 0.0, "Moho": 0.0, "Brotados": 0.0, "Verdes": 0.002, "Ardidos y Chuzos": 0.002, "Lavados": 0.0, "Blanqueados": 0.0, "Sucios": 0.004, "Manchados": 0.005, "Tocados": 0.003, "Pelados/Decorticados": 0.011}, "PT": {"Partidos": 0.001, "Roidos": 0.0, "Picados": 0.0, "Moho": 0.0, "Brotados": 0.0, "Verdes": 0.004, "Ardidos y Chuzos": 0.004, "Lavados": 0.0, "Blanqueados": 0.0, "Sucios": 0.002, "Manchados": 0.002, "Tocados": 0.003, "Pelados/Decorticados": 0.008}}, "merma": {"PARTIDO ESTIMADO": 1888.0, "PARTIDO REAL": 3658.0, "ARRASTRE ESTIMADO": 565.0, "ARRASTRE REAL": 1372.0}, "esc": {"real": {"9mm": 56100.0, "8mm": 69425.0, "7mm": 2175.0, "CORIANDRO": 0.0, "DESCARTES": 8145.0, "VOLATIL": 275.0, "total": 136120.0}, "py": {"9mm": 63136.0, "8mm": 67733.0, "7mm": 1594.0, "CORIANDRO": 0.0, "DESCARTES": 3657.0, "VOLATIL": 0.0, "total": 136120.0}, "sim": {"9mm": 58967.0, "8mm": 66658.0, "7mm": 6411.0, "CORIANDRO": 0.0, "DESCARTES": 4084.0, "VOLATIL": 0.0, "total": 136120.0}}, "seAcerco": "PY", "seAcercoBase": {"Simulacion": 18}, "mvp": {"kg": 136120.0, "calMP": 0.046, "calPT": 0.023, "eficiencia": 0.5, "mermaSol": 0.03, "mermaReal": 0.062, "difMerma": -0.032, "kgDif": -4355.84, "kgVolatilTab": null}}, {"proceso": "PR 575", "planta": "4 Pulses", "cliente": "Parra/BRC", "clientes": ["BRAUN REL. COMERCIALES", "PARRA AGROPECUARIA"], "variedades": ["N. BRC + N.U"], "fm": ["CN25-113"], "fechaMin": "2025-11-17", "fechaMax": "2025-12-31", "inicio": "2025-12-05", "fin": "2025-12-10", "finalizado": true, "kgNoDisp": 0, "tdCal": {"7mm": 0.0415, "8mm": 0.07164724746125067, "9mm": 0.12191379310344827}, "kgCal": {"7mm": 12050, "8mm": 93550, "9mm": 29000}, "kgMP": 151160, "kgPY": 151160, "kgPT": 151160, "kgComercial": 134600, "kgDescarte": 16560, "kgVolatil": 303, "calReal": {"7mm": 12050, "8mm": 93550, "9mm": 29000, "BAJO ZARANDA": 4033, "COLORIMETRICA": 1143, "ME/CICLON": 1740, "MESA 7mm": 2351, "MESA 8mm": 1335, "MESA 9mm": 395, "MOLIDO": 1495, "PARTIDO": 3765, "VOLATIL": 303}, "calPYbase": {"8mm": 95941, "DESCARTES": 12607, "9mm": 24095, "7mm": 18517}, "descReal": {"BAJO ZARANDA": 4033, "COLORIMETRICA": 1143, "ME/CICLON": 1740, "MESA 7mm": 2351, "MESA 8mm": 1335, "MESA 9mm": 395, "MOLIDO": 1495, "PARTIDO": 3765, "VOLATIL": 303}, "arrastreDesc": {"BAJO ZARANDA": 234, "COLORIMETRICA": 625, "ME/CICLON": 0, "MESA 7mm": 313, "MESA 8mm": 125, "MESA 9mm": 47, "MOLIDO": 0, "PARTIDO": 0, "VOLATIL": 0}, "descPY": {"ME/CICLON": 1523, "PRELIMPIEZA": 5881, "BAJO ZARANDA": 1196, "MESA": 1200, "COLOR": 1688}, "danosMP": {"Partidos": 0.033505490870600695, "Roidos": 0.0021595660227573432, "Picados": 0.0, "Moho": 0.0, "Brotados": 0.0, "Verdes": 0.014741929081767663, "Ardidos y Chuzos": 0.012223207197671341, "Lavados": 0.0, "Blanqueados": 0.0008981873511510983, "Sucios": 0.05079412543000794, "Manchados": 0.007011444826673723, "Tocados": 0.016837589309341094, "Pelados/Decorticados": 0.035106774278909764, "Total Granos Buenos": 0.8065715136279439, "Total Defectos": 0.17327831436888066, "H°": 0.12760015877216194}, "danosPTcom": {"Partidos": 0.002532875185735513, "Roidos": 0.0, "Picados": 0.0, "Moho": 0.0, "Brotados": 0.0, "Verdes": 0.008524145616641901, "Ardidos y Chuzos": 0.0012678306092124814, "Lavados": 0.00013428677563150074, "Blanqueados": 0.0, "Sucios": 0.02325167161961367, "Manchados": 0.0016963224368499257, "Tocados": 0.008702451708766715, "Pelados/Decorticados": 0.03366883358098068, "Total Granos Buenos": 0.9202215824665676, "Total Defectos": 0.07977841753343239, "H°": 0.1238941307578009}, "danos": {"MP": {"Partidos": 0.034, "Roidos": 0.002, "Picados": 0.0, "Moho": 0.0, "Brotados": 0.0, "Verdes": 0.015, "Ardidos y Chuzos": 0.012, "Lavados": 0.0, "Blanqueados": 0.001, "Sucios": 0.051, "Manchados": 0.007, "Tocados": 0.017, "Pelados/Decorticados": 0.035}, "PY": {"Partidos": 0.005, "Roidos": 0.0, "Picados": 0.0, "Moho": 0.0, "Brotados": 0.0, "Verdes": 0.007, "Ardidos y Chuzos": 0.005, "Lavados": 0.0, "Blanqueados": 0.0, "Sucios": 0.041, "Manchados": 0.007, "Tocados": 0.015, "Pelados/Decorticados": 0.032}, "PT": {"Partidos": 0.003, "Roidos": 0.0, "Picados": 0.0, "Moho": 0.0, "Brotados": 0.0, "Verdes": 0.009, "Ardidos y Chuzos": 0.001, "Lavados": 0.0, "Blanqueados": 0.0, "Sucios": 0.023, "Manchados": 0.002, "Tocados": 0.009, "Pelados/Decorticados": 0.034}}, "merma": {"PARTIDO ESTIMADO": 5571.0, "PARTIDO REAL": 6655.0, "ARRASTRE ESTIMADO": 2164.0, "ARRASTRE REAL": 1345.0}, "esc": {"real": {"9mm": 29000.0, "8mm": 93550.0, "7mm": 12050.0, "CORIANDRO": 0.0, "DESCARTES": 16257.0, "VOLATIL": 303.0, "total": 151160.0}, "py": {"9mm": 24730.0, "8mm": 99284.0, "7mm": 13494.0, "CORIANDRO": 0.0, "DESCARTES": 13652.0, "VOLATIL": 0.0, "total": 151160.0}, "sim": {"9mm": 24095.0, "8mm": 95941.0, "7mm": 18517.0, "CORIANDRO": 0.0, "DESCARTES": 12607.0, "VOLATIL": 0.0, "total": 151160.0}}, "seAcerco": "Simulacion", "seAcercoBase": {"Simulacion": 29}, "mvp": {"kg": 151160.0, "calMP": 0.173, "calPT": 0.08, "eficiencia": 0.5375722543, "mermaSol": 0.085, "mermaReal": 0.11, "difMerma": -0.025, "kgDif": -3779.0, "kgVolatilTab": null}}, {"proceso": "PR 576", "planta": "4 Pulses", "cliente": "Drysdale", "clientes": ["TOMÁS DRYSDALE"], "variedades": [], "fm": ["CN25-120"], "fechaMin": "2025-11-27", "fechaMax": "2025-12-16", "inicio": "2025-12-10", "fin": "2025-12-12", "finalizado": true, "kgNoDisp": 0, "tdCal": {"8mm": 0.0995, "9mm": 0.05369906242853876}, "kgCal": {"8mm": 8250, "9mm": 109325}, "kgMP": 128080, "kgPY": 128080, "kgPT": 128080, "kgComercial": 117575, "kgDescarte": 10505, "kgVolatil": 194, "calReal": {"8mm": 8250, "9mm": 109325, "BAJO ZARANDA": 4290, "ME/CICLON": 781, "MESA 8mm": 655, "MESA 9mm": 1340, "MOLIDO": 905, "PARTIDO": 2340, "VOLATIL": 194}, "calPYbase": {"DESCARTES": 11297, "8mm": 10707, "9mm": 106076}, "descReal": {"BAJO ZARANDA": 4290, "ME/CICLON": 781, "MESA 8mm": 655, "MESA 9mm": 1340, "MOLIDO": 905, "PARTIDO": 2340, "VOLATIL": 194}, "arrastreDesc": {"BAJO ZARANDA": 0, "ME/CICLON": 0, "MESA 8mm": 95, "MESA 9mm": 114, "MOLIDO": 0, "PARTIDO": 0, "VOLATIL": 0}, "descPY": {"ME/CICLON": 566, "PRELIMPIEZA": 5176, "BAJO ZARANDA": 684, "MESA": 441, "COLOR": 847}, "danosMP": {"Partidos": 0.03885243597751405, "Roidos": 0.0, "Picados": 0.0, "Moho": 0.0, "Brotados": 0.0018843691442848223, "Verdes": 0.0010168644597126797, "Ardidos y Chuzos": 0.0008684415990006246, "Lavados": 0.0, "Blanqueados": 0.0, "Sucios": 0.014098532167395377, "Manchados": 0.003903653966271081, "Tocados": 0.05106831667707683, "Pelados/Decorticados": 0.03018363522798251, "Total Granos Buenos": 0.8492824797001874, "Total Defectos": 0.141876249219238, "H°": 0.10208307307932542}, "danosPTcom": {"Partidos": 0.00218924091005741, "Roidos": 0.00017541994471613863, "Picados": 0.0, "Moho": 0.0, "Brotados": 0.0, "Verdes": 0.0010969593876249202, "Ardidos y Chuzos": 0.00017541994471613863, "Lavados": 0.0, "Blanqueados": 0.0, "Sucios": 0.0037934297257069954, "Manchados": 0.0, "Tocados": 0.02870954709759728, "Pelados/Decorticados": 0.0207728045928131, "Total Granos Buenos": 0.943087178396768, "Total Defectos": 0.056912821603231974, "H°": 0.1001271528811397}, "danos": {"MP": {"Partidos": 0.039, "Roidos": 0.0, "Picados": 0.0, "Moho": 0.0, "Brotados": 0.002, "Verdes": 0.001, "Ardidos y Chuzos": 0.001, "Lavados": 0.0, "Blanqueados": 0.0, "Sucios": 0.014, "Manchados": 0.004, "Tocados": 0.051, "Pelados/Decorticados": 0.03}, "PY": {"Partidos": 0.004, "Roidos": 0.0, "Picados": 0.0, "Moho": 0.0, "Brotados": 0.001, "Verdes": 0.001, "Ardidos y Chuzos": 0.0, "Lavados": 0.0, "Blanqueados": 0.0, "Sucios": 0.011, "Manchados": 0.004, "Tocados": 0.046, "Pelados/Decorticados": 0.027}, "PT": {"Partidos": 0.002, "Roidos": 0.0, "Picados": 0.0, "Moho": 0.0, "Brotados": 0.0, "Verdes": 0.001, "Ardidos y Chuzos": 0.0, "Lavados": 0.0, "Blanqueados": 0.0, "Sucios": 0.004, "Manchados": 0.0, "Tocados": 0.029, "Pelados/Decorticados": 0.021}}, "merma": {"PARTIDO ESTIMADO": 5723.0, "PARTIDO REAL": 4677.0, "ARRASTRE ESTIMADO": 1368.0, "ARRASTRE REAL": 209.0}, "esc": {"real": {"9mm": 109325.0, "8mm": 8250.0, "7mm": 0.0, "CORIANDRO": 0.0, "DESCARTES": 10311.0, "VOLATIL": 194.0, "total": 128080.0}, "py": {"9mm": 111974.0, "8mm": 7025.0, "7mm": 0.0, "CORIANDRO": 0.0, "DESCARTES": 9081.0, "VOLATIL": 0.0, "total": 128080.0}, "sim": {"9mm": 106076.0, "8mm": 10707.0, "7mm": 0.0, "CORIANDRO": 0.0, "DESCARTES": 11297.0, "VOLATIL": 0.0, "total": 128080.0}}, "seAcerco": "PY", "seAcercoBase": {"Simulacion": 14}, "mvp": {"kg": 128080.0, "calMP": 0.142, "calPT": 0.057, "eficiencia": 0.5985915493, "mermaSol": 0.08, "mermaReal": 0.08199999999999999, "difMerma": -0.002, "kgDif": -256.16, "kgVolatilTab": null}}, {"proceso": "PR 577", "planta": "4 Pulses", "cliente": "WF/BRC", "clientes": ["BRAUN REL. COMERCIALES", "FONTANELLAS WALTER", "PARRA AGROPECUARIA"], "variedades": ["NORTEÑO U"], "fm": ["CN25-107"], "fechaMin": "2025-11-19", "fechaMax": "2026-01-03", "inicio": "2025-12-12", "fin": "2025-12-16", "finalizado": true, "kgNoDisp": 0, "tdCal": {"8mm": 0.17701382488479264, "9mm": 0.19472995780590718}, "kgCal": {"8mm": 32550, "9mm": 154050}, "kgMP": 239080, "kgPY": 239080, "kgPT": 239080, "kgComercial": 186600, "kgDescarte": 52480, "kgVolatil": 350, "calReal": {"8mm": 32550, "9mm": 154050, "BAJO ZARANDA": 8729, "COLORIMETRICA": 5933, "ME/CICLON": 6483, "MESA 8mm": 20566, "MESA 9mm": 5365, "MOLIDO": 1580, "PARTIDO": 3474, "VOLATIL": 350}, "calPYbase": {"DESCARTES": 38561, "9mm": 158025, "8mm": 42494}, "descReal": {"BAJO ZARANDA": 8729, "COLORIMETRICA": 5933, "ME/CICLON": 6483, "MESA 8mm": 20566, "MESA 9mm": 5365, "MOLIDO": 1580, "PARTIDO": 3474, "VOLATIL": 350}, "arrastreDesc": {"BAJO ZARANDA": 384, "COLORIMETRICA": 258, "ME/CICLON": 0, "MESA 8mm": 596, "MESA 9mm": 349, "MOLIDO": 0, "PARTIDO": 0, "VOLATIL": 0}, "descPY": {"ME/CICLON": 1174, "PRELIMPIEZA": 7604, "BAJO ZARANDA": 3115, "MESA": 4247, "COLOR": 5786}, "danosMP": {"Partidos": 0.025936464781663043, "Roidos": 0.0025206625397356536, "Picados": 0.0, "Moho": 0.04227082984774971, "Brotados": 0.012687761418771959, "Verdes": 0.024547180859963193, "Ardidos y Chuzos": 0.03166588589593442, "Lavados": 0.0012343985276894764, "Blanqueados": 0.0, "Sucios": 0.07189166806090012, "Manchados": 0.027102601639618536, "Tocados": 0.005255102894428643, "Pelados/Decorticados": 0.06256483185544588, "Total Granos Buenos": 0.6825005437510457, "Total Defectos": 0.30767738832190067, "H°": 0.14719114940605654}, "danosPTcom": {"Partidos": 0.0, "Roidos": 0.0006484458735262593, "Picados": 0.0, "Moho": 0.01632797427652733, "Brotados": 0.00043609324758842445, "Verdes": 0.010522374062165059, "Ardidos y Chuzos": 0.012647374062165059, "Lavados": 0.001204849946409432, "Blanqueados": 0.002707529474812433, "Sucios": 0.043564978563772776, "Manchados": 0.017413853161843518, "Tocados": 0.006026661307609861, "Pelados/Decorticados": 0.0801394694533762, "Total Granos Buenos": 0.8083603965702038, "Total Defectos": 0.19163960342979633, "H°": 0.1340560021436227}, "danos": {"MP": {"Partidos": 0.026, "Roidos": 0.003, "Picados": 0.0, "Moho": 0.042, "Brotados": 0.013, "Verdes": 0.025, "Ardidos y Chuzos": 0.032, "Lavados": 0.001, "Blanqueados": 0.0, "Sucios": 0.072, "Manchados": 0.027, "Tocados": 0.005, "Pelados/Decorticados": 0.063}, "PY": {"Partidos": 0.004, "Roidos": 0.0, "Picados": 0.0, "Moho": 0.03, "Brotados": 0.006, "Verdes": 0.02, "Ardidos y Chuzos": 0.013, "Lavados": 0.0, "Blanqueados": 0.0, "Sucios": 0.065, "Manchados": 0.024, "Tocados": 0.005, "Pelados/Decorticados": 0.056}, "PT": {"Partidos": 0.0, "Roidos": 0.001, "Picados": 0.0, "Moho": 0.016, "Brotados": 0.0, "Verdes": 0.011, "Ardidos y Chuzos": 0.013, "Lavados": 0.001, "Blanqueados": 0.003, "Sucios": 0.044, "Manchados": 0.017, "Tocados": 0.006, "Pelados/Decorticados": 0.08}}, "merma": {"PARTIDO ESTIMADO": 6821.0, "PARTIDO REAL": 11494.0, "ARRASTRE ESTIMADO": 7368.0, "ARRASTRE REAL": 2574.0}, "esc": {"real": {"9mm": 154050.0, "8mm": 32550.0, "7mm": 8000.0, "CORIANDRO": 0.0, "DESCARTES": 44130.0, "VOLATIL": 350.0, "total": 239080.0}, "py": {"9mm": 158025.0, "8mm": 42494.0, "7mm": 9267.0, "CORIANDRO": 0.0, "DESCARTES": 29294.0, "VOLATIL": 0.0, "total": 239080.0}, "sim": {"9mm": 159012.0, "8mm": 35426.0, "7mm": 1877.0, "CORIANDRO": 0.0, "DESCARTES": 42765.0, "VOLATIL": 0.0, "total": 239080.0}}, "seAcerco": "PY", "seAcercoBase": {"PY": 40}, "mvp": {"kg": 239080.0, "calMP": 0.308, "calPT": 0.192, "eficiencia": 0.3766233766, "mermaSol": 0.15, "mermaReal": 0.22, "difMerma": -0.07, "kgDif": -16735.6, "kgVolatilTab": null}}, {"proceso": "PR 583", "planta": "4 Pulses", "cliente": "Drysdale", "clientes": ["TOMÁS DRYSDALE"], "variedades": [], "fm": ["CN25-120"], "fechaMin": "2025-12-30", "fechaMax": "2026-01-31", "inicio": "2026-01-20", "fin": "2026-01-30", "finalizado": true, "kgNoDisp": 0, "tdCal": {"9mm": 0.1155059450086698, "BZ/CORIANDRO": 0.0}, "kgCal": {"9mm": 201850, "BZ/CORIANDRO": 24960}, "kgMP": 254420, "kgPY": 254420, "kgPT": 254420, "kgComercial": 226810, "kgDescarte": 27610, "kgVolatil": 462, "calReal": {"9mm": 201850, "BAJO ZARANDA": 13102, "BZ/CORIANDRO": 24960, "ME/CICLON": 1819, "MESA 9mm": 7752, "PARTIDO": 4475, "VOLATIL": 462}, "calPYbase": {"DESCARTES": 26256, "9mm": 209336, "CORIANDRO": 18828}, "descReal": {"BAJO ZARANDA": 13102, "ME/CICLON": 1819, "MESA 9mm": 7752, "PARTIDO": 4475, "VOLATIL": 462}, "arrastreDesc": {"BAJO ZARANDA": 234, "ME/CICLON": 0, "MESA 9mm": 353, "PARTIDO": 44, "VOLATIL": 0}, "descPY": {"ME/CICLON": 7742, "PRELIMPIEZA": 17346, "BAJO ZARANDA": 1347, "MESA": 6104, "COLOR": 3441}, "danosMP": {"Partidos": 0.046097515918559866, "Roidos": 0.0006006603254461127, "Picados": 0.0, "Moho": 0.0, "Brotados": 0.002630807326468045, "Verdes": 0.001203482430626523, "Ardidos y Chuzos": 0.0015147394072793018, "Lavados": 0.01441258548856222, "Blanqueados": 0.005550742866126877, "Sucios": 0.020300959044100304, "Manchados": 0.003925791997484475, "Tocados": 0.07173614495715745, "Pelados/Decorticados": 0.024934950082540683, "Total Granos Buenos": 0.7462333149909598, "Total Defectos": 0.19290837984435183, "H°": 0.08966716453109032}, "danosPTcom": {"Partidos": 0.0032063180635774438, "Roidos": 0.00029099246064988316, "Picados": 0.0, "Moho": 0.0, "Brotados": 0.0, "Verdes": 0.00023014858251399852, "Ardidos y Chuzos": 0.0008071734050526873, "Lavados": 0.013810678541510515, "Blanqueados": 0.005667959966491777, "Sucios": 0.0025068339138485957, "Manchados": 0.005746880649001367, "Tocados": 0.04433545699043252, "Pelados/Decorticados": 0.026192297517746127, "Total Granos Buenos": 0.7871572020634011, "Total Defectos": 0.10279474009082493, "H°": 0.0927584762576606}, "danos": {"MP": {"Partidos": 0.046, "Roidos": 0.001, "Picados": 0.0, "Moho": 0.0, "Brotados": 0.003, "Verdes": 0.001, "Ardidos y Chuzos": 0.002, "Lavados": 0.014, "Blanqueados": 0.006, "Sucios": 0.02, "Manchados": 0.004, "Tocados": 0.072, "Pelados/Decorticados": 0.025}, "PY": {"Partidos": 0.005, "Roidos": 0.0, "Picados": 0.0, "Moho": 0.0, "Brotados": 0.001, "Verdes": 0.001, "Ardidos y Chuzos": 0.001, "Lavados": 0.0, "Blanqueados": 0.0, "Sucios": 0.016, "Manchados": 0.004, "Tocados": 0.065, "Pelados/Decorticados": 0.022}, "PT": {"Partidos": 0.004, "Roidos": 0.001, "Picados": 0.0, "Moho": 0.0, "Brotados": 0.0, "Verdes": 0.0, "Ardidos y Chuzos": 0.001, "Lavados": 0.016, "Blanqueados": 0.006, "Sucios": 0.002, "Manchados": 0.007, "Tocados": 0.055, "Pelados/Decorticados": 0.028}}, "merma": {"PARTIDO ESTIMADO": 13487.0, "PARTIDO REAL": 19217.0, "ARRASTRE ESTIMADO": 6844.0, "ARRASTRE REAL": 632.0}, "esc": {"real": {"9mm": 201850.0, "8mm": 0.0, "7mm": 0.0, "CORIANDRO": 24960.0, "DESCARTES": 27148.0, "VOLATIL": 462.0, "total": 254420.0}, "py": {"9mm": 211597.0, "8mm": 0.0, "7mm": 0.0, "CORIANDRO": 15484.0, "DESCARTES": 27339.0, "VOLATIL": 0.0, "total": 254420.0}, "sim": {"9mm": 209338.0, "8mm": 0.0, "7mm": 0.0, "CORIANDRO": 18826.0, "DESCARTES": 26256.0, "VOLATIL": 0.0, "total": 254420.0}}, "seAcerco": "Simulacion", "seAcercoBase": {"Simulacion": 24}, "mvp": {"kg": 254420.0, "calMP": 0.193, "calPT": 0.116, "eficiencia": 0.3989637306, "mermaSol": 0.12, "mermaReal": 0.109, "difMerma": 0.011, "kgDif": 2798.62, "kgVolatilTab": null}}, {"proceso": "PR 590", "planta": "4 Pulses", "cliente": "Drysdale", "clientes": ["TOMÁS DRYSDALE"], "variedades": [], "fm": ["CN25-120"], "fechaMin": "2025-12-30", "fechaMax": "2026-04-21", "inicio": "2026-04-02", "fin": "2026-04-22", "finalizado": true, "kgNoDisp": 0, "tdCal": {"9mm": 0.12380684054297435}, "kgCal": {"7mm": 0, "8mm": 0, "9mm": 149915}, "kgMP": 179040, "kgPY": 179040, "kgPT": 179040, "kgComercial": 149915, "kgDescarte": 29125, "kgVolatil": 1539, "calReal": {"7mm": 0, "8mm": 0, "9mm": 149915, "BAJO ZARANDA": 1820, "COLORIMETRICA": 3132, "ME/CICLON": 1953, "MESA": 6350, "MOLIDO": 1674, "PARTIDO": 12657, "VOLATIL": 1539}, "calPYbase": {"DESCARTES": 25185, "7mm": 0, "8mm": 0, "9mm": 153855}, "descReal": {"BAJO ZARANDA": 1820, "COLORIMETRICA": 3132, "ME/CICLON": 1953, "MESA": 6350, "MOLIDO": 1674, "PARTIDO": 12657, "VOLATIL": 1539}, "arrastreDesc": {"BAJO ZARANDA": 58, "COLORIMETRICA": 1923, "ME/CICLON": 0, "MESA": 870, "MOLIDO": 0, "PARTIDO": 127, "VOLATIL": 0}, "descPY": {"ME/CICLON": 613, "PRELIMPIEZA": 8679, "BAJO ZARANDA": 999, "MESA": 1733, "COLOR": 1696}, "danosMP": {"Partidos": 0.048052949061662194, "Roidos": 0.0, "Picados": 0.0, "Moho": 0.0, "Brotados": 0.0, "Verdes": 0.0013994638069705094, "Ardidos y Chuzos": 0.0017871983914209113, "Lavados": 0.012976653261840927, "Blanqueados": 0.003847184986595174, "Sucios": 0.3122041443252904, "Manchados": 0.009115560768543344, "Tocados": 0.05359774352100089, "Pelados/Decorticados": 0.02558411528150134, "Total Granos Buenos": 0.5245832216264521, "Total Defectos": 0.46856501340482576, "H°": 0.09921112600536192}, "danosPTcom": {"Total Defectos": 0.12380684054297435, "Partidos": 0.0022431878064236403, "Roidos": 0.0, "Picados": 0.0, "Moho": 0.0027398525831304407, "Brotados": 0.0, "Verdes": 0.0021934429510055697, "Ardidos y Chuzos": 0.0, "Lavados": 0.00701028916385952, "Blanqueados": 0.0075328519494380144, "Sucios": 0.03482585131574559, "Manchados": 0.009990778107594304, "Tocados": 0.028565353700430243, "Pelados/Decorticados": 0.028705232965347032, "Total Granos Buenos": 0.8761931594570256, "H°": 0.1156321248707601}, "danos": {"MP": {"Partidos": 0.048, "Roidos": 0.0, "Picados": 0.0, "Moho": 0.0, "Brotados": 0.0, "Verdes": 0.001, "Ardidos y Chuzos": 0.002, "Lavados": 0.013, "Blanqueados": 0.004, "Sucios": 0.312, "Manchados": 0.009, "Tocados": 0.054, "Pelados/Decorticados": 0.026}, "PY": {"Partidos": 0.005, "Roidos": 0.0, "Picados": 0.0, "Moho": 0.0, "Brotados": 0.0, "Verdes": 0.001, "Ardidos y Chuzos": 0.001, "Lavados": 0.006, "Blanqueados": 0.0, "Sucios": 0.219, "Manchados": 0.009, "Tocados": 0.048, "Pelados/Decorticados": 0.023}, "PT": {"Partidos": 0.002, "Roidos": 0.0, "Picados": 0.0, "Moho": 0.003, "Brotados": 0.0, "Verdes": 0.002, "Ardidos y Chuzos": 0.0, "Lavados": 0.007, "Blanqueados": 0.008, "Sucios": 0.035, "Manchados": 0.01, "Tocados": 0.029, "Pelados/Decorticados": 0.028}}, "merma": {"PARTIDO ESTIMADO": 9894.0, "PARTIDO REAL": 14646.0, "ARRASTRE ESTIMADO": 4350.0, "ARRASTRE REAL": 2978.0}, "esc": {"real": {"9mm": 149915.0, "8mm": 0.0, "7mm": 0.0, "CORIANDRO": 0.0, "DESCARTES": 27586.0, "VOLATIL": 1539.0, "total": 177501.0}, "py": {"9mm": 160969.0, "8mm": 0.0, "7mm": 0.0, "CORIANDRO": 0.0, "DESCARTES": 18071.0, "VOLATIL": 0.0, "total": 179040.0}, "sim": {"9mm": 152936.0, "8mm": 0.0, "7mm": 0.0, "CORIANDRO": 0.0, "DESCARTES": 26104.0, "VOLATIL": 0.0, "total": 179040.0}}, "seAcerco": "Simulacion", "seAcercoBase": {}, "mvp": {"kg": 179040.0, "calMP": 0.469, "calPT": 0.124, "eficiencia": 0.7356076759, "mermaSol": 0.13, "mermaReal": 0.163, "difMerma": -0.033, "kgDif": -5908.32, "kgVolatilTab": null}}, {"proceso": "PR 595", "planta": "4 Pulses", "cliente": "WF/BRC", "clientes": ["BRAUN REL. COMERCIALES", "FONTANELLAS WALTER"], "variedades": ["NORTEÑO U"], "fm": ["CN25-107"], "fechaMin": "2025-11-06", "fechaMax": "2026-04-21", "inicio": "2026-04-14", "fin": "2026-04-17", "finalizado": true, "kgNoDisp": 0, "tdCal": {"9mm": 0.03225, "8mm": 0.024808213378492802}, "kgCal": {"9mm": 36000, "8mm": 37792}, "kgMP": 87820, "kgPY": 87820, "kgPT": 87820, "kgComercial": 73792, "kgDescarte": 14028, "kgVolatil": 6445, "calReal": {"9mm": 36000, "8mm": 37792, "MESA": 3382, "COLORIMETRICA": 770, "PARTIDO": 1950, "BAJO ZARANDA": 831, "PRELIMPIEZA": 350, "VOLATIL": 6445, "ME/CICLON": 300}, "calPYbase": {"9mm": 43158, "8mm": 41831, "DESCARTES": 2831}, "descReal": {"MESA": 3382, "COLORIMETRICA": 770, "PARTIDO": 1950, "BAJO ZARANDA": 831, "PRELIMPIEZA": 350, "VOLATIL": 6445, "ME/CICLON": 300}, "arrastreDesc": {"MESA": 2256, "COLORIMETRICA": 654, "PARTIDO": 4, "BAJO ZARANDA": 238, "PRELIMPIEZA": 1, "VOLATIL": 0, "ME/CICLON": 0}, "descPY": {"ME/CICLON": 87, "PRELIMPIEZA": 1296, "BAJO ZARANDA": 492, "MESA": 309, "COLOR": 143}, "danosMP": {"Partidos": 0.014772261443862445, "Roidos": 0.001280801639717604, "Picados": 0.0, "Moho": 0.00033796401730813025, "Brotados": 0.0, "Verdes": 0.003453882942382145, "Ardidos y Chuzos": 0.007423252106581645, "Lavados": 0.0, "Blanqueados": 0.0005657025734456843, "Sucios": 0.007543270325666136, "Manchados": 0.0036114780232293325, "Tocados": 0.0055836939193805515, "Pelados/Decorticados": 0.016111136415395126, "Total Granos Buenos": 0.9373430881348213, "Total Defectos": 0.060683443406968796, "H°": 0.1185590981553177}, "danosPTcom": {"Partidos": 0.0016219644405897659, "Roidos": 3.642671292281006e-05, "Picados": 0.0, "Moho": 0.004915004336513443, "Brotados": 0.0, "Verdes": 0.0011462489158716393, "Ardidos y Chuzos": 0.0012439288811795317, "Lavados": 0.0, "Blanqueados": 0.0, "Sucios": 0.0058658933217692975, "Manchados": 0.004292497831743279, "Tocados": 0.002414462272333044, "Pelados/Decorticados": 0.006902320034692108, "Total Granos Buenos": 0.9715612532523852, "Total Defectos": 0.02843874674761492, "H°": 0.12536535125758888}, "danos": {"MP": {"Partidos": 0.015, "Roidos": 0.001, "Picados": 0.0, "Moho": 0.0, "Brotados": 0.0, "Verdes": 0.003, "Ardidos y Chuzos": 0.007, "Lavados": 0.0, "Blanqueados": 0.001, "Sucios": 0.008, "Manchados": 0.004, "Tocados": 0.006, "Pelados/Decorticados": 0.016}, "PY": {"Partidos": 0.002, "Roidos": 0.0, "Picados": 0.0, "Moho": 0.0, "Brotados": 0.0, "Verdes": 0.003, "Ardidos y Chuzos": 0.003, "Lavados": 0.0, "Blanqueados": 0.0, "Sucios": 0.006, "Manchados": 0.004, "Tocados": 0.005, "Pelados/Decorticados": 0.015}, "PT": {"Partidos": 0.001, "Roidos": 0.0, "Picados": 0.0, "Moho": 0.006, "Brotados": 0.0, "Verdes": 0.001, "Ardidos y Chuzos": 0.002, "Lavados": 0.0, "Blanqueados": 0.0, "Sucios": 0.005, "Manchados": 0.004, "Tocados": 0.002, "Pelados/Decorticados": 0.005}}, "merma": {"PARTIDO ESTIMADO": 1427.0, "PARTIDO REAL": 2771.0, "ARRASTRE ESTIMADO": 506.0, "ARRASTRE REAL": 898.0}, "esc": {"real": {"9mm": 36000.0, "8mm": 37792.0, "7mm": 0.0, "CORIANDRO": 0.0, "DESCARTES": 7583.0, "VOLATIL": 6445.0, "total": 81375.0}, "py": {"9mm": 43158.0, "8mm": 41831.0, "7mm": 0.0, "CORIANDRO": 0.0, "DESCARTES": 2831.0, "VOLATIL": 0.0, "total": 87820.0}, "sim": {"9mm": 40433.0, "8mm": 44591.0, "7mm": 0.0, "CORIANDRO": 0.0, "DESCARTES": 2796.0, "VOLATIL": 0.0, "total": 87820.0}}, "seAcerco": "PY", "seAcercoBase": {}, "mvp": {"kg": 87820.0, "calMP": 0.061, "calPT": 0.053, "eficiencia": 0.131147541, "mermaSol": 0.05, "mermaReal": 0.16, "difMerma": -0.11, "kgDif": -9660.2, "kgVolatilTab": null}}, {"proceso": "PR 598", "planta": "4 Pulses", "cliente": "WF/BRC", "clientes": ["BRAUN REL. COMERCIALES", "FONTANELLAS WALTER"], "variedades": ["NORTEÑO U"], "fm": ["CN25-107"], "fechaMin": "2025-11-05", "fechaMax": "2026-04-30", "inicio": "2026-04-23", "fin": "2026-04-28", "finalizado": true, "kgNoDisp": 0, "tdCal": {"8mm": 0.032309405556417814, "9mm": 0.030949104455518822, "BZ": 0.605}, "kgCal": {"8mm": 32215, "9mm": 40534, "BZ": 681}, "kgMP": 86880, "kgPY": 86880, "kgPT": 86880, "kgComercial": 73430, "kgDescarte": 13450, "kgVolatil": 6976, "calReal": {"8mm": 32215, "9mm": 40534, "BZ": 681, "COLORIMETRICA": 1145, "ME/CICLON": 250, "MESA": 2507, "PARTIDO": 2203, "PRELIMPIEZA": 369, "VOLATIL": 6976}, "calPYbase": {"9mm": 46773, "8mm": 36681, "DESCARTES": 3426}, "descReal": {"COLORIMETRICA": 1145, "ME/CICLON": 250, "MESA": 2507, "PARTIDO": 2203, "PRELIMPIEZA": 369, "VOLATIL": 6976}, "arrastreDesc": {"COLORIMETRICA": 1012, "ME/CICLON": 93, "MESA": 1171, "PARTIDO": 18, "PRELIMPIEZA": 137, "VOLATIL": 2595}, "descPY": {"ME/CICLON": 109, "PRELIMPIEZA": 1649, "BAJO ZARANDA": 488, "MESA": 402, "COLOR": 144}, "danosMP": {"Partidos": 0.019117173112338858, "Roidos": 0.0, "Picados": 0.0, "Moho": 0.0, "Brotados": 0.002010819521178637, "Verdes": 0.006752186924493556, "Ardidos y Chuzos": 0.00905110497237569, "Lavados": 0.0, "Blanqueados": 0.0008043278084714548, "Sucios": 0.015222375690607734, "Manchados": 0.005263351749539595, "Tocados": 0.005396754143646409, "Pelados/Decorticados": 0.01603591160220994, "Total Granos Buenos": 0.9178344843462246, "Total Defectos": 0.07965400552486188, "H°": 0.13514479742173113}, "danosPTcom": {"Partidos": 0.0046154773253438645, "Roidos": 0.0027265967588179217, "Picados": 0.0, "Moho": 0.007057919106632167, "Brotados": 0.0, "Verdes": 0.002102819011303282, "Ardidos y Chuzos": 0.0009032071360479369, "Lavados": 0.0, "Blanqueados": 0.0, "Sucios": 0.00432105406509601, "Manchados": 0.005261160288710337, "Tocados": 0.0012265831404058287, "Pelados/Decorticados": 0.008654902628353535, "Total Granos Buenos": 0.9629169753506741, "Total Defectos": 0.03686971946071088, "H°": 0.13118856053384176}, "danos": {"MP": {"Partidos": 0.019, "Roidos": 0.0, "Picados": 0.0, "Moho": 0.0, "Brotados": 0.002, "Verdes": 0.007, "Ardidos y Chuzos": 0.009, "Lavados": 0.0, "Blanqueados": 0.001, "Sucios": 0.015, "Manchados": 0.005, "Tocados": 0.005, "Pelados/Decorticados": 0.016}, "PY": {"Partidos": 0.003, "Roidos": 0.0, "Picados": 0.0, "Moho": 0.0, "Brotados": 0.0, "Verdes": 0.007, "Ardidos y Chuzos": 0.004, "Lavados": 0.0, "Blanqueados": 0.0, "Sucios": 0.012, "Manchados": 0.005, "Tocados": 0.005, "Pelados/Decorticados": 0.014}, "PT": {"Partidos": 0.002, "Roidos": 0.0, "Picados": 0.0, "Moho": 0.007, "Brotados": 0.0, "Verdes": 0.002, "Ardidos y Chuzos": 0.001, "Lavados": 0.0, "Blanqueados": 0.0, "Sucios": 0.005, "Manchados": 0.006, "Tocados": 0.001, "Pelados/Decorticados": 0.009}}, "merma": {"PARTIDO ESTIMADO": 1827.0, "PARTIDO REAL": 4723.0, "ARRASTRE ESTIMADO": 633.0, "ARRASTRE REAL": 5025.0}, "esc": {"real": {"9mm": 40534.0, "8mm": 32215.0, "7mm": 0.0, "CORIANDRO": 0.0, "DESCARTES": 7155.0, "VOLATIL": 6976.0, "total": 79904.0}, "py": {"9mm": 46773.0, "8mm": 36681.0, "7mm": 0.0, "CORIANDRO": 0.0, "DESCARTES": 3426.0, "VOLATIL": 0.0, "total": 86880.0}, "sim": {"9mm": 40000.0, "8mm": 44114.0, "7mm": 0.0, "CORIANDRO": 0.0, "DESCARTES": 2766.0, "VOLATIL": 0.0, "total": 86880.0}}, "seAcerco": "PY", "seAcercoBase": {}, "mvp": {"kg": 86880.0, "calMP": 0.08, "calPT": 0.032, "eficiencia": 0.6, "mermaSol": 0.05, "mermaReal": 0.163, "difMerma": -0.113, "kgDif": -9817.44, "kgVolatilTab": null}}, {"proceso": "PR 603", "planta": "4 Pulses", "cliente": "Aci Agro/Argan", "clientes": ["ACI AGRO", "ARGAN"], "variedades": ["FELIPE"], "fm": ["CN25-092"], "fechaMin": "2025-11-07", "fechaMax": "2026-07-14", "inicio": null, "fin": null, "finalizado": false, "kgNoDisp": 0, "tdCal": {"7mm": 0.0485, "8mm": 0.0821044342418783}, "kgCal": {"7mm": 13611, "8mm": 172070}, "kgMP": 214280, "kgPY": 214280, "kgPT": 214280, "kgComercial": 185681, "kgDescarte": 28599, "kgVolatil": 7640, "calReal": {"VOLATIL": 7640, "PRELIMPIEZA": 14181, "ME/CICLON": 175, "BAJO ZARANDA": 3505, "COLORIMETRICA": 450, "MESA": 2648, "7mm": 13611, "8mm": 172070}, "calPYbase": {"DESCARTES": 20207, "8mm": 160605, "7mm": 33468}, "descReal": {"VOLATIL": 7640, "PRELIMPIEZA": 14181, "ME/CICLON": 175, "BAJO ZARANDA": 3505, "COLORIMETRICA": 450, "MESA": 2648}, "arrastreDesc": {"VOLATIL": 0, "PRELIMPIEZA": 121, "ME/CICLON": 0, "BAJO ZARANDA": 1598, "COLORIMETRICA": 315, "MESA": 275}, "descPY": {"ME/CICLON": 516, "PRELIMPIEZA": 9252, "BAJO ZARANDA": 2157, "MESA": 3830, "COLOR": 1450}, "danosMP": {"Partidos": 0.04256038827702072, "Roidos": 0.01030007466865783, "Picados": 0.0, "Moho": 0.0017565335075602016, "Brotados": 0.0006344035840955759, "Verdes": 0.0043010080268807175, "Ardidos y Chuzos": 0.005719199178644764, "Lavados": 0.006796854582788875, "Blanqueados": 0.005422204592122456, "Sucios": 0.022743746499906663, "Manchados": 0.01649542654470786, "Tocados": 0.005121663244353182, "Pelados/Decorticados": 0.05099859996266567, "Total Granos Buenos": 0.8223325555348143, "Total Defectos": 0.1728501026694045, "H°": 0.12163197685271607}, "danosPTcom": {"Partidos": 0.0016193902445592171, "Roidos": 0.005170946408086988, "Picados": 0.0, "Moho": 0.006710395786321702, "Brotados": 0.0, "Verdes": 0.0003295975355582962, "Ardidos y Chuzos": 0.00025656098362244925, "Lavados": 0.003301062036503466, "Blanqueados": 0.013878127002762801, "Sucios": 0.005977552899865899, "Manchados": 0.016077140364388388, "Tocados": 0.0013623768721624722, "Pelados/Decorticados": 0.024957973621425992, "Total Granos Buenos": 0.9203588762447422, "Total Defectos": 0.07964112375525768, "H°": 0.11599007437486872}, "danos": {"MP": {"Partidos": 0.043, "Roidos": 0.01, "Picados": 0.0, "Moho": 0.002, "Brotados": 0.001, "Verdes": 0.004, "Ardidos y Chuzos": 0.006, "Lavados": 0.007, "Blanqueados": 0.005, "Sucios": 0.023, "Manchados": 0.016, "Tocados": 0.005, "Pelados/Decorticados": 0.051}, "PY": {"Partidos": 0.004, "Roidos": 0.005, "Picados": 0.0, "Moho": 0.002, "Brotados": 0.0, "Verdes": 0.004, "Ardidos y Chuzos": 0.002, "Lavados": 0.0, "Blanqueados": 0.0, "Sucios": 0.016, "Manchados": 0.016, "Tocados": 0.005, "Pelados/Decorticados": 0.046}, "PT": {"Partidos": 0.002, "Roidos": 0.005, "Picados": 0.0, "Moho": 0.007, "Brotados": 0.0, "Verdes": 0.0, "Ardidos y Chuzos": 0.0, "Lavados": 0.003, "Blanqueados": 0.014, "Sucios": 0.006, "Manchados": 0.016, "Tocados": 0.001, "Pelados/Decorticados": 0.025}}, "merma": {"PARTIDO ESTIMADO": 10488.0, "PARTIDO REAL": 11846.0, "ARRASTRE ESTIMADO": 3001.0, "ARRASTRE REAL": 275.0}, "esc": {"real": {"9mm": 0.0, "8mm": 172070.0, "7mm": 13611.0, "CORIANDRO": 0.0, "DESCARTES": 20959.0, "VOLATIL": 7640.0, "total": 214280.0}, "py": {"9mm": 0.0, "8mm": 160255.0, "7mm": 34377.0, "CORIANDRO": 0.0, "DESCARTES": 19648.0, "VOLATIL": 0.0, "total": 214280.0}, "sim": {"9mm": 0.0, "8mm": 147767.0, "7mm": 40285.0, "CORIANDRO": 0.0, "DESCARTES": 26228.0, "VOLATIL": 0.0, "total": 214280.0}}, "seAcerco": "PY", "seAcercoBase": {"PY": 23}, "mvp": {}}, {"proceso": "GI-74", "planta": "Cereales Viel", "cliente": "H&H", "clientes": ["H&H OUTFITTERS"], "variedades": ["NORTEÑO U"], "fm": ["CN25-093"], "fechaMin": "2025-10-22", "fechaMax": "2026-01-24", "inicio": "2025-10-24", "fin": "2025-12-27", "finalizado": true, "kgNoDisp": 0, "tdCal": {"7mm": 0.173, "8mm": 0.1555, "9mm": 0.17444736842105263}, "kgCal": {"7mm": 775, "8mm": 12550, "9mm": 15200}, "kgMP": 33380, "kgPY": 33380, "kgPT": 33380, "kgComercial": 28525, "kgDescarte": 4855, "kgVolatil": 345, "calReal": {"7mm": 775, "8mm": 12550, "9mm": 15200, "COLORIMETRICA": 221, "ME/CICLON": 146, "MESA 7mm": 161, "MESA 8mm": 305, "MESA 9mm": 582, "PRELIMPIEZA": 3095, "VOLATIL": 345}, "calPYbase": {"8mm": 12718, "9mm": 15969, "7mm": 1609, "DESCARTES": 3084}, "descReal": {"COLORIMETRICA": 221, "ME/CICLON": 146, "MESA 7mm": 161, "MESA 8mm": 305, "MESA 9mm": 582, "PRELIMPIEZA": 3095, "VOLATIL": 345}, "arrastreDesc": {"COLORIMETRICA": 149, "ME/CICLON": 0, "MESA 7mm": 94, "MESA 8mm": 230, "MESA 9mm": 339, "PRELIMPIEZA": 313, "VOLATIL": 0}, "descPY": {"ME/CICLON": 609, "PRELIMPIEZA": 2104, "BAJO ZARANDA": 250, "MESA": 679, "COLOR": 262}, "danosMP": {"Partidos": 0.0505, "Roidos": 0.0025, "Picados": 0.0, "Moho": 0.0, "Brotados": 0.0325, "Verdes": 0.0025, "Ardidos y Chuzos": 0.004, "Lavados": 0.0, "Blanqueados": 0.0, "Sucios": 0.0025, "Manchados": 0.0015, "Tocados": 0.0065, "Pelados/Decorticados": 0.144, "Total Granos Buenos": 0.717, "Total Defectos": 0.2465, "H°": 0.114}, "danosPTcom": {"Partidos": 0.005082383873794918, "Roidos": 0.0033356704645048207, "Picados": 0.0, "Moho": 2.7169149868536374e-05, "Brotados": 0.029982471516213843, "Verdes": 9.728308501314635e-05, "Ardidos y Chuzos": 0.0024408413672217352, "Lavados": 0.0, "Blanqueados": 0.0, "Sucios": 0.0006599474145486415, "Manchados": 9.50920245398773e-05, "Tocados": 0.0024075372480280455, "Pelados/Decorticados": 0.12194347063978966, "Total Granos Buenos": 0.8339281332164767, "Total Defectos": 0.16607186678352323, "H°": 0.10740841367221736}, "danos": {"MP": {"Partidos": 0.0505, "Roidos": 0.0025, "Picados": 0.0, "Moho": 0.0, "Brotados": 0.0325, "Verdes": 0.0025, "Ardidos y Chuzos": 0.004, "Lavados": 0.0, "Blanqueados": 0.0, "Sucios": 0.0025, "Manchados": 0.0015, "Tocados": 0.0065, "Pelados/Decorticados": 0.144}, "PY": {"Partidos": 0.005, "Roidos": 0.0, "Picados": 0.0, "Moho": 0.0, "Brotados": 0.026, "Verdes": 0.003, "Ardidos y Chuzos": 0.002, "Lavados": 0.0, "Blanqueados": 0.0, "Sucios": 0.0, "Manchados": 0.002, "Tocados": 0.006, "Pelados/Decorticados": 0.13}, "PT": {"Partidos": 0.009, "Roidos": 0.045, "Picados": 0.0, "Moho": 0.0, "Brotados": 0.021, "Verdes": 0.0, "Ardidos y Chuzos": 0.007, "Lavados": 0.0, "Blanqueados": 0.0, "Sucios": 0.0, "Manchados": 0.001, "Tocados": 0.002, "Pelados/Decorticados": 0.095}}, "merma": {"PARTIDO ESTIMADO": 1939.0, "PARTIDO REAL": 1811.0, "ARRASTRE ESTIMADO": 724.0, "ARRASTRE REAL": 556.0}, "esc": {"real": {"9mm": 15200.0, "8mm": 12584.0, "7mm": 780.0, "CORIANDRO": 0.0, "DESCARTES": 4471.0, "VOLATIL": 345.0, "total": 33380.0}, "py": {"9mm": 13565.0, "8mm": 13669.0, "7mm": 1518.0, "CORIANDRO": 0.0, "DESCARTES": 4628.0, "VOLATIL": 0.0, "total": 33380.0}, "sim": {"9mm": 15969.0, "8mm": 12718.0, "7mm": 1609.0, "CORIANDRO": 0.0, "DESCARTES": 3084.0, "VOLATIL": 0.0, "total": 33380.0}}, "seAcerco": "Simulacion", "seAcercoBase": {"Simulacion": 14}, "mvp": {"kg": 33380.0, "calMP": 0.2465, "calPT": 0.18, "eficiencia": 0.2697768763, "mermaSol": 0.12, "mermaReal": 0.1351, "difMerma": -0.0151, "kgDif": -504.038, "kgVolatilTab": 306.0}}, {"proceso": "GI-75", "planta": "Cereales Viel", "cliente": "H&H", "clientes": ["H&H OUTFITTERS"], "variedades": ["NORTEÑO U"], "fm": ["CN25-093"], "fechaMin": "2025-10-23", "fechaMax": "2026-01-15", "inicio": "2025-12-16", "fin": "2025-12-19", "finalizado": true, "kgNoDisp": 0, "tdCal": {"7mm": 0.15777636363636366, "8mm": 0.14722694717994628, "9mm": 0.17208304093567253}, "kgCal": {"7mm": 6875, "8mm": 55850, "9mm": 42750}, "kgMP": 129540, "kgPY": 129540, "kgPT": 129540, "kgComercial": 105475, "kgDescarte": 24065, "kgVolatil": 385, "calReal": {"7mm": 6875, "8mm": 55850, "9mm": 42750, "BARRIDO": 466, "VOLATIL": 385, "CALIBRADORA": 906, "COLORIMETRICA": 936, "ME/CICLON": 182, "MESA 7mm": 963, "MESA 8mm": 2602, "MESA 9mm": 1582, "PRELIMPIEZA": 16043}, "calPYbase": {"9mm": 44959, "7mm": 9845, "8mm": 53388, "DESCARTES": 21348}, "descReal": {"BARRIDO": 466, "VOLATIL": 385, "CALIBRADORA": 906, "COLORIMETRICA": 936, "ME/CICLON": 182, "MESA 7mm": 963, "MESA 8mm": 2602, "MESA 9mm": 1582, "PRELIMPIEZA": 16043}, "arrastreDesc": {"BARRIDO": 0, "VOLATIL": 0, "CALIBRADORA": 53, "COLORIMETRICA": 591, "ME/CICLON": 0, "MESA 7mm": 459, "MESA 8mm": 679, "MESA 9mm": 590, "PRELIMPIEZA": 449}, "descPY": {"ME/CICLON": 992, "PRELIMPIEZA": 9882, "BAJO ZARANDA": 1440, "MESA": 2078, "COLOR": 922}, "danosMP": {"Partidos": 0.07313825845298749, "Roidos": 0.0011550872317430908, "Picados": 0.0, "Moho": 0.0008801142504245793, "Brotados": 0.033532190829087545, "Verdes": 0.00026848849776130927, "Ardidos y Chuzos": 0.005789408676856568, "Lavados": 0.0, "Blanqueados": 0.0, "Sucios": 0.0031327775204570015, "Manchados": 0.00023228346456692913, "Tocados": 0.0028547938860583604, "Pelados/Decorticados": 0.1190822139879574, "Total Granos Buenos": 0.7446130152848542, "Total Defectos": 0.24006561679790026, "H°": 0.08898178168905356}, "danosPTcom": {"Partidos": 0.010435411234889787, "Roidos": 0.0005607963972505334, "Picados": 0.0, "Moho": 0.0, "Brotados": 0.012748163071817966, "Verdes": 9.480919649205973e-06, "Ardidos y Chuzos": 0.005957809907561033, "Lavados": 0.0, "Blanqueados": 0.0, "Sucios": 0.0004550841431618867, "Manchados": 0.0007963972505333017, "Tocados": 0.0037768428537568147, "Pelados/Decorticados": 0.12324899265228727, "Total Granos Buenos": 0.8420110215690922, "Total Defectos": 0.1579889784309078, "H°": 0.09340151694714387}, "danos": {"MP": {"Partidos": 0.0731, "Roidos": 0.0012, "Picados": 0.0, "Moho": 0.0009, "Brotados": 0.0335, "Verdes": 0.0003, "Ardidos y Chuzos": 0.0058, "Lavados": 0.0, "Blanqueados": 0.0, "Sucios": 0.0031, "Manchados": 0.0002, "Tocados": 0.0029, "Pelados/Decorticados": 0.1191}, "PY": {"Partidos": 0.007, "Roidos": 0.0, "Picados": 0.0, "Moho": 0.0, "Brotados": 0.027, "Verdes": 0.0, "Ardidos y Chuzos": 0.002, "Lavados": 0.0, "Blanqueados": 0.0, "Sucios": 0.0, "Manchados": 0.0, "Tocados": 0.003, "Pelados/Decorticados": 0.107}, "PT": {"Partidos": 0.01, "Roidos": 0.001, "Picados": 0.0, "Moho": 0.0, "Brotados": 0.013, "Verdes": 0.0, "Ardidos y Chuzos": 0.006, "Lavados": 0.0, "Blanqueados": 0.0, "Sucios": 0.0, "Manchados": 0.001, "Tocados": 0.004, "Pelados/Decorticados": 0.123}}, "merma": {"PARTIDO ESTIMADO": 10895.0, "PARTIDO REAL": 14060.0, "ARRASTRE ESTIMADO": 2735.0, "ARRASTRE REAL": 2822.0}, "esc": {"real": {"9mm": 42750.0, "8mm": 55850.0, "7mm": 6875.0, "CORIANDRO": 0.0, "DESCARTES": 23680.0, "VOLATIL": 385.0, "total": 129540.0}, "py": {"9mm": 48403.0, "8mm": 57473.0, "7mm": 5614.0, "CORIANDRO": 0.0, "DESCARTES": 18050.0, "VOLATIL": 0.0, "total": 129540.0}, "sim": {"9mm": 44959.0, "8mm": 53388.0, "7mm": 9845.0, "CORIANDRO": 0.0, "DESCARTES": 21348.0, "VOLATIL": 0.0, "total": 129540.0}}, "seAcerco": "PY", "seAcercoBase": {"PY": 17}, "mvp": {"kg": 129540.0, "calMP": 0.24, "calPT": 0.158, "eficiencia": 0.3416666667, "mermaSol": 0.15, "mermaReal": 0.183, "difMerma": -0.033, "kgDif": -4274.82, "kgVolatilTab": 385.0}}, {"proceso": "GI-76", "planta": "Cereales Viel", "cliente": "H&H", "clientes": ["H&H OUTFITTERS"], "variedades": ["MEZCLA"], "fm": ["CN25-093"], "fechaMin": "2025-10-25", "fechaMax": "2026-01-20", "inicio": "2025-12-20", "fin": "2026-12-23", "finalizado": true, "kgNoDisp": 0, "tdCal": {"7mm": 0.1745, "8mm": 0.13947625329815302, "9mm": 0.1795}, "kgCal": {"7mm": 3750, "8mm": 28425, "9mm": 20100}, "kgMP": 64420, "kgPY": 64420, "kgPT": 64420, "kgComercial": 52275, "kgDescarte": 12145, "kgVolatil": 80, "calReal": {"7mm": 3750, "8mm": 28425, "9mm": 20100, "BARRIDO": 610, "CALIBRADORA": 446, "COLORIMETRICA": 326, "VOLATIL": 80, "ME/CICLON": 170, "MESA 7mm": 2041, "MESA 8mm": 1718, "MESA 9mm": 400, "PRELIMPIEZA": 6354}, "calPYbase": {"7mm": 4155, "9mm": 23468, "8mm": 27172, "DESCARTES": 9625}, "descReal": {"BARRIDO": 610, "CALIBRADORA": 446, "COLORIMETRICA": 326, "VOLATIL": 80, "ME/CICLON": 170, "MESA 7mm": 2041, "MESA 8mm": 1718, "MESA 9mm": 400, "PRELIMPIEZA": 6354}, "arrastreDesc": {"BARRIDO": 0, "CALIBRADORA": 169, "COLORIMETRICA": 196, "VOLATIL": 0, "ME/CICLON": 0, "MESA 7mm": 925, "MESA 8mm": 541, "MESA 9mm": 136, "PRELIMPIEZA": 95}, "descPY": {"ME/CICLON": 156, "PRELIMPIEZA": 4629, "BAJO ZARANDA": 919, "MESA": 943, "COLOR": 541}, "danosMP": {"Partidos": 0.07250388078236572, "Roidos": 0.000613784538963055, "Picados": 0.0, "Moho": 0.0, "Brotados": 0.02353446134740764, "Verdes": 0.0, "Ardidos y Chuzos": 0.007806892269481527, "Lavados": 0.0, "Blanqueados": 0.0, "Sucios": 0.008838093759701956, "Manchados": 0.0, "Tocados": 0.005158646383110835, "Pelados/Decorticados": 0.15779649177274138, "Total Granos Buenos": 0.7189063955293388, "Total Defectos": 0.2762522508537721, "H°": 0.09529649177274138}, "danosPTcom": {"Partidos": 0.005869440459110474, "Roidos": 0.0009612625538020086, "Picados": 0.0, "Moho": 0.0, "Brotados": 0.007949784791965566, "Verdes": 0.0, "Ardidos y Chuzos": 0.005525824964131993, "Lavados": 0.0, "Blanqueados": 0.0, "Sucios": 0.001133428981348637, "Manchados": 0.0, "Tocados": 0.0042977044476327116, "Pelados/Decorticados": 0.1316406025824964, "Total Granos Buenos": 0.8426219512195122, "Total Defectos": 0.1573780487804878, "H°": 0.09996700143472022}, "danos": {"MP": {"Partidos": 0.0725, "Roidos": 0.0006, "Picados": 0.0, "Moho": 0.0, "Brotados": 0.0235, "Verdes": 0.0, "Ardidos y Chuzos": 0.0078, "Lavados": 0.0, "Blanqueados": 0.0, "Sucios": 0.0088, "Manchados": 0.0, "Tocados": 0.0052, "Pelados/Decorticados": 0.1578}, "PY": {"Partidos": 0.007, "Roidos": 0.0, "Picados": 0.0, "Moho": 0.0, "Brotados": 0.019, "Verdes": 0.0, "Ardidos y Chuzos": 0.003, "Lavados": 0.0, "Blanqueados": 0.0, "Sucios": 0.0, "Manchados": 0.0, "Tocados": 0.005, "Pelados/Decorticados": 0.142}, "PT": {"Partidos": 0.006, "Roidos": 0.001, "Picados": 0.0, "Moho": 0.0, "Brotados": 0.008, "Verdes": 0.0, "Ardidos y Chuzos": 0.006, "Lavados": 0.0, "Blanqueados": 0.0, "Sucios": 0.001, "Manchados": 0.0, "Tocados": 0.004, "Pelados/Decorticados": 0.132}}, "merma": {"PARTIDO ESTIMADO": 5371.0, "PARTIDO REAL": 5063.0, "ARRASTRE ESTIMADO": 1242.0, "ARRASTRE REAL": 1697.0}, "esc": {"real": {"9mm": 20100.0, "8mm": 28425.0, "7mm": 3750.0, "CORIANDRO": 0.0, "DESCARTES": 12065.0, "VOLATIL": 80.0, "total": 64420.0}, "py": {"9mm": 24577.0, "8mm": 28116.0, "7mm": 3297.0, "CORIANDRO": 0.0, "DESCARTES": 8430.0, "VOLATIL": 0.0, "total": 64420.0}, "sim": {"9mm": 23468.0, "8mm": 27172.0, "7mm": 4155.0, "CORIANDRO": 0.0, "DESCARTES": 9625.0, "VOLATIL": 0.0, "total": 64420.0}}, "seAcerco": "PY", "seAcercoBase": {"Simulacion": 13}, "mvp": {"kg": 64420.0, "calMP": 0.276, "calPT": 0.157, "eficiencia": 0.4311594203, "mermaSol": 0.14, "mermaReal": 0.187, "difMerma": -0.047, "kgDif": -3027.74, "kgVolatilTab": 80.0}}, {"proceso": "GI-77", "planta": "Cereales Viel", "cliente": "H&H", "clientes": ["H&H OUTFITTERS"], "variedades": ["NORTEÑO FISC."], "fm": ["CN25-093"], "fechaMin": "2025-10-27", "fechaMax": "2026-01-23", "inicio": "2025-12-26", "fin": "2025-12-26", "finalizado": true, "kgNoDisp": 0, "tdCal": {"7mm": 0.0905, "8mm": 0.07, "9mm": 0.1915}, "kgCal": {"7mm": 1025, "8mm": 10700, "9mm": 4875}, "kgMP": 19420, "kgPY": 19420, "kgPT": 19420, "kgComercial": 16600, "kgDescarte": 2820, "kgVolatil": 152, "calReal": {"7mm": 1025, "8mm": 10700, "9mm": 4875, "CALIBRADORA": 100, "COLORIMETRICA": 70, "VOLATIL": 152, "MESA 7mm": 263, "MESA 8mm": 727, "MESA 9mm": 312, "PRELIMPIEZA": 1196}, "calPYbase": {"9mm": 5159, "7mm": 1864, "8mm": 10668, "DESCARTES": 1729}, "descReal": {"CALIBRADORA": 100, "COLORIMETRICA": 70, "VOLATIL": 152, "MESA 7mm": 263, "MESA 8mm": 727, "MESA 9mm": 312, "PRELIMPIEZA": 1196}, "arrastreDesc": {"CALIBRADORA": 57, "COLORIMETRICA": 44, "VOLATIL": 0, "MESA 7mm": 162, "MESA 8mm": 540, "MESA 9mm": 155, "PRELIMPIEZA": 18}, "descPY": {"ME/CICLON": 175, "PRELIMPIEZA": 976, "BAJO ZARANDA": 197, "MESA": 242, "COLOR": 80}, "danosMP": {"Partidos": 0.045, "Roidos": 0.0, "Picados": 0.0, "Moho": 0.0, "Brotados": 0.032, "Verdes": 0.0, "Ardidos y Chuzos": 0.003, "Lavados": 0.0, "Blanqueados": 0.0, "Sucios": 0.0, "Manchados": 0.0, "Tocados": 0.002, "Pelados/Decorticados": 0.0785, "Total Granos Buenos": 0.8215, "Total Defectos": 0.1605, "H°": 0.084}, "danosPTcom": {"Partidos": 0.007421686746987952, "Roidos": 0.0, "Picados": 0.0, "Moho": 0.0, "Brotados": 0.005341867469879519, "Verdes": 0.0, "Ardidos y Chuzos": 0.0023177710843373493, "Lavados": 0.0008268072289156626, "Blanqueados": 0.0010120481927710845, "Sucios": 0.0, "Manchados": 0.0008885542168674699, "Tocados": 0.002164156626506024, "Pelados/Decorticados": 0.08697439759036145, "Total Granos Buenos": 0.8930527108433735, "Total Defectos": 0.10694728915662652, "H°": 0.10795030120481929}, "danos": {"MP": {"Partidos": 0.045, "Roidos": 0.0, "Picados": 0.0, "Moho": 0.0, "Brotados": 0.032, "Verdes": 0.0, "Ardidos y Chuzos": 0.003, "Lavados": 0.0, "Blanqueados": 0.0, "Sucios": 0.0, "Manchados": 0.0, "Tocados": 0.002, "Pelados/Decorticados": 0.0785}, "PY": {"Partidos": 0.005, "Roidos": 0.0, "Picados": 0.0, "Moho": 0.0, "Brotados": 0.026, "Verdes": 0.0, "Ardidos y Chuzos": 0.001, "Lavados": 0.0, "Blanqueados": 0.0, "Sucios": 0.0, "Manchados": 0.0, "Tocados": 0.002, "Pelados/Decorticados": 0.071}, "PT": {"Partidos": 0.007, "Roidos": 0.0, "Picados": 0.0, "Moho": 0.0, "Brotados": 0.005, "Verdes": 0.0, "Ardidos y Chuzos": 0.002, "Lavados": 0.001, "Blanqueados": 0.001, "Sucios": 0.0, "Manchados": 0.001, "Tocados": 0.002, "Pelados/Decorticados": 0.087}}, "merma": {"PARTIDO ESTIMADO": 1005.0, "PARTIDO REAL": 1105.0, "ARRASTRE ESTIMADO": 290.0, "ARRASTRE REAL": 713.0}, "esc": {"real": {"9mm": 4875.0, "8mm": 10700.0, "7mm": 1025.0, "CORIANDRO": 0.0, "DESCARTES": 2668.0, "VOLATIL": 152.0, "total": 19420.0}, "py": {"9mm": 5682.504333703406, "8mm": 10805.0, "7mm": 972.0, "CORIANDRO": 0.0, "DESCARTES": 1960.0, "VOLATIL": 0.0, "total": 19419.50433}, "sim": {"9mm": 5160.0, "8mm": 10668.0, "7mm": 1864.0, "CORIANDRO": 0.0, "DESCARTES": 1728.0, "VOLATIL": 0.0, "total": 19420.0}}, "seAcerco": "Simulacion", "seAcercoBase": {"PY": 10}, "mvp": {"kg": 19420.0, "calMP": 0.16, "calPT": 0.107, "eficiencia": 0.33125, "mermaSol": 0.095, "mermaReal": 0.145, "difMerma": -0.05, "kgDif": -971.0, "kgVolatilTab": null}}, {"proceso": "GI-78", "planta": "Cereales Viel", "cliente": "H&H", "clientes": ["H&H OUTFITTERS"], "variedades": ["NORTEÑO U"], "fm": ["CN25-093"], "fechaMin": "2025-11-07", "fechaMax": "2026-01-23", "inicio": "2025-12-23", "fin": "2025-12-23", "finalizado": true, "kgNoDisp": 0, "tdCal": {"7mm": 0.1595, "8mm": 0.152, "9mm": 0.155}, "kgCal": {"7mm": 1500, "8mm": 15650, "9mm": 17350}, "kgMP": 42340, "kgPY": 42340, "kgPT": 42340, "kgComercial": 34500, "kgDescarte": 7840, "kgVolatil": 354, "calReal": {"7mm": 1500, "8mm": 15650, "9mm": 17350, "CALIBRADORA": 231, "COLORIMETRICA": 310, "ME/CICLON": 120, "MESA 7mm": 349, "VOLATIL": 354, "MESA 8mm": 1181, "MESA 9mm": 432, "PRELIMPIEZA": 4863}, "calPYbase": {"9mm": 17534, "7mm": 2382, "8mm": 15209, "DESCARTES": 7215}, "descReal": {"CALIBRADORA": 231, "COLORIMETRICA": 310, "ME/CICLON": 120, "MESA 7mm": 349, "VOLATIL": 354, "MESA 8mm": 1181, "MESA 9mm": 432, "PRELIMPIEZA": 4863}, "arrastreDesc": {"CALIBRADORA": 79, "COLORIMETRICA": 193, "ME/CICLON": 0, "MESA 7mm": 73, "VOLATIL": 0, "MESA 8mm": 424, "MESA 9mm": 212, "PRELIMPIEZA": 117}, "descPY": {"ME/CICLON": 191, "PRELIMPIEZA": 4813, "BAJO ZARANDA": 621, "MESA": 768, "COLOR": 245}, "danosMP": {"Partidos": 0.10994685876239961, "Roidos": 0.010139584317430327, "Picados": 0.0, "Moho": 0.0, "Brotados": 0.024233349078885216, "Verdes": 0.0, "Ardidos y Chuzos": 0.0068020784128483705, "Lavados": 0.0023427019367028815, "Blanqueados": 0.0009010392064241851, "Sucios": 0.007959376476145488, "Manchados": 0.004662494095418045, "Tocados": 0.008639584317430326, "Pelados/Decorticados": 0.0818478979688238, "Total Granos Buenos": 0.7335021256495039, "Total Defectos": 0.25747496457250824, "H°": 0.12207085498346716}, "danosPTcom": {"Partidos": 0.00761014492753623, "Roidos": 0.002282608695652174, "Picados": 0.0009072463768115942, "Moho": 0.0, "Brotados": 0.002148550724637681, "Verdes": 0.0009072463768115942, "Ardidos y Chuzos": 0.008180434782608697, "Lavados": 0.005125362318840579, "Blanqueados": 0.003298550724637681, "Sucios": 0.0021420289855072464, "Manchados": 0.005103623188405797, "Tocados": 0.0107768115942029, "Pelados/Decorticados": 0.10535217391304347, "Total Granos Buenos": 0.8461652173913042, "Total Defectos": 0.15383478260869562, "H°": 0.12014202898550723}, "danos": {"MP": {"Partidos": 0.1099, "Roidos": 0.0101, "Picados": 0.0, "Moho": 0.0, "Brotados": 0.0242, "Verdes": 0.0, "Ardidos y Chuzos": 0.0068, "Lavados": 0.0023, "Blanqueados": 0.0009, "Sucios": 0.008, "Manchados": 0.0047, "Tocados": 0.0086, "Pelados/Decorticados": 0.0818}, "PY": {"Partidos": 0.005, "Roidos": 0.005, "Picados": 0.0, "Moho": 0.0, "Brotados": 0.019, "Verdes": 0.0, "Ardidos y Chuzos": 0.003, "Lavados": 0.0, "Blanqueados": 0.0, "Sucios": 0.0, "Manchados": 0.005, "Tocados": 0.008, "Pelados/Decorticados": 0.074}, "PT": {"Partidos": 0.008, "Roidos": 0.002, "Picados": 0.001, "Moho": 0.0, "Brotados": 0.002, "Verdes": 0.001, "Ardidos y Chuzos": 0.008, "Lavados": 0.005, "Blanqueados": 0.003, "Sucios": 0.002, "Manchados": 0.005, "Tocados": 0.011, "Pelados/Decorticados": 0.105}}, "merma": {"PARTIDO ESTIMADO": 5353.0, "PARTIDO REAL": 4934.0, "ARRASTRE ESTIMADO": 1184.0, "ARRASTRE REAL": 825.0}, "esc": {"real": {"9mm": 17350.0, "8mm": 15650.0, "7mm": 1500.0, "CORIANDRO": 0.0, "DESCARTES": 7486.0, "VOLATIL": 354.0, "total": 42340.0}, "py": {"9mm": 20684.0, "8mm": 12971.0, "7mm": 863.0, "CORIANDRO": 0.0, "DESCARTES": 7822.0, "VOLATIL": 0.0, "total": 42340.0}, "sim": {"9mm": 17534.0, "8mm": 15209.0, "7mm": 2382.0, "CORIANDRO": 0.0, "DESCARTES": 7215.0, "VOLATIL": 0.0, "total": 42340.0}}, "seAcerco": "Simulacion", "seAcercoBase": {"Simulacion": 11}, "mvp": {"kg": 42340.0, "calMP": 0.2575, "calPT": 0.154, "eficiencia": 0.4019417476, "mermaSol": 0.175, "mermaReal": 0.185, "difMerma": -0.01, "kgDif": -423.4, "kgVolatilTab": null}}, {"proceso": "GI-80", "planta": "Cereales Viel", "cliente": "Parra/BRC", "clientes": ["BRAUN REL. COMERCIALES", "PARRA AGROPECUARIA"], "variedades": ["NORTEÑO BRC"], "fm": ["CN25-106"], "fechaMin": "2025-11-05", "fechaMax": "2025-12-19", "inicio": "2025-12-10", "fin": "2025-12-12", "finalizado": true, "kgNoDisp": 0, "tdCal": {"8mm": 0.0971958891311118, "7mm": 0.1175, "9mm": 0.1435}, "kgCal": {"8mm": 80275, "7mm": 13025, "9mm": 6325}, "kgMP": 106480, "kgPY": 106480, "kgPT": 106480, "kgComercial": 99625, "kgDescarte": 6855, "kgVolatil": 178, "calReal": {"ME/CICLON": 124, "8mm": 80275, "7mm": 13025, "9mm": 6325, "MESA 9mm": 78, "MESA 8mm": 1680, "MESA 7mm": 339, "COLORIMETRICA": 505, "CALIBRADORA": 632, "PRELIMPIEZA": 2583, "BARRIDO": 736, "VOLATIL": 178}, "calPYbase": {"9mm": 6588, "8mm": 77134, "7mm": 17051, "DESCARTES": 5707}, "descReal": {"ME/CICLON": 124, "MESA 9mm": 78, "MESA 8mm": 1680, "MESA 7mm": 339, "COLORIMETRICA": 505, "CALIBRADORA": 632, "PRELIMPIEZA": 2583, "BARRIDO": 736, "VOLATIL": 178}, "arrastreDesc": {"ME/CICLON": 0, "MESA 9mm": 31, "MESA 8mm": 1070, "MESA 7mm": 117, "COLORIMETRICA": 312, "CALIBRADORA": 415, "PRELIMPIEZA": 65, "BARRIDO": 0, "VOLATIL": 0}, "descPY": {"ME/CICLON": 140, "PRELIMPIEZA": 879, "BAJO ZARANDA": 498, "MESA": 268, "COLOR": 297}, "danosMP": {"Partidos": 0.007889556724267468, "Roidos": 0.0, "Picados": 0.0, "Moho": 0.0007052028549962433, "Brotados": 0.0, "Verdes": 0.0028754695717505634, "Ardidos y Chuzos": 0.0025162471825694965, "Lavados": 0.0, "Blanqueados": 0.0019084335086401202, "Sucios": 0.1387950788880541, "Manchados": 0.001762678437265214, "Tocados": 0.011540664913598796, "Pelados/Decorticados": 0.01604038317054846, "Total Granos Buenos": 0.8133322689706987, "Total Defectos": 0.18403371525169046, "H°": 0.13738730277986477}, "danosPTcom": {"Partidos": 0.0013496863237139273, "Roidos": 0.0, "Picados": 0.0, "Moho": 0.0006405269761606022, "Brotados": 0.0, "Verdes": 0.005366122961104141, "Ardidos y Chuzos": 0.0050185696361355085, "Lavados": 0.0014836888331242158, "Blanqueados": 0.002217565872020075, "Sucios": 0.059577164366373905, "Manchados": 0.0031841907151819323, "Tocados": 0.011098117942283561, "Pelados/Decorticados": 0.012854579673776663, "Total Granos Buenos": 0.8972097867001254, "Total Defectos": 0.10279021329987455, "H°": 0.1337824341279799}, "danos": {"MP": {"Partidos": 0.008, "Roidos": 0.0, "Picados": 0.0, "Moho": 0.001, "Brotados": 0.0, "Verdes": 0.003, "Ardidos y Chuzos": 0.003, "Lavados": 0.0, "Blanqueados": 0.002, "Sucios": 0.139, "Manchados": 0.002, "Tocados": 0.012, "Pelados/Decorticados": 0.016}, "PY": {"Partidos": 0.001, "Roidos": 0.0, "Picados": 0.0, "Moho": 0.001, "Brotados": 0.0, "Verdes": 0.003, "Ardidos y Chuzos": 0.001, "Lavados": 0.0, "Blanqueados": 0.0, "Sucios": 0.111, "Manchados": 0.002, "Tocados": 0.01, "Pelados/Decorticados": 0.014}, "PT": {"Partidos": 0.001, "Roidos": 0.0, "Picados": 0.0, "Moho": 0.001, "Brotados": 0.0, "Verdes": 0.005, "Ardidos y Chuzos": 0.005, "Lavados": 0.001, "Blanqueados": 0.002, "Sucios": 0.06, "Manchados": 0.003, "Tocados": 0.011, "Pelados/Decorticados": 0.013}}, "merma": {"PARTIDO ESTIMADO": 924.0, "PARTIDO REAL": 1627.0, "ARRASTRE ESTIMADO": 332.0, "ARRASTRE REAL": 2009.0}, "esc": {"real": {"9mm": 6325.0, "8mm": 80275.0, "7mm": 13025.0, "CORIANDRO": 0.0, "DESCARTES": 6677.0, "VOLATIL": 178.0, "total": 106480.0}, "py": {"9mm": 3746.0, "8mm": 86195.0, "7mm": 14126.0, "CORIANDRO": 0.0, "DESCARTES": 2413.0, "VOLATIL": 0.0, "total": 106480.0}, "sim": {"9mm": 6588.0, "8mm": 77134.0, "7mm": 17051.0, "CORIANDRO": 0.0, "DESCARTES": 5707.0, "VOLATIL": 0.0, "total": 106480.0}}, "seAcerco": "Simulacion", "seAcercoBase": {"Simulacion": 29}, "mvp": {"kg": 106480.0, "calMP": 0.184, "calPT": 0.103, "eficiencia": 0.4402173913, "mermaSol": 0.04, "mermaReal": 0.064, "difMerma": -0.024, "kgDif": -2555.52, "kgVolatilTab": null}}, {"proceso": "GI-81", "planta": "Cereales Viel", "cliente": "Parra/BRC", "clientes": ["ACUÑA ÁNGEL", "BRAUN REL. COMERCIALES", "PARRA AGROPECUARIA"], "variedades": ["NORTEÑO U"], "fm": ["CN25-106"], "fechaMin": "2025-11-05", "fechaMax": "2026-02-21", "inicio": "2026-02-12", "fin": "2026-02-19", "finalizado": true, "kgNoDisp": 75040, "tdCal": {"9mm": 0.08251920558707988, "8mm": 0.104}, "kgCal": {"9mm": 57275, "8mm": 7325}, "kgMP": 75040, "kgPY": 150081, "kgPT": 75040, "kgComercial": 64600, "kgDescarte": 10440, "kgVolatil": 575, "calReal": {"ME/CICLON": 130, "9mm": 57275, "8mm": 7325, "MESA 9mm": 93, "MESA 8mm": 360, "COLORIMETRICA": 138, "PRELIMPIEZA": 8800, "VOLATIL": 575, "BARRIDO": 344}, "calPYbase": {"DESCARTES": 20812, "9mm": 114126, "8mm": 15143}, "descReal": {"ME/CICLON": 130, "MESA 9mm": 93, "MESA 8mm": 360, "COLORIMETRICA": 138, "PRELIMPIEZA": 8800, "VOLATIL": 575, "BARRIDO": 344}, "arrastreDesc": {"ME/CICLON": 0, "MESA 9mm": 54, "MESA 8mm": 123, "COLORIMETRICA": 18, "PRELIMPIEZA": 35, "VOLATIL": 0, "BARRIDO": 0}, "descPY": {"ME/CICLON": 357, "PRELIMPIEZA": 5510, "BAJO ZARANDA": 612, "MESA": 1211, "COLOR": 374}, "danosMP": {"Partidos": 0.08111433901918977, "Roidos": 0.0, "Picados": 0.0, "Moho": 0.0015103944562899786, "Brotados": 0.01117204157782516, "Verdes": 0.0037413379530916845, "Ardidos y Chuzos": 0.0014965351812366737, "Lavados": 0.0, "Blanqueados": 0.0, "Sucios": 0.004468816631130064, "Manchados": 0.002482675906183369, "Tocados": 0.009965351812366737, "Pelados/Decorticados": 0.07675866204690832, "Total Granos Buenos": 0.7977725213219617, "Total Defectos": 0.19271015458422178, "H°": 0.14799999999999996}, "danosPTcom": {"Partidos": 0.0018564241486068113, "Roidos": 0.0005706269349845201, "Picados": 0.0, "Moho": 0.0010205108359133126, "Brotados": 0.004086687306501548, "Verdes": 0.004568691950464397, "Ardidos y Chuzos": 0.0015307662538699691, "Lavados": 0.0, "Blanqueados": 0.0, "Sucios": 0.0013854489164086686, "Manchados": 0.0007370356037151702, "Tocados": 0.0059903250773993815, "Pelados/Decorticados": 0.06320839783281734, "Total Granos Buenos": 0.9150450851393188, "Total Defectos": 0.0849549148606811, "H°": 0.14476973684210526}, "danos": {"MP": {"Partidos": 0.081, "Roidos": 0.0, "Picados": 0.0, "Moho": 0.002, "Brotados": 0.011, "Verdes": 0.004, "Ardidos y Chuzos": 0.001, "Lavados": 0.0, "Blanqueados": 0.0, "Sucios": 0.004, "Manchados": 0.002, "Tocados": 0.01, "Pelados/Decorticados": 0.077}, "PY": {"Partidos": 0.012, "Roidos": 0.0, "Picados": 0.0, "Moho": 0.001, "Brotados": 0.0, "Verdes": 0.004, "Ardidos y Chuzos": 0.001, "Lavados": 0.0, "Blanqueados": 0.0, "Sucios": 0.0, "Manchados": 0.002, "Tocados": 0.009, "Pelados/Decorticados": 0.069}, "PT": {"Partidos": 0.002, "Roidos": 0.001, "Picados": 0.0, "Moho": 0.001, "Brotados": 0.004, "Verdes": 0.004, "Ardidos y Chuzos": 0.002, "Lavados": 0.0, "Blanqueados": 0.0, "Sucios": 0.001, "Manchados": 0.001, "Tocados": 0.006, "Pelados/Decorticados": 0.063}}, "merma": {"PARTIDO ESTIMADO": 6696.0, "PARTIDO REAL": 6729.0, "ARRASTRE ESTIMADO": 1491.0, "ARRASTRE REAL": 231.0}, "esc": {"real": {"9mm": 57275.0, "8mm": 7325.0, "7mm": 0.0, "CORIANDRO": 0.0, "DESCARTES": 9865.0, "VOLATIL": 575.0, "total": 75040.0}, "py": {"9mm": 60698.0, "8mm": 4786.0, "7mm": 0.0, "CORIANDRO": 0.0, "DESCARTES": 9556.0, "VOLATIL": 0.0, "total": 75040.0}, "sim": {"9mm": 53428.0, "8mm": 10356.0, "7mm": 0.0, "CORIANDRO": 0.0, "DESCARTES": 11256.0, "VOLATIL": 0.0, "total": 75040.0}}, "seAcerco": "PY", "seAcercoBase": {"Simulacion": 17}, "mvp": {"kg": 75040.0, "calMP": 0.193, "calPT": 0.085, "eficiencia": 0.5595854922, "mermaSol": 0.14, "mermaReal": 0.139, "difMerma": 0.001, "kgDif": 75.04, "kgVolatilTab": null}}, {"proceso": "GI-82", "planta": "Cereales Viel", "cliente": "Parra/BRC", "clientes": ["BRAUN REL. COMERCIALES", "PARRA AGROPECUARIA"], "variedades": ["NORTEÑO BRC"], "fm": ["CN25-106"], "fechaMin": "2025-11-05", "fechaMax": "2025-12-20", "inicio": "2025-12-06", "fin": "2025-12-10", "finalizado": true, "kgNoDisp": 0, "tdCal": {"8mm": 0.042171696454731906, "9mm": 0.142, "7mm": 0.09}, "kgCal": {"8mm": 85325, "9mm": 10600, "7mm": 6450}, "kgMP": 109600, "kgPY": 109600, "kgPT": 109600, "kgComercial": 102375, "kgDescarte": 7225, "kgVolatil": 235, "calReal": {"ME/CICLON": 89, "8mm": 85325, "9mm": 10600, "7mm": 6450, "MESA 9mm": 240, "MESA 8mm": 456, "MESA 7mm": 250, "COLORIMETRICA": 455, "PRELIMPIEZA": 5350, "BARRIDO": 150, "VOLATIL": 235}, "calPYbase": {"8mm": 75153, "9mm": 16758, "7mm": 12034, "DESCARTES": 5655}, "descReal": {"ME/CICLON": 89, "MESA 9mm": 240, "MESA 8mm": 456, "MESA 7mm": 250, "COLORIMETRICA": 455, "PRELIMPIEZA": 5350, "BARRIDO": 150, "VOLATIL": 235}, "arrastreDesc": {"ME/CICLON": 0, "MESA 9mm": 157, "MESA 8mm": 274, "MESA 7mm": 170, "COLORIMETRICA": 284, "PRELIMPIEZA": 0, "BARRIDO": 0, "VOLATIL": 0}, "descPY": {"ME/CICLON": 885, "PRELIMPIEZA": 3785, "BAJO ZARANDA": 786, "MESA": 932, "COLOR": 470}, "danosMP": {"Partidos": 0.03223120437956204, "Roidos": 0.0009224452554744525, "Picados": 0.0, "Moho": 0.00032335766423357664, "Brotados": 0.0024122262773722627, "Verdes": 0.00154014598540146, "Ardidos y Chuzos": 0.002884124087591241, "Lavados": 0.0006467153284671533, "Blanqueados": 0.0023328467153284674, "Sucios": 0.008271897810218979, "Manchados": 0.005030839416058394, "Tocados": 0.019001642335766428, "Pelados/Decorticados": 0.025865510948905105, "Total Granos Buenos": 0.8823941605839417, "Total Defectos": 0.10146295620437956, "H°": 0.14164452554744525}, "danosPTcom": {"Partidos": 0.002144078144078144, "Roidos": 0.0017042735042735043, "Picados": 0.0, "Moho": 0.0018311355311355312, "Brotados": 0.0, "Verdes": 0.006775702075702076, "Ardidos y Chuzos": 0.004357387057387057, "Lavados": 0.000465934065934066, "Blanqueados": 0.00203003663003663, "Sucios": 0.002764957264957265, "Manchados": 0.0016029304029304028, "Tocados": 0.011456166056166056, "Pelados/Decorticados": 0.020388766788766787, "Total Granos Buenos": 0.9444786324786325, "Total Defectos": 0.05552136752136752, "H°": 0.14313015873015875}, "danos": {"MP": {"Partidos": 0.032, "Roidos": 0.001, "Picados": 0.0, "Moho": 0.0, "Brotados": 0.002, "Verdes": 0.002, "Ardidos y Chuzos": 0.003, "Lavados": 0.001, "Blanqueados": 0.002, "Sucios": 0.008, "Manchados": 0.005, "Tocados": 0.019, "Pelados/Decorticados": 0.026}, "PY": {"Partidos": 0.005, "Roidos": 0.0, "Picados": 0.0, "Moho": 0.0, "Brotados": 0.0, "Verdes": 0.002, "Ardidos y Chuzos": 0.001, "Lavados": 0.0, "Blanqueados": 0.0, "Sucios": 0.0, "Manchados": 0.005, "Tocados": 0.017, "Pelados/Decorticados": 0.023}, "PT": {"Partidos": 0.002, "Roidos": 0.002, "Picados": 0.0, "Moho": 0.002, "Brotados": 0.0, "Verdes": 0.007, "Ardidos y Chuzos": 0.004, "Lavados": 0.0, "Blanqueados": 0.002, "Sucios": 0.003, "Manchados": 0.002, "Tocados": 0.011, "Pelados/Decorticados": 0.02}}, "merma": {"PARTIDO ESTIMADO": 3886.0, "PARTIDO REAL": 3204.0, "ARRASTRE ESTIMADO": 1230.0, "ARRASTRE REAL": 885.0}, "esc": {"real": {"9mm": 10600.0, "8mm": 85325.0, "7mm": 6450.0, "CORIANDRO": 0.0, "DESCARTES": 6990.0, "VOLATIL": 235.0, "total": 109600.0}, "py": {"9mm": 12047.0, "8mm": 83728.0, "7mm": 5737.0, "CORIANDRO": 0.0, "DESCARTES": 8088.0, "VOLATIL": 0.0, "total": 109600.0}, "sim": {"9mm": 16758.0, "8mm": 75153.0, "7mm": 12034.0, "CORIANDRO": 0.0, "DESCARTES": 5655.0, "VOLATIL": 0.0, "total": 109600.0}}, "seAcerco": "PY", "seAcercoBase": {"Simulacion": 25}, "mvp": {"kg": 109600.0, "calMP": 0.101, "calPT": 0.056, "eficiencia": 0.4455445545, "mermaSol": 0.065, "mermaReal": 0.066, "difMerma": -0.001, "kgDif": -109.6, "kgVolatilTab": null}}, {"proceso": "GI-83", "planta": "Cereales Viel", "cliente": "H&H", "clientes": ["H&H OUTFITTERS"], "variedades": ["NORTEÑO FISC."], "fm": ["CN25-093"], "fechaMin": "2025-11-07", "fechaMax": "2026-01-23", "inicio": "2025-12-26", "fin": "2025-12-26", "finalizado": true, "kgNoDisp": 0, "tdCal": {"7mm": 0.075, "8mm": 0.0695, "9mm": 0.1835}, "kgCal": {"7mm": 4300, "8mm": 19025, "9mm": 2625}, "kgMP": 36080, "kgPY": 36080, "kgPT": 36080, "kgComercial": 25950, "kgDescarte": 10130, "kgVolatil": 101, "calReal": {"7mm": 4300, "8mm": 19025, "9mm": 2625, "BARRIDO": 228, "CALIBRADORA": 497, "COLORIMETRICA": 136, "ME/CICLON": 415, "MESA 7mm": 841, "MESA 8mm": 2753, "MESA 9mm": 425, "PRELIMPIEZA": 4734, "VOLATIL": 101}, "calPYbase": {"DESCARTES": 8659, "7mm": 6615, "8mm": 20806}, "descReal": {"BARRIDO": 228, "CALIBRADORA": 497, "COLORIMETRICA": 136, "ME/CICLON": 415, "MESA 7mm": 841, "MESA 8mm": 2753, "MESA 9mm": 425, "PRELIMPIEZA": 4734, "VOLATIL": 101}, "arrastreDesc": {"BARRIDO": 0, "CALIBRADORA": 168, "COLORIMETRICA": 72, "ME/CICLON": 0, "MESA 7mm": 481, "MESA 8mm": 1522, "MESA 9mm": 213, "PRELIMPIEZA": 76, "VOLATIL": 0}, "descPY": {"ME/CICLON": 505, "PRELIMPIEZA": 4614, "BAJO ZARANDA": 832, "MESA": 1071, "COLOR": 306}, "danosMP": {"Partidos": 0.11650000000000002, "Roidos": 0.0055, "Picados": 0.0, "Moho": 0.0, "Brotados": 0.0015, "Verdes": 0.0015, "Ardidos y Chuzos": 0.007499999999999999, "Lavados": 0.019, "Blanqueados": 0.0015, "Sucios": 0.0, "Manchados": 0.0045, "Tocados": 0.0, "Pelados/Decorticados": 0.0815, "Total Granos Buenos": 0.733, "Total Defectos": 0.23899999999999996, "H°": 0.095}, "danosPTcom": {"Partidos": 0.004829961464354529, "Roidos": 0.0023651252408477845, "Picados": 0.0, "Moho": 0.0002528901734104046, "Brotados": 0.0, "Verdes": 0.0002485549132947977, "Ardidos y Chuzos": 0.0013959537572254335, "Lavados": 0.01342437379576108, "Blanqueados": 0.0030563583815028904, "Sucios": 0.0, "Manchados": 0.005771194605009634, "Tocados": 0.000703757225433526, "Pelados/Decorticados": 0.04989499036608864, "Total Granos Buenos": 0.9180568400770712, "Total Defectos": 0.08194315992292872, "H°": 0.11613198458574181}, "danos": {"MP": {"Partidos": 0.1165, "Roidos": 0.0055, "Picados": 0.0, "Moho": 0.0, "Brotados": 0.0015, "Verdes": 0.0015, "Ardidos y Chuzos": 0.0075, "Lavados": 0.019, "Blanqueados": 0.0015, "Sucios": 0.0, "Manchados": 0.0045, "Tocados": 0.0, "Pelados/Decorticados": 0.0815}, "PY": {"Partidos": 0.006, "Roidos": 0.0, "Picados": 0.0, "Moho": 0.0, "Brotados": 0.001, "Verdes": 0.002, "Ardidos y Chuzos": 0.003, "Lavados": 0.0, "Blanqueados": 0.0, "Sucios": 0.0, "Manchados": 0.005, "Tocados": 0.0, "Pelados/Decorticados": 0.073}, "PT": {"Partidos": 0.005, "Roidos": 0.002, "Picados": 0.0, "Moho": 0.0, "Brotados": 0.0, "Verdes": 0.0, "Ardidos y Chuzos": 0.001, "Lavados": 0.013, "Blanqueados": 0.003, "Sucios": 0.0, "Manchados": 0.006, "Tocados": 0.001, "Pelados/Decorticados": 0.05}}, "merma": {"PARTIDO ESTIMADO": 4834.0, "PARTIDO REAL": 4355.0, "ARRASTRE ESTIMADO": 1282.0, "ARRASTRE REAL": 2292.0}, "esc": {"real": {"9mm": 2625.0, "8mm": 19025.0, "7mm": 4300.0, "CORIANDRO": 0.0, "DESCARTES": 10029.0, "VOLATIL": 101.0, "total": 36080.0}, "py": {"9mm": 3792.749991096204, "8mm": 17983.690382725177, "7mm": 5693.96962617862, "CORIANDRO": 0.0, "DESCARTES": 8609.589999999998, "VOLATIL": 0.0, "total": 36080.0}, "sim": {"9mm": 2766.133333333333, "8mm": 18040.0, "7mm": 6614.666666666666, "CORIANDRO": 0.0, "DESCARTES": 8659.2, "VOLATIL": 0.0, "total": 36080.0}}, "seAcerco": "Simulacion", "seAcercoBase": {"PY": 15}, "mvp": {"kg": 36080.0, "calMP": 0.239, "calPT": 0.082, "eficiencia": 0.6569037657, "mermaSol": 0.22, "mermaReal": 0.278, "difMerma": -0.058, "kgDif": -2092.64, "kgVolatilTab": 101.0}}, {"proceso": "GI-84", "planta": "Cereales Viel", "cliente": "Parra/BRC", "clientes": ["BRAUN REL. COMERCIALES"], "variedades": ["NORTEÑO FISC"], "fm": ["CN25-106"], "fechaMin": "2025-11-06", "fechaMax": "2026-03-28", "inicio": "2026-03-26", "fin": "2026-03-27", "finalizado": true, "kgNoDisp": 0, "tdCal": {"9mm": 0.13849999999999998, "8mm": 0.1405}, "kgCal": {"9mm": 18246, "8mm": 10175}, "kgMP": 33000, "kgPY": 33000, "kgPT": 33000, "kgComercial": 28421, "kgDescarte": 4579, "kgVolatil": 464, "calReal": {"9mm": 18246, "8mm": 10175, "MESA 9mm": 404, "MESA 8mm": 135, "COLORIMETRICA": 203, "CALIBRADORA": 266, "PRELIMPIEZA": 3107, "VOLATIL": 464}, "calPYbase": {"DESCARTES": 4249, "9mm": 17863, "8mm": 10888}, "descReal": {"MESA 9mm": 404, "MESA 8mm": 135, "COLORIMETRICA": 203, "CALIBRADORA": 266, "PRELIMPIEZA": 3107, "VOLATIL": 464}, "arrastreDesc": {"MESA 9mm": 190, "MESA 8mm": 32, "COLORIMETRICA": 40, "CALIBRADORA": 98, "PRELIMPIEZA": 168, "VOLATIL": 0}, "descPY": {"ME/CICLON": 83, "PRELIMPIEZA": 2186, "BAJO ZARANDA": 259, "MESA": 645, "COLOR": 406}, "danosMP": {"Partidos": 0.0675, "Roidos": 0.0, "Picados": 0.0, "Moho": 0.0, "Brotados": 0.0085, "Verdes": 0.005, "Ardidos y Chuzos": 0.0025, "Lavados": 0.0, "Blanqueados": 0.0125, "Sucios": 0.009, "Manchados": 0.0045, "Tocados": 0.028, "Pelados/Decorticados": 0.16, "Total Granos Buenos": 0.6975, "Total Defectos": 0.2975, "H°": 0.116}, "danosPTcom": {"Partidos": 0.002716019844481194, "Roidos": 0.001962985116639105, "Picados": 0.0, "Moho": 0.0, "Brotados": 0.0019259702332782098, "Verdes": 0.01057402976672179, "Ardidos y Chuzos": 0.001969054572323282, "Lavados": 0.0003580099222405968, "Blanqueados": 0.012499999999999999, "Sucios": 0.0035309454276767176, "Manchados": 0.0012530347278420888, "Tocados": 0.01607402976672179, "Pelados/Decorticados": 0.0863519404665564, "Total Granos Buenos": 0.8607839801555189, "Total Defectos": 0.1392160198444812, "H°": 0.1210740297667218}, "danos": {"MP": {"Partidos": 0.068, "Roidos": 0.0, "Picados": 0.0, "Moho": 0.0, "Brotados": 0.009, "Verdes": 0.005, "Ardidos y Chuzos": 0.003, "Lavados": 0.0, "Blanqueados": 0.013, "Sucios": 0.009, "Manchados": 0.005, "Tocados": 0.028, "Pelados/Decorticados": 0.16}, "PY": {"Partidos": 0.003, "Roidos": 0.0, "Picados": 0.0, "Moho": 0.0, "Brotados": 0.0, "Verdes": 0.005, "Ardidos y Chuzos": 0.001, "Lavados": 0.0, "Blanqueados": 0.009, "Sucios": 0.0, "Manchados": 0.005, "Tocados": 0.025, "Pelados/Decorticados": 0.144}, "PT": {"Partidos": 0.003, "Roidos": 0.002, "Picados": 0.0, "Moho": 0.0, "Brotados": 0.002, "Verdes": 0.011, "Ardidos y Chuzos": 0.002, "Lavados": 0.0, "Blanqueados": 0.013, "Sucios": 0.004, "Manchados": 0.001, "Tocados": 0.016, "Pelados/Decorticados": 0.086}}, "merma": {"PARTIDO ESTIMADO": 2450.0, "PARTIDO REAL": 2719.0, "ARRASTRE ESTIMADO": 671.0, "ARRASTRE REAL": 528.0}, "esc": {"real": {"9mm": 18246.0, "8mm": 10175.0, "7mm": 0.0, "CORIANDRO": 0.0, "DESCARTES": 4115.0, "VOLATIL": 464.0, "total": 33000.0}, "py": {"9mm": 17863.0, "8mm": 10888.0, "7mm": 0.0, "CORIANDRO": 0.0, "DESCARTES": 4249.0, "VOLATIL": 0.0, "total": 33000.0}, "sim": {"9mm": 15499.0, "8mm": 12452.0, "7mm": 0.0, "CORIANDRO": 0.0, "DESCARTES": 5049.0, "VOLATIL": 0.0, "total": 33000.0}}, "seAcerco": "PY", "seAcercoBase": {"Simulacion": 9}, "mvp": {"kg": 33000.0, "calMP": 0.298, "calPT": 0.139, "eficiencia": 0.533557047, "mermaSol": 0.13, "mermaReal": 0.1465, "difMerma": -0.0165, "kgDif": -544.5, "kgVolatilTab": null}}, {"proceso": "GI-85", "planta": "Cereales Viel", "cliente": "Parra/BRC", "clientes": ["BRAUN REL. COMERCIALES", "PARRA AGROPECUARIA"], "variedades": ["NORTEÑO BRC"], "fm": ["CN25-106"], "fechaMin": "2025-11-06", "fechaMax": "2025-12-23", "inicio": "2025-12-15", "fin": "2025-12-16", "finalizado": true, "kgNoDisp": 0, "tdCal": {"8mm": 0.06834768211920529, "7mm": 0.06797260273972602}, "kgCal": {"8mm": 56625, "7mm": 3650}, "kgMP": 68000, "kgPY": 68000, "kgPT": 68000, "kgComercial": 60275, "kgDescarte": 7725, "kgVolatil": 521, "calReal": {"ME/CICLON": 98, "8mm": 56625, "7mm": 3650, "MESA 8mm": 1769, "MESA 7mm": 165, "COLORIMETRICA": 533, "CALIBRADORA": 447, "PRELIMPIEZA": 4088, "BARRIDO": 104, "VOLATIL": 521}, "calPYbase": {"DESCARTES": 6528, "7mm": 8432, "8mm": 53040}, "descReal": {"ME/CICLON": 98, "MESA 8mm": 1769, "MESA 7mm": 165, "COLORIMETRICA": 533, "CALIBRADORA": 447, "PRELIMPIEZA": 4088, "BARRIDO": 104, "VOLATIL": 521}, "arrastreDesc": {"ME/CICLON": 0, "MESA 8mm": 968, "MESA 7mm": 87, "COLORIMETRICA": 227, "CALIBRADORA": 190, "PRELIMPIEZA": 8, "BARRIDO": 0, "VOLATIL": 0}, "descPY": {"ME/CICLON": 1012, "PRELIMPIEZA": 3343, "BAJO ZARANDA": 555, "MESA": 499, "COLOR": 278}, "danosMP": {"Partidos": 0.04262117647058823, "Roidos": 0.002175882352941177, "Picados": 0.0, "Moho": 0.0019341176470588236, "Brotados": 0.0, "Verdes": 0.008851764705882352, "Ardidos y Chuzos": 0.004532941176470588, "Lavados": 0.0, "Blanqueados": 0.0, "Sucios": 0.013340588235294118, "Manchados": 0.0012088235294117648, "Tocados": 0.022483529411764704, "Pelados/Decorticados": 0.03286823529411765, "Total Granos Buenos": 0.840224705882353, "Total Defectos": 0.1300170588235294, "H°": 0.1294835294117647}, "danosPTcom": {"Partidos": 0.001252384902530071, "Roidos": 0.0010825383658233099, "Picados": 0.0, "Moho": 0.0008119037743674825, "Brotados": 0.0, "Verdes": 0.011705931148900872, "Ardidos y Chuzos": 0.0038558689340522606, "Lavados": 0.0008119037743674825, "Blanqueados": 0.0028027789299046035, "Sucios": 0.005489838241393612, "Manchados": 0.0019072998755703032, "Tocados": 0.024913728743260057, "Pelados/Decorticados": 0.013690792202405643, "Total Granos Buenos": 0.9316750311074243, "Total Defectos": 0.06832496889257568, "H°": 0.13016880962256328}, "danos": {"MP": {"Partidos": 0.043, "Roidos": 0.002, "Picados": 0.0, "Moho": 0.002, "Brotados": 0.0, "Verdes": 0.009, "Ardidos y Chuzos": 0.005, "Lavados": 0.0, "Blanqueados": 0.0, "Sucios": 0.013, "Manchados": 0.001, "Tocados": 0.022, "Pelados/Decorticados": 0.033}, "PY": {"Partidos": 0.006, "Roidos": 0.0, "Picados": 0.0, "Moho": 0.002, "Brotados": 0.0, "Verdes": 0.009, "Ardidos y Chuzos": 0.002, "Lavados": 0.0, "Blanqueados": 0.0, "Sucios": 0.007, "Manchados": 0.001, "Tocados": 0.02, "Pelados/Decorticados": 0.03}, "PT": {"Partidos": 0.002, "Roidos": 0.001, "Picados": 0.0, "Moho": 0.001, "Brotados": 0.0, "Verdes": 0.012, "Ardidos y Chuzos": 0.004, "Lavados": 0.001, "Blanqueados": 0.003, "Sucios": 0.005, "Manchados": 0.002, "Tocados": 0.025, "Pelados/Decorticados": 0.014}}, "merma": {"PARTIDO ESTIMADO": 3188.0, "PARTIDO REAL": 3082.0, "ARRASTRE ESTIMADO": 1042.0, "ARRASTRE REAL": 1480.0}, "esc": {"real": {"9mm": 0.0, "8mm": 56625.0, "7mm": 3650.0, "CORIANDRO": 0.0, "DESCARTES": 7204.0, "VOLATIL": 521.0, "total": 68000.0}, "py": {"9mm": 0.0, "8mm": 56824.0, "7mm": 4447.0, "CORIANDRO": 0.0, "DESCARTES": 6729.0, "VOLATIL": 0.0, "total": 68000.0}, "sim": {"9mm": 0.0, "8mm": 53040.0, "7mm": 8432.0, "CORIANDRO": 0.0, "DESCARTES": 6528.0, "VOLATIL": 0.0, "total": 68000.0}}, "seAcerco": "PY", "seAcercoBase": {"Simulacion": 27}, "mvp": {"kg": 68000.0, "calMP": 0.13, "calPT": 0.069, "eficiencia": 0.4692307692, "mermaSol": 0.09, "mermaReal": 0.114, "difMerma": -0.024, "kgDif": -1632.0, "kgVolatilTab": null}}, {"proceso": "GI-86", "planta": "Cereales Viel", "cliente": "Acuña/BRC", "clientes": ["ACUÑA ÁNGEL", "BRAUN REL. COMERCIALES"], "variedades": ["NORTEÑO U"], "fm": ["CN25-108"], "fechaMin": "2025-11-07", "fechaMax": "2026-04-21", "inicio": "2026-03-27", "fin": "2026-04-12", "finalizado": true, "kgNoDisp": 137360, "tdCal": {"9mm": 0.07552752293577981, "8mm": 0.062}, "kgCal": {"9mm": 109000, "8mm": 20346}, "kgMP": 137360, "kgPY": 137360, "kgPT": 137360, "kgComercial": 129346, "kgDescarte": 8014, "kgVolatil": 595, "calReal": {"9mm": 109000, "8mm": 20346, "MESA 9mm": 717, "MESA 8mm": 207, "COLORIMETRICA": 741, "PRELIMPIEZA": 4970, "VOLATIL": 595, "ME/CICLON": 243, "BARRIDO": 541}, "calPYbase": {"DESCARTES": 5714, "9mm": 104375, "8mm": 27271}, "descReal": {"MESA 9mm": 717, "MESA 8mm": 207, "COLORIMETRICA": 741, "PRELIMPIEZA": 4970, "VOLATIL": 595, "ME/CICLON": 243, "BARRIDO": 541}, "arrastreDesc": {"MESA 9mm": 387, "MESA 8mm": 131, "COLORIMETRICA": 124, "PRELIMPIEZA": 89, "VOLATIL": 0, "ME/CICLON": 0, "BARRIDO": 0}, "descPY": {"ME/CICLON": 421, "PRELIMPIEZA": 3758, "BAJO ZARANDA": 642, "MESA": 2174, "COLOR": 521}, "danosMP": {"Partidos": 0.02790171811298777, "Roidos": 0.0007639778683750728, "Picados": 0.0, "Moho": 0.0019716074548631335, "Brotados": 0.010750400407687826, "Verdes": 0.0036161546301688996, "Ardidos y Chuzos": 0.0058483546884100165, "Lavados": 0.0, "Blanqueados": 0.0005381479324403029, "Sucios": 0.022311043972044264, "Manchados": 0.01819805620267909, "Tocados": 0.0070116118229470005, "Pelados/Decorticados": 0.05354499126383226, "Total Granos Buenos": 0.8414150407687828, "Total Defectos": 0.15245606435643566, "H°": 0.1491139341875364}, "danosPTcom": {"Partidos": 0.0030321154113772363, "Roidos": 0.0002203392451254774, "Picados": 0.0037936387673372196, "Moho": 0.0, "Brotados": 0.0015771651230034173, "Verdes": 0.002846713466206918, "Ardidos y Chuzos": 0.0028313824934671343, "Lavados": 0.000943794164489045, "Blanqueados": 0.0004406784902509548, "Sucios": 0.009183770661636231, "Manchados": 0.012230157871136332, "Tocados": 0.0009277441900020101, "Pelados/Decorticados": 0.035372156850617724, "Total Granos Buenos": 0.9266003432653502, "Total Defectos": 0.0733996567346497, "H°": 0.1404052850494024}, "danos": {"MP": {"Partidos": 0.028, "Roidos": 0.001, "Picados": 0.0, "Moho": 0.002, "Brotados": 0.011, "Verdes": 0.004, "Ardidos y Chuzos": 0.006, "Lavados": 0.0, "Blanqueados": 0.001, "Sucios": 0.022, "Manchados": 0.018, "Tocados": 0.007, "Pelados/Decorticados": 0.054}, "PY": {"Partidos": 0.004, "Roidos": 0.0, "Picados": 0.0, "Moho": 0.002, "Brotados": 0.0, "Verdes": 0.004, "Ardidos y Chuzos": 0.002, "Lavados": 0.0, "Blanqueados": 0.0, "Sucios": 0.018, "Manchados": 0.018, "Tocados": 0.006, "Pelados/Decorticados": 0.048}, "PT": {"Partidos": 0.003, "Roidos": 0.0, "Picados": 0.004, "Moho": 0.0, "Brotados": 0.001, "Verdes": 0.003, "Ardidos y Chuzos": 0.001, "Lavados": 0.0, "Blanqueados": 0.0, "Sucios": 0.01, "Manchados": 0.013, "Tocados": 0.001, "Pelados/Decorticados": 0.036}}, "merma": {"PARTIDO ESTIMADO": 4216.0, "PARTIDO REAL": 3697.0, "ARRASTRE ESTIMADO": 2129.0, "ARRASTRE REAL": 344.0}, "esc": {"real": {"9mm": 109000.0, "8mm": 20346.0, "7mm": 0.0, "CORIANDRO": 0.0, "DESCARTES": 7419.0, "VOLATIL": 595.0, "total": 137360.0}, "py": {"9mm": 112325.2541044537, "8mm": 16099.0, "7mm": 0.0, "CORIANDRO": 0.0, "DESCARTES": 8935.292199999998, "VOLATIL": 0.0, "total": 137359.5463}, "sim": {"9mm": 104375.28533333333, "8mm": 27271.0, "7mm": 0.0, "CORIANDRO": 0.0, "DESCARTES": 5714.176, "VOLATIL": 0.0, "total": 137360.4613}}, "seAcerco": "PY", "seAcercoBase": {"Simulacion": 12}, "mvp": {"kg": 137360.0, "calMP": 0.152, "calPT": 0.073, "eficiencia": 0.5197368421, "mermaSol": 0.06, "mermaReal": 0.0583, "difMerma": 0.0017, "kgDif": 233.512, "kgVolatilTab": null}}, {"proceso": "GI-87", "planta": "Cereales Viel", "cliente": "Acuña/BRC", "clientes": ["ACUÑA ÁNGEL", "BRAUN REL. COMERCIALES"], "variedades": ["NORTEÑO U"], "fm": ["CN25-108"], "fechaMin": "2025-11-07", "fechaMax": "2025-12-16", "inicio": "2025-12-12", "fin": "2025-12-15", "finalizado": true, "kgNoDisp": 92700, "tdCal": {"9mm": 0.12576072926750564, "8mm": 0.084}, "kgCal": {"9mm": 77475, "8mm": 9150}, "kgMP": 92700, "kgPY": 92700, "kgPT": 92700, "kgComercial": 86625, "kgDescarte": 6075, "kgVolatil": 519, "calReal": {"9mm": 77475, "8mm": 9150, "MESA 9mm": 607, "MESA 8mm": 765, "COLORIMETRICA": 913, "PRELIMPIEZA": 2649, "CALIBRADORA": 138, "BARRIDO": 484, "VOLATIL": 519}, "calPYbase": {"DESCARTES": 8584, "9mm": 70081, "8mm": 14035}, "descReal": {"MESA 9mm": 607, "MESA 8mm": 765, "COLORIMETRICA": 913, "PRELIMPIEZA": 2649, "CALIBRADORA": 138, "BARRIDO": 484, "VOLATIL": 519}, "arrastreDesc": {"MESA 9mm": 405, "MESA 8mm": 150, "COLORIMETRICA": 303, "PRELIMPIEZA": 11, "CALIBRADORA": 37, "BARRIDO": 0, "VOLATIL": 0}, "descPY": {"ME/CICLON": 124, "PRELIMPIEZA": 2117, "BAJO ZARANDA": 445, "MESA": 1892, "COLOR": 305}, "danosMP": {"Partidos": 0.023678101402373246, "Roidos": 0.0, "Picados": 0.0, "Moho": 0.0026554476806903995, "Brotados": 0.016787270765911542, "Verdes": 0.002336245954692557, "Ardidos y Chuzos": 0.00848554476806904, "Lavados": 0.0, "Blanqueados": 0.0, "Sucios": 0.06321715210355987, "Manchados": 0.020544120819848972, "Tocados": 0.006833549083063647, "Pelados/Decorticados": 0.04683430420711974, "Total Granos Buenos": 0.8059604099244876, "Total Defectos": 0.191371736785329, "H°": 0.14896245954692558}, "danosPTcom": {"Partidos": 0.0021887445887445885, "Roidos": 0.0, "Picados": 0.0, "Moho": 0.00021125541125541127, "Brotados": 0.0, "Verdes": 0.003632900432900432, "Ardidos y Chuzos": 0.008586868686868688, "Lavados": 0.0019516594516594517, "Blanqueados": 0.0036930735930735935, "Sucios": 0.03526738816738817, "Manchados": 0.01029134199134199, "Tocados": 0.008234776334776334, "Pelados/Decorticados": 0.04729163059163059, "Total Granos Buenos": 0.8786503607503607, "Total Defectos": 0.12134963924963925, "H°": 0.13750014430014432}, "danos": {"MP": {"Partidos": 0.024, "Roidos": 0.0, "Picados": 0.0, "Moho": 0.003, "Brotados": 0.017, "Verdes": 0.002, "Ardidos y Chuzos": 0.008, "Lavados": 0.0, "Blanqueados": 0.0, "Sucios": 0.063, "Manchados": 0.021, "Tocados": 0.007, "Pelados/Decorticados": 0.047}, "PY": {"Partidos": 0.004, "Roidos": 0.0, "Picados": 0.0, "Moho": 0.002, "Brotados": 0.0, "Verdes": 0.002, "Ardidos y Chuzos": 0.003, "Lavados": 0.0, "Blanqueados": 0.0, "Sucios": 0.051, "Manchados": 0.021, "Tocados": 0.006, "Pelados/Decorticados": 0.042}, "PT": {"Partidos": 0.002, "Roidos": 0.0, "Picados": 0.0, "Moho": 0.0, "Brotados": 0.0, "Verdes": 0.004, "Ardidos y Chuzos": 0.009, "Lavados": 0.002, "Blanqueados": 0.004, "Sucios": 0.035, "Manchados": 0.01, "Tocados": 0.008, "Pelados/Decorticados": 0.047}}, "merma": {"PARTIDO ESTIMADO": 2414.0, "PARTIDO REAL": 2394.0, "ARRASTRE ESTIMADO": 933.0, "ARRASTRE REAL": 906.0}, "esc": {"real": {"9mm": 77475.0, "8mm": 9150.0, "7mm": 0.0, "CORIANDRO": 0.0, "DESCARTES": 5556.0, "VOLATIL": 519.0, "total": 92700.0}, "py": {"9mm": 76936.0, "8mm": 9949.0, "7mm": 0.0, "CORIANDRO": 0.0, "DESCARTES": 5815.0, "VOLATIL": 0.0, "total": 92700.0}, "sim": {"9mm": 70081.0, "8mm": 14035.0, "7mm": 0.0, "CORIANDRO": 0.0, "DESCARTES": 8584.0, "VOLATIL": 0.0, "total": 92700.0}}, "seAcerco": "PY", "seAcercoBase": {"Simulacion": 13}, "mvp": {"kg": 92700.0, "calMP": 0.191, "calPT": 0.121, "eficiencia": 0.3664921466, "mermaSol": 0.075, "mermaReal": 0.066, "difMerma": 0.009, "kgDif": 834.3, "kgVolatilTab": null}}, {"proceso": "GI-88", "planta": "Cereales Viel", "cliente": "Parra/BRC", "clientes": ["BRAUN REL. COMERCIALES", "PARRA AGROPECUARIA"], "variedades": ["NORTEÑO BRC"], "fm": ["CN25-106"], "fechaMin": "2025-11-11", "fechaMax": "2025-12-12", "inicio": "2025-12-04", "fin": "2025-12-05", "finalizado": true, "kgNoDisp": 0, "tdCal": {"7mm": 0.0705, "8mm": 0.106}, "kgCal": {"7mm": 4525, "8mm": 19950}, "kgMP": 27060, "kgPY": 27060, "kgPT": 27060, "kgComercial": 24475, "kgDescarte": 2585, "kgVolatil": 332, "calReal": {"7mm": 4525, "8mm": 19950, "MESA 8mm": 441, "MESA 7mm": 210, "COLORIMETRICA": 345, "CALIBRADORA": 246, "PRELIMPIEZA": 849, "VOLATIL": 332, "BARRIDO": 161}, "calPYbase": {"DESCARTES": 2224, "8mm": 21172, "7mm": 3664}, "descReal": {"MESA 8mm": 441, "MESA 7mm": 210, "COLORIMETRICA": 345, "CALIBRADORA": 246, "PRELIMPIEZA": 849, "VOLATIL": 332, "BARRIDO": 161}, "arrastreDesc": {"MESA 8mm": 277, "MESA 7mm": 112, "COLORIMETRICA": 219, "CALIBRADORA": 91, "PRELIMPIEZA": 8, "VOLATIL": 0, "BARRIDO": 0}, "descPY": {"ME/CICLON": 79, "PRELIMPIEZA": 538, "BAJO ZARANDA": 167, "MESA": 203, "COLOR": 137}, "danosMP": {"Partidos": 0.019609016999260903, "Roidos": 0.00029157427937915746, "Picados": 0.0, "Moho": 0.00040280857354028086, "Brotados": 0.0010691056910569106, "Verdes": 0.0016112342941611234, "Ardidos y Chuzos": 0.004305617147080562, "Lavados": 0.0, "Blanqueados": 0.006791574279379157, "Sucios": 0.17065151515151514, "Manchados": 0.0008747228381374722, "Tocados": 0.013430894308943089, "Pelados/Decorticados": 0.019429785661492976, "Total Granos Buenos": 0.7556714708056171, "Total Defectos": 0.23846784922394682, "H°": 0.1368617886178862}, "danosPTcom": {"Partidos": 0.0, "Roidos": 0.0, "Picados": 0.0, "Moho": 0.0, "Brotados": 0.0, "Verdes": 0.00018488253319713996, "Ardidos y Chuzos": 0.0004622063329928499, "Lavados": 0.0, "Blanqueados": 0.0, "Sucios": 0.07297446373850867, "Manchados": 0.0012773237997957098, "Tocados": 0.00996220633299285, "Pelados/Decorticados": 0.014575587334014302, "Total Granos Buenos": 0.9005633299284984, "Total Defectos": 0.09943667007150152, "H°": 0.13481511746680286}, "danos": {"MP": {"Partidos": 0.02, "Roidos": 0.0, "Picados": 0.0, "Moho": 0.0, "Brotados": 0.001, "Verdes": 0.002, "Ardidos y Chuzos": 0.004, "Lavados": 0.0, "Blanqueados": 0.007, "Sucios": 0.171, "Manchados": 0.001, "Tocados": 0.013, "Pelados/Decorticados": 0.019}, "PY": {"Partidos": 0.003, "Roidos": 0.0, "Picados": 0.0, "Moho": 0.0, "Brotados": 0.0, "Verdes": 0.002, "Ardidos y Chuzos": 0.002, "Lavados": 0.0, "Blanqueados": 0.0, "Sucios": 0.137, "Manchados": 0.001, "Tocados": 0.012, "Pelados/Decorticados": 0.017}, "PT": {"Partidos": 0.0, "Roidos": 0.0, "Picados": 0.0, "Moho": 0.0, "Brotados": 0.0, "Verdes": 0.0, "Ardidos y Chuzos": 0.0, "Lavados": 0.0, "Blanqueados": 0.0, "Sucios": 0.073, "Manchados": 0.001, "Tocados": 0.01, "Pelados/Decorticados": 0.015}}, "merma": {"PARTIDO ESTIMADO": 584.0, "PARTIDO REAL": 598.0, "ARRASTRE ESTIMADO": 198.0, "ARRASTRE REAL": 499.0}, "esc": {"real": {"9mm": 0.0, "8mm": 19950.0, "7mm": 4525.0, "CORIANDRO": 0.0, "DESCARTES": 2253.0, "VOLATIL": 332.0, "total": 26728.0}, "py": {"9mm": 0.0, "8mm": 22014.0, "7mm": 3723.0, "CORIANDRO": 0.0, "DESCARTES": 1323.0, "VOLATIL": 0.0, "total": 27060.0}, "sim": {"9mm": 0.0, "8mm": 21172.0, "7mm": 3664.0, "CORIANDRO": 0.0, "DESCARTES": 2224.0, "VOLATIL": 0.0, "total": 27060.0}}, "seAcerco": "Simulacion", "seAcercoBase": {"Simulacion": 16}, "mvp": {"kg": 27060.0, "calMP": 0.238, "calPT": 0.099, "eficiencia": 0.5840336134, "mermaSol": 0.065, "mermaReal": 0.096, "difMerma": -0.031, "kgDif": -838.86, "kgVolatilTab": null}}, {"proceso": "GI-97", "planta": "Cereales Viel", "cliente": "BRC", "clientes": ["BRAUN REL. COMERCIALES"], "variedades": ["NORTEÑO"], "fm": ["CN26-022"], "fechaMin": "2026-01-29", "fechaMax": "2026-03-02", "inicio": "2026-02-27", "fin": "2026-03-02", "finalizado": true, "kgNoDisp": 14479, "tdCal": {"8mm": 0.214, "7mm": 0.187}, "kgCal": {"8mm": 6980, "7mm": 2301}, "kgMP": 14480, "kgPY": 14479, "kgPT": 14480, "kgComercial": 9281, "kgDescarte": 5199, "kgVolatil": 9, "calReal": {"BARRIDO": 133, "ME/CICLON": 73, "VOLATIL": 9, "8mm": 6980, "7mm": 2301, "MESA 8mm": 462, "MESA 7mm": 220, "COLORIMETRICA": 52, "PRELIMPIEZA": 4250}, "calPYbase": {"7mm": 2618, "DESCARTES": 5399, "8mm": 6462}, "descReal": {"BARRIDO": 133, "ME/CICLON": 73, "VOLATIL": 9, "MESA 8mm": 462, "MESA 7mm": 220, "COLORIMETRICA": 52, "PRELIMPIEZA": 4250}, "arrastreDesc": {"BARRIDO": 0, "ME/CICLON": 0, "VOLATIL": 0, "MESA 8mm": 74, "MESA 7mm": 30, "COLORIMETRICA": 12, "PRELIMPIEZA": 42}, "descPY": {"ME/CICLON": 496, "PRELIMPIEZA": 2702, "BAJO ZARANDA": 409, "MESA": 489, "COLOR": 225}, "danosMP": {"Partidos": 0.1355, "Roidos": 0.0375, "Picados": 0.0, "Moho": 0.0, "Brotados": 0.0, "Verdes": 0.0014999999999999998, "Ardidos y Chuzos": 0.011, "Lavados": 0.007, "Blanqueados": 0.004, "Sucios": 0.0175, "Manchados": 0.0205, "Tocados": 0.0635, "Pelados/Decorticados": 0.067, "Total Granos Buenos": 0.5665, "Total Defectos": 0.365, "H°": 0.082}, "danosPTcom": {"Partidos": 0.012140555974571705, "Roidos": 0.020995851740114212, "Picados": 0.0, "Moho": 0.005871888805085659, "Brotados": 0.0, "Verdes": 0.0018760370649714472, "Ardidos y Chuzos": 0.00437188880508566, "Lavados": 0.014132259454800128, "Blanqueados": 0.004479258700571059, "Sucios": 0.004871888805085658, "Manchados": 0.017975110440685272, "Tocados": 0.05462811119491434, "Pelados/Decorticados": 0.06596315052257301, "Total Granos Buenos": 0.7926939984915419, "Total Defectos": 0.20730600150845815, "H°": 0.09624792587005711}, "danos": {"MP": {"Partidos": 0.136, "Roidos": 0.038, "Picados": 0.0, "Moho": 0.0, "Brotados": 0.0, "Verdes": 0.002, "Ardidos y Chuzos": 0.011, "Lavados": 0.007, "Blanqueados": 0.004, "Sucios": 0.018, "Manchados": 0.021, "Tocados": 0.064, "Pelados/Decorticados": 0.067}, "PY": {"Partidos": 0.007, "Roidos": 0.019, "Picados": 0.0, "Moho": 0.0, "Brotados": 0.0, "Verdes": 0.002, "Ardidos y Chuzos": 0.009, "Lavados": 0.006, "Blanqueados": 0.003, "Sucios": 0.016, "Manchados": 0.018, "Tocados": 0.057, "Pelados/Decorticados": 0.054}, "PT": {"Partidos": 0.012, "Roidos": 0.021, "Picados": 0.0, "Moho": 0.006, "Brotados": 0.0, "Verdes": 0.002, "Ardidos y Chuzos": 0.004, "Lavados": 0.014, "Blanqueados": 0.004, "Sucios": 0.005, "Manchados": 0.018, "Tocados": 0.055, "Pelados/Decorticados": 0.066}}, "merma": {"PARTIDO ESTIMADO": 2551.0, "PARTIDO REAL": 3491.0, "ARRASTRE ESTIMADO": 1078.0, "ARRASTRE REAL": 158.0}, "esc": {"real": {"9mm": 0.0, "8mm": 6980.0, "7mm": 2301.0, "CORIANDRO": 0.0, "DESCARTES": 5190.0, "VOLATIL": 9.0, "total": 14480.0}, "py": {"9mm": 0.0, "8mm": 6463.0, "7mm": 2618.0, "CORIANDRO": 0.0, "DESCARTES": 5399.0, "VOLATIL": 0.0, "total": 14480.0}, "sim": {"9mm": 0.0, "8mm": 0.0, "7mm": 0.0, "CORIANDRO": 0.0, "DESCARTES": 0.0, "VOLATIL": 0.0, "total": 0.0}}, "seAcerco": "PY", "seAcercoBase": {"PY": 9}, "mvp": {"kg": 14480.0, "calMP": 0.365, "calPT": 0.207, "eficiencia": 0.4328767123, "mermaSol": 0.3, "mermaReal": 0.359, "difMerma": -0.059, "kgDif": -854.32, "kgVolatilTab": null}}]};
+const META = RAW.meta, PROCS = RAW.procesos;
+const DANOS = META.danoCols;
+const COM = ['9mm','8mm','7mm','BZ/CORIANDRO','BZ','CORIANDRO','10mm'];
+const CALORD = ['9mm','8mm','7mm','CORIANDRO','DESCARTES'];
+
+/* ---------- formato ---------- */
+const nf0 = new Intl.NumberFormat('es-AR',{maximumFractionDigits:0});
+const nf1 = new Intl.NumberFormat('es-AR',{minimumFractionDigits:1,maximumFractionDigits:1});
+const nf2 = new Intl.NumberFormat('es-AR',{minimumFractionDigits:2,maximumFractionDigits:2});
+const KG  = v => nf0.format(Math.round(v||0));
+const KGU = v => KG(v)+' kg';
+const PC  = (v,d) => (d===2?nf2:nf1).format((v||0)*100)+' %';
+const PP  = v => (v>0?'+':v<0?'−':'') + nf1.format(Math.abs((v||0)*100)) + ' pp';
+const SKG = v => (v>0?'+':v<0?'−':'') + KG(Math.abs(v||0)) + ' kg';
+const esc = s => String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+
+/* ---------- estado ---------- */
+const ST = {planta:'*', proceso:'*', calibre:'*', fix:true};
+
+function subset(){
+  return PROCS.filter(r =>
+    (ST.planta==='*' || r.planta===ST.planta) &&
+    (ST.proceso==='*' || r.proceso===ST.proceso));
+}
+const pyFactor = r => (ST.fix && r.proceso==='GI-81') ? 0.5 : 1;
+
+/* ---------- agregacion ---------- */
+function addInto(dst, src, f){ for(const k in (src||{})) dst[k]=(dst[k]||0)+src[k]*(f===undefined?1:f); }
+const td = o => DANOS.reduce((s,d)=>s+((o&&o[d])||0),0);
+
+function agg(rows){
+  const A = {n:rows.length, nFin:0, kgMP:0, kgPY:0, kgPT:0, kgCom:0, kgDesc:0, kgVol:0, kgNoDisp:0,
+    calReal:{}, calPYbase:{}, descReal:{}, arrastre:{}, descPY:{},
+    escReal:{}, escPY:{}, escSim:{},
+    danKg:0, dan:{MP:{},PY:{},PT:{}},
+    merma:{}, mermaKgMP:0,
+    tdCalKg:{}, tdCalW:{},
+    fm:new Set(), variedades:new Set(), clientes:new Set(),
+    seAcercoKg:{PY:0,Simulacion:0}, seAcercoN:{PY:0,Simulacion:0},
+    devPY:0, devSim:0, devKg:0,
+    fMin:null, fMax:null, rows:rows};
+  for(const r of rows){
+    const f = pyFactor(r);
+    A.nFin += r.finalizado?1:0;
+    A.kgMP+=r.kgMP; A.kgPY+=r.kgPY*f; A.kgPT+=r.kgPT;
+    A.kgCom+=r.kgComercial; A.kgDesc+=r.kgDescarte; A.kgVol+=r.kgVolatil; A.kgNoDisp+=r.kgNoDisp;
+    addInto(A.calReal,r.calReal); addInto(A.calPYbase,r.calPYbase,f);
+    addInto(A.descReal,r.descReal); addInto(A.arrastre,r.arrastreDesc); addInto(A.descPY,r.descPY);
+    addInto(A.escReal,r.esc.real); addInto(A.escPY,r.esc.py); addInto(A.escSim,r.esc.sim);
+    addInto(A.tdCalKg,r.kgCal);
+    for(const c in (r.tdCal||{})) A.tdCalW[c]=(A.tdCalW[c]||0)+r.tdCal[c]*(r.kgCal[c]||0);
+    // danos ponderados por kg de MP del proceso
+    if(r.danos && r.danos.MP){
+      A.danKg += r.kgMP;
+      for(const t of ['MP','PY','PT']) addInto(A.dan[t], r.danos[t], r.kgMP);
+    }
+    for(const k in (r.merma||{})) A.merma[k]=(A.merma[k]||0)+r.merma[k];
+    A.mermaKgMP += (r.kgMP_merma||0);
+    (r.fm||[]).forEach(x=>A.fm.add(x));
+    (r.variedades||[]).forEach(x=>A.variedades.add(x));
+    (r.clientes||[]).forEach(x=>A.clientes.add(x));
+    if(r.seAcerco==='PY'||r.seAcerco==='Simulacion'){
+      A.seAcercoKg[r.seAcerco]+= (r.esc.real?r.esc.real.total:0)||0;
+      A.seAcercoN[r.seAcerco]++;
+    }
+    // desvio absoluto por calibre de cada escenario contra el real
+    if(r.esc.real && r.esc.py && r.esc.sim){
+      for(const c of CALORD){
+        A.devPY  += Math.abs((r.esc.py[c]||0)-(r.esc.real[c]||0));
+        A.devSim += Math.abs((r.esc.sim[c]||0)-(r.esc.real[c]||0));
+      }
+      A.devKg += r.esc.real.total||0;
+    }
+    if(r.fechaMin && (!A.fMin||r.fechaMin<A.fMin)) A.fMin=r.fechaMin;
+    if(r.fechaMax && (!A.fMax||r.fechaMax>A.fMax)) A.fMax=r.fechaMax;
+  }
+  A.tdMP = A.danKg ? td(A.dan.MP)/A.danKg : 0;
+  A.tdPY = A.danKg ? td(A.dan.PY)/A.danKg : 0;
+  A.tdPT = A.danKg ? td(A.dan.PT)/A.danKg : 0;
+  A.efic = A.tdMP ? (A.tdMP-A.tdPT)/A.tdMP : 0;
+  A.danMPp = {}; A.danPYp = {}; A.danPTp = {};
+  for(const d of DANOS){
+    A.danMPp[d]=A.danKg?(A.dan.MP[d]||0)/A.danKg:0;
+    A.danPYp[d]=A.danKg?(A.dan.PY[d]||0)/A.danKg:0;
+    A.danPTp[d]=A.danKg?(A.dan.PT[d]||0)/A.danKg:0;
+  }
+  A.tdCal = {};
+  for(const c in A.tdCalKg) if(A.tdCalKg[c]) A.tdCal[c]=A.tdCalW[c]/A.tdCalKg[c];
+  A.rend = A.kgMP ? A.kgCom/A.kgMP : 0;
+  A.descPc = A.kgMP ? A.kgDesc/A.kgMP : 0;
+  A.volPc = A.kgMP ? A.kgVol/A.kgMP : 0;
+  return A;
+}
+
+/* ---------- primitivas svg ---------- */
+function niceTicks(max, n){
+  n = n||4;
+  if(!(max>0)) return [0,1];
+  const raw = max/n, mag = Math.pow(10,Math.floor(Math.log10(raw))), nm = raw/mag;
+  const step = (nm<=1?1:nm<=2?2:nm<=2.5?2.5:nm<=5?5:10)*mag;
+  const top = Math.ceil(max/step)*step, t=[];
+  for(let v=0; v<=top+step*1e-9; v+=step) t.push(+v.toFixed(10));
+  return t;
+}
+function colPath(x,yTop,w,h,r){
+  r=Math.max(0,Math.min(r,w/2,h));
+  if(h<=0) return '';
+  return `M${x},${yTop+h}L${x},${yTop+r}Q${x},${yTop} ${x+r},${yTop}L${x+w-r},${yTop}Q${x+w},${yTop} ${x+w},${yTop+r}L${x+w},${yTop+h}Z`;
+}
+function rowPath(x,y,w,h,r){
+  r=Math.max(0,Math.min(r,h/2,w));
+  if(w<=0) return '';
+  return `M${x},${y}L${x+w-r},${y}Q${x+w},${y} ${x+w},${y+r}L${x+w},${y+h-r}Q${x+w},${y+h} ${x+w-r},${y+h}L${x},${y+h}Z`;
+}
+const SC=['var(--s1)','var(--s2)','var(--s3)'];
+function legend(series){
+  if(series.length<2) return '';
+  return '<div class="legend">'+series.map(s=>
+    `<span><i style="background:${s.color}"></i>${esc(s.name)}</span>`).join('')+'</div>';
+}
+function tipHTML(title, rowsArr){
+  return `<b>${esc(title)}</b>`+rowsArr.map(r=>
+    `<div><span>${esc(r[0])}</span><span>${esc(r[1])}</span></div>`).join('');
+}
+
+/* columnas agrupadas */
+function groupedCols(cfg){
+  const cats=cfg.cats, series=cfg.series, fmt=cfg.fmt||KG;
+  const W=cfg.W||760, rot=cfg.rot!==false && cats.some(c=>c.length>7);
+  const B=rot?70:34, H=(cfg.H||250);
+  const L=cfg.L||58, R=12, T=16, y0=H-B, plotW=W-L-R, plotH=y0-T;
+  let max=0; series.forEach(s=>s.values.forEach(v=>{ if(v>max) max=v; }));
+  const ticks=niceTicks(max,4), top=ticks[ticks.length-1]||1;
+  const Y=v=>y0-(v/top)*plotH;
+  const bw=plotW/Math.max(cats.length,1);
+  const th=Math.max(4,Math.min(24,(bw-12)/series.length-2));
+  const gw=th*series.length+2*(series.length-1);
+  let s='';
+  ticks.forEach(t=>{ s+=`<line class="${t===0?'ax':'gl'}" x1="${L}" y1="${Y(t)}" x2="${W-R}" y2="${Y(t)}"/>`
+    +`<text class="tk" x="${L-8}" y="${Y(t)+3.5}" text-anchor="end">${fmt===PC?nf1.format(t*100):KG(t)}</text>`; });
+  cats.forEach((c,i)=>{
+    const cx=L+bw*i+bw/2, gx=cx-gw/2;
+    series.forEach((se,j)=>{
+      const v=se.values[i]||0, hh=Math.max(v>0?1.5:0,(v/top)*plotH);
+      s+=`<path d="${colPath(gx+j*(th+2),y0-hh,th,hh,4)}" fill="${se.color}"/>`;
+    });
+    if(cfg.labelIdx && cfg.labelIdx.indexOf(i)>=0){
+      series.forEach((se,j)=>{
+        const v=se.values[i]||0;
+        s+=`<text class="vlab" x="${gx+j*(th+2)+th/2}" y="${Y(v)-6}" text-anchor="middle">${fmt(v)}</text>`;
+      });
+    }
+    const ty=y0+13;
+    s+= rot
+      ? `<text class="ct" x="${cx}" y="${ty}" text-anchor="end" transform="rotate(-38 ${cx} ${ty})">${esc(c)}</text>`
+      : `<text class="ct" x="${cx}" y="${ty+2}" text-anchor="middle">${esc(c)}</text>`;
+    s+=`<rect class="hit" x="${L+bw*i}" y="${T}" width="${bw}" height="${plotH}" data-tip="${esc(tipHTML(c,series.map(se=>[se.name,fmt(se.values[i]||0)])))}"/>`;
+  });
+  return legend(series)+`<div class="chart"><svg viewBox="0 0 ${W} ${H}" role="img" aria-label="${esc(cfg.alt||'')}">${s}</svg><div class="tip"></div></div>`;
+}
+
+/* barras horizontales ordenadas */
+function hBars(cfg){
+  const items=cfg.items, fmt=cfg.fmt||KG, W=cfg.W||760;
+  const L=cfg.L||132, R=cfg.R||96, T=8, rowH=cfg.rowH||26;
+  const H=T+items.length*rowH+6, plotW=W-L-R;
+  const max=Math.max.apply(null,items.map(i=>i.v).concat([0])) || 1;
+  const th=Math.min(20,rowH-8);
+  let s=`<line class="ax" x1="${L}" y1="${T}" x2="${L}" y2="${T+items.length*rowH}"/>`;
+  items.forEach((it,i)=>{
+    const y=T+i*rowH+(rowH-th)/2, w=Math.max(it.v>0?1.5:0,(it.v/max)*plotW);
+    s+=`<path d="${rowPath(L,y,w,th,4)}" fill="${it.color||SC[0]}"/>`;
+    s+=`<text class="ct" x="${L-9}" y="${y+th/2+3.5}" text-anchor="end">${esc(it.k)}</text>`;
+    s+=`<text class="vlab" x="${L+w+8}" y="${y+th/2+3.5}">${fmt(it.v)}${it.suf?'<tspan class="tk" dx="10">'+esc(it.suf)+'</tspan>':''}</text>`;
+    s+=`<rect class="hit" x="${L}" y="${T+i*rowH}" width="${plotW+R-4}" height="${rowH}" data-tip="${esc(tipHTML(it.k,it.tip||[['Valor',fmt(it.v)]]))}"/>`;
+  });
+  return `<div class="chart"><svg viewBox="0 0 ${W} ${H}" role="img" aria-label="${esc(cfg.alt||'')}">${s}</svg><div class="tip"></div></div>`;
+}
+
+/* barras horizontales agrupadas (2-3 series) */
+function hGrouped(cfg){
+  const cats=cfg.cats, series=cfg.series, fmt=cfg.fmt||PC, W=cfg.W||760;
+  const L=cfg.L||128, R=cfg.R||58, T=8, rowH=cfg.rowH||30;
+  const H=T+cats.length*rowH+26, plotW=W-L-R;
+  let max=0; series.forEach(s=>s.values.forEach(v=>{ if(v>max) max=v; }));
+  const ticks=niceTicks(max,4), top=ticks[ticks.length-1]||1;
+  const th=Math.min(11,(rowH-10)/series.length-2);
+  let s='';
+  ticks.forEach(t=>{ const x=L+(t/top)*plotW;
+    s+=`<line class="${t===0?'ax':'gl'}" x1="${x}" y1="${T}" x2="${x}" y2="${T+cats.length*rowH}"/>`
+      +`<text class="tk" x="${x}" y="${T+cats.length*rowH+14}" text-anchor="middle">${fmt===PC?nf0.format(t*100):KG(t)}</text>`; });
+  cats.forEach((c,i)=>{
+    const gy=T+i*rowH+(rowH-(th*series.length+2*(series.length-1)))/2;
+    series.forEach((se,j)=>{
+      const v=se.values[i]||0, w=Math.max(v>0?1.5:0,(v/top)*plotW);
+      s+=`<path d="${rowPath(L,gy+j*(th+2),w,th,3.5)}" fill="${se.color}"/>`;
+    });
+    s+=`<text class="ct" x="${L-9}" y="${T+i*rowH+rowH/2+3.5}" text-anchor="end">${esc(c)}</text>`;
+    s+=`<rect class="hit" x="${L}" y="${T+i*rowH}" width="${plotW+R-4}" height="${rowH}" data-tip="${esc(tipHTML(c,series.map(se=>[se.name,fmt(se.values[i]||0)])))}"/>`;
+  });
+  return legend(series)+`<div class="chart"><svg viewBox="0 0 ${W} ${H}" role="img" aria-label="${esc(cfg.alt||'')}">${s}</svg><div class="tip"></div></div>`;
+}
+
+/* barra unica 100% */
+function split100(cfg){
+  const segs=cfg.segs.filter(s=>s.v>0), W=760, bh=26;
+  const tot=segs.reduce((a,b)=>a+b.v,0)||1;
+  let x=0, s='';
+  segs.forEach((sg,i)=>{
+    const w=(sg.v/tot)*W, gap=(i<segs.length-1)?2:0;
+    const ww=Math.max(0,w-gap);
+    s+=`<rect x="${x}" y="0" width="${ww}" height="${bh}" rx="${i===0||i===segs.length-1?4:0}" fill="${sg.color||SC[i%3]}"/>`;
+    const share=sg.v/tot;
+    if(ww>64) s+=`<text class="vlab inv" x="${x+9}" y="${bh/2+4}">${nf1.format(share*100)} %</text>`;
+    s+=`<rect class="hit" x="${x}" y="0" width="${w}" height="${bh}" data-tip="${esc(tipHTML(sg.k,[['Kg',KGU(sg.v)],['Participación',PC(share)]]))}"/>`;
+    x+=w;
+  });
+  const leg = cfg.labels===false ? '' : '<div class="splitleg">'+segs.map(sg=>
+    `<div><i style="background:${sg.color||SC[0]}"></i><b>${esc(sg.k)}</b>`
+    + `<em>${KG(sg.v)} kg · ${nf1.format(sg.v/tot*100)} %</em></div>`).join('')+'</div>';
+  return `<div class="chart"><svg viewBox="0 0 ${W} ${bh}" role="img" aria-label="${esc(cfg.alt||'')}">${s}</svg><div class="tip"></div></div>`+leg;
+}
+
+/* gauge semicircular */
+function gauge(cfg){
+  const v=Math.max(0,Math.min(1,cfg.v)), W=300, H=190, cx=150, cy=150, r=112, sw=22;
+  const pt=a=>[cx+r*Math.cos(Math.PI-Math.PI*a), cy-r*Math.sin(Math.PI-Math.PI*a)];
+  const A=pt(0), Bp=pt(v), C=pt(1);
+  const arc=(p,q,large)=>`M${p[0].toFixed(2)},${p[1].toFixed(2)}A${r},${r} 0 ${large} 1 ${q[0].toFixed(2)},${q[1].toFixed(2)}`;
+  let s=`<path d="${arc(A,C,1)}" stroke="var(--s1-track)" stroke-width="${sw}" fill="none" stroke-linecap="round"/>`;
+  if(v>0.005) s+=`<path d="${arc(A,Bp,v>0.5?1:0)}" stroke="${cfg.color||'var(--s1)'}" stroke-width="${sw}" fill="none" stroke-linecap="round"/>`;
+  s+=`<text x="${cx}" y="${cy-30}" text-anchor="middle" style="fill:var(--muted);font-size:11px">${esc(cfg.label||'')}</text>`
+   + `<text x="${cx}" y="${cy-2}" text-anchor="middle" style="fill:var(--ink);font-size:34px;font-weight:600;letter-spacing:-.02em">${nf1.format(v*100)} %</text>`;
+  if(cfg.sub) s+=`<text x="${cx}" y="${cy+20}" text-anchor="middle" style="fill:var(--ink2);font-size:11.5px">${esc(cfg.sub)}</text>`;
+  return `<div class="chart" style="max-width:320px;margin:0 auto"><svg viewBox="0 0 ${W} ${H}" role="img" aria-label="${esc(cfg.label+' '+nf1.format(v*100)+'%')}">${s}</svg></div>`;
+}
+
+/* dispersion */
+function scatter(cfg){
+  const W=760, H=cfg.H||400, L=62, R=18, T=16, B=44;
+  const x0=L, y0=H-B, plotW=W-L-R, plotH=y0-T;
+  const xs=cfg.pts.map(p=>p.x), ys=cfg.pts.map(p=>p.y);
+  const lim=Math.max.apply(null,xs.concat(ys).concat([0]))||1;
+  const ticks=niceTicks(lim,4), top=ticks[ticks.length-1]||1;
+  const X=v=>x0+(v/top)*plotW, Y=v=>y0-(v/top)*plotH;
+  const fmt=cfg.fmt||PC;
+  let s='';
+  ticks.forEach(t=>{
+    s+=`<line class="${t===0?'ax':'gl'}" x1="${x0}" y1="${Y(t)}" x2="${W-R}" y2="${Y(t)}"/>`
+     + `<line class="${t===0?'ax':'gl'}" x1="${X(t)}" y1="${T}" x2="${X(t)}" y2="${y0}"/>`
+     + `<text class="tk" x="${x0-8}" y="${Y(t)+3.5}" text-anchor="end">${fmt===PC?nf0.format(t*100):KG(t)}</text>`
+     + `<text class="tk" x="${X(t)}" y="${y0+15}" text-anchor="middle">${fmt===PC?nf0.format(t*100):KG(t)}</text>`;
+  });
+  s+=`<line x1="${X(0)}" y1="${Y(0)}" x2="${X(top)}" y2="${Y(top)}" stroke="var(--axis)" stroke-width="1.5" stroke-dasharray="0"/>`;
+  s+=`<text class="tk" x="${X(top)-6}" y="${Y(top)+15}" text-anchor="end">sin cambio</text>`;
+  cfg.pts.forEach(p=>{
+    s+=`<circle cx="${X(p.x).toFixed(2)}" cy="${Y(p.y).toFixed(2)}" r="5.5" fill="${p.color}" class="gapring" style="stroke:var(--surface);stroke-width:2"/>`
+     + `<circle class="hit" cx="${X(p.x).toFixed(2)}" cy="${Y(p.y).toFixed(2)}" r="13" data-tip="${esc(tipHTML(p.label,p.tip))}"/>`;
+  });
+  s+=`<text class="ct" x="${x0+plotW/2}" y="${y0+34}" text-anchor="middle">${esc(cfg.xlab)}</text>`
+   + `<text class="ct" x="0" y="0" text-anchor="middle" transform="translate(${16},${T+plotH/2}) rotate(-90)">${esc(cfg.ylab)}</text>`;
+  return legend(cfg.series||[])+`<div class="chart"><svg viewBox="0 0 ${W} ${H}" role="img" aria-label="${esc(cfg.alt||'')}">${s}</svg><div class="tip"></div></div>`;
+}
+
+/* matriz MP / PY / PT / desvio */
+function matrix(cfg){
+  const cols=cfg.cols, rows=cfg.rows, fmt=cfg.fmt||(v=>nf1.format(v*100));
+  let h='<div class="mx"><table><thead><tr><th>'+esc(cfg.corner||'')+'</th>'
+    +cols.map(c=>`<th>${esc(c)}</th>`).join('')+`<th>${esc(cfg.totalLabel||'Total')}</th></tr></thead><tbody>`;
+  rows.forEach(r=>{
+    h+=`<tr class="${r.dv?'dv':''}"><td>${esc(r.k)}</td>`;
+    cols.forEach((c,i)=>{
+      const v=r.values[i];
+      const cls = r.dv ? (v<-0.00005?'g':v>0.00005?'b':'z') : (Math.abs(v)<0.00005?'z':'');
+      const txt = r.dv ? (v>0?'▲ ':v<0?'▼ ':'') + fmt(Math.abs(v)) : fmt(v);
+      h+=`<td class="${cls}">${txt}</td>`;
+    });
+    const tv=r.total;
+    const tcls = r.dv ? (tv<-0.00005?'g':tv>0.00005?'b':'z') : '';
+    h+=`<td class="${tcls}" style="font-weight:600">${r.dv?((tv>0?'▲ ':tv<0?'▼ ':'')+fmt(Math.abs(tv))):fmt(tv)}</td></tr>`;
+  });
+  return h+'</tbody></table></div>';
+}
+
+/* tiles */
+function tiles(list){
+  return '<div class="tiles">'+list.map(t=>{
+    const d = t.delta;
+    let dh='';
+    if(d) dh=`<div class="dl ${d.dir}">${d.dir==='up'?'▲':d.dir==='dn'?'▼':'▬'} ${esc(d.text)}</div>`;
+    return `<div class="tile${t.hero?' hero':''}${t.flag?' flag':''}">
+      <p class="lb">${esc(t.lb)}</p>${t.un?`<span class="un">${esc(t.un)}</span>`:''}
+      <div class="vl">${esc(t.vl)}</div>
+      ${t.sub?`<div class="sub">${esc(t.sub)}</div>`:''}${dh}</div>`;
+  }).join('')+'</div>';
+}
+
+/* tabla */
+function table(spec){
+  let h=`<div class="tbl"><table><caption>${esc(spec.caption||'')}</caption><thead><tr>`
+   + spec.head.map(x=>`<th>${esc(x)}</th>`).join('')+'</tr></thead><tbody>';
+  spec.rows.forEach(r=>{
+    h+=`<tr class="${r.tot?'tot':''}">`+r.cells.map((c,i)=>{
+      const cl = r.cls && r.cls[i] ? r.cls[i] : '';
+      return `<td class="${cl}">${esc(c)}</td>`;
+    }).join('')+'</tr>';
+  });
+  return h+'</tbody></table></div>';
+}
+const dirOf = (v,goodIsDown) => v===0?'flat':((v<0)===!!goodIsDown?'up':'dn');
+
+/* ---------- definicion de tarjetas ---------- */
+function num(v){ return isFinite(v)?v:0; }
+
+const SECTIONS = [
+{ title:'Volumen y avance', hint:'ítems 1 · 2 · 14', cards:[
+
+{ item:'1', src:'Base Datos GZ', scope:'Planta · Proceso', cls:'c8',
+  title:'Kg procesados y masas de salida',
+  desc:'Materia prima que entró, producto terminado comercial que salió, descartes y volátil. El volátil lleva debajo cuánto representa en la masa, como pedía la nota del mockup.',
+  render:A=>{
+    const t = tiles([
+      {lb:'MP procesada', un:'kg', vl:KG(A.kgMP), hero:true, sub:`${A.n} proceso${A.n===1?'':'s'} · ${A.variedades.size} variedad${A.variedades.size===1?'':'es'} · ${A.clientes.size} cliente${A.clientes.size===1?'':'s'}`},
+      {lb:'PT comercial', un:'kg', vl:KG(A.kgCom), sub:`${PC(A.rend)} de la MP`},
+      {lb:'Descartes', un:'kg', vl:KG(A.kgDesc), sub:`${PC(A.descPc)} de la MP`},
+      {lb:'Volátil', un:'kg', vl:KG(A.kgVol), sub:`${PC(A.volPc,2)} de la masa`},
+      {lb:'No disponible', un:'kg', vl:KG(A.kgNoDisp), sub:`marcado Disponible = NO`}
+    ]);
+    const segs=[{k:'PT comercial',v:A.kgCom,color:'var(--s1)'},{k:'Descartes sin volátil',v:A.kgDesc-A.kgVol,color:'var(--s2)'},{k:'Volátil',v:A.kgVol,color:'var(--s3)'}];
+    return {html:t+'<div style="margin-top:15px">'+split100({segs,alt:'Composición de la masa de salida'})+'</div>',
+      tables:[{caption:'Masas por proceso', head:['Proceso','Planta','MP kg','PT comercial kg','Descartes kg','Volátil kg','Rendimiento'],
+        rows:A.rows.map(r=>({cells:[r.proceso,r.planta,KG(r.kgMP),KG(r.kgComercial),KG(r.kgDescarte),KG(r.kgVolatil),PC(r.kgMP?r.kgComercial/r.kgMP:0)]}))
+          .concat([{tot:true,cells:['Total','',KG(A.kgMP),KG(A.kgCom),KG(A.kgDesc),KG(A.kgVol),PC(A.rend)]}])}]};
+  }},
+
+{ item:'1', src:'Base Datos GZ', scope:'Planta · Proceso', cls:'c4',
+  title:'Estado de avance de proceso',
+  desc:'Procesos con Fin Proceso cargado sobre el total del filtro.',
+  render:A=>{
+    const v = A.n? A.nFin/A.n : 0;
+    const kgFin = A.rows.filter(r=>r.finalizado).reduce((s,r)=>s+r.kgMP,0);
+    const abiertos = A.rows.filter(r=>!r.finalizado);
+    return {html: gauge({v, label:'Procesos finalizados', sub:`${A.nFin} de ${A.n} · ${KGU(kgFin)}`})
+      + (abiertos.length? `<div class="warnbox">En curso: <b>${abiertos.map(r=>esc(r.proceso)).join(', ')}</b> &mdash; ${KGU(abiertos.reduce((s,r)=>s+r.kgMP,0))} sin cerrar.</div>`
+        : '<div class="warnbox">Todos los procesos del filtro están cerrados.</div>'),
+      tables:[{caption:'Ventana de cada proceso', head:['Proceso','Planta','Inicio','Fin','MP kg'],
+        rows:A.rows.map(r=>({cells:[r.proceso,r.planta,r.inicio||'—',r.fin||'en curso',KG(r.kgMP)],cls:['','','',r.finalizado?'':'b','']}))}]};
+  }},
+
+{ item:'1', src:'Base Datos GZ', scope:'Planta', cls:'c6',
+  title:'Kg de MP procesados por planta',
+  desc:'Reparto del volumen de la campaña entre las dos plantas de selección.',
+  render:A=>{
+    const by={};
+    A.rows.forEach(r=>{ by[r.planta]=(by[r.planta]||0)+r.kgMP; });
+    const ks=Object.keys(by).sort((a,b)=>by[b]-by[a]);
+    const segs=ks.map((k,i)=>({k,v:by[k],color:SC[i%3]}));
+    const tot=ks.reduce((s,k)=>s+by[k],0)||1;
+    return {html: split100({segs, alt:'Kg de MP por planta'}),
+      tables:[{caption:'MP por planta', head:['Planta','MP kg','Participación','Procesos'],
+        rows:ks.map(k=>({cells:[k,KG(by[k]),PC(by[k]/tot),String(A.rows.filter(r=>r.planta===k).length)]}))
+          .concat([{tot:true,cells:['Total',KG(tot),'100,0 %',String(A.n)]}])}]};
+  }},
+
+{ item:'2', src:'PY vs. Real GZ · Base Datos GZ', scope:'Planta · Proceso', cls:'c6',
+  title:'Proyecciones y flujos de masa',
+  desc:'Cuántas proyecciones se corrieron y cuántos contratos de flujo de masa (CTTO FM) intervienen.',
+  render:A=>{
+    const conPY = A.rows.filter(r=>r.esc && r.esc.py).length;
+    const conSim = A.rows.filter(r=>r.esc && r.esc.sim).length;
+    return {html: tiles([
+      {lb:'Procesos con PY', un:'escenarios', vl:String(conPY), sub:`sobre ${A.n} procesos del filtro`},
+      {lb:'Con simulación', un:'escenarios', vl:String(conSim), sub:'PY y simulación corren en paralelo'},
+      {lb:'Flujos de masa', un:'CTTO FM', vl:String(A.fm.size), sub:A.fm.size?[...A.fm].sort().join(' · '):'—'},
+      {lb:'Cultivo', un:'producto', vl:'Garbanzo', sub:`campaña ${META.campania.replace('_','/')}`}
+    ]),
+      tables:[{caption:'Escenarios y contrato FM por proceso', head:['Proceso','Planta','PY','Simulación','Real','CTTO FM'],
+        rows:A.rows.map(r=>({cells:[r.proceso,r.planta,
+          r.esc.py?KG(r.esc.py.total):'—', r.esc.sim?KG(r.esc.sim.total):'—',
+          r.esc.real?KG(r.esc.real.total):'—', (r.fm||[]).join(' ')||'—']}))}]};
+  }},
+
+{ item:'14', src:'Base Datos GZ', scope:'Planta · Proceso', cls:'c12',
+  title:'Volátiles',
+  desc:'Kg de volátil y qué fracción de la masa representan, en general y proceso por proceso. Es la salida más chica del circuito, por eso va con dos decimales.',
+  render:A=>{
+    const rows=A.rows.filter(r=>r.kgVolatil>0).sort((a,b)=>b.kgVolatil-a.kgVolatil);
+    const byPl={};
+    A.rows.forEach(r=>{ byPl[r.planta]=byPl[r.planta]||{v:0,m:0}; byPl[r.planta].v+=r.kgVolatil; byPl[r.planta].m+=r.kgMP; });
+    const pls=Object.keys(byPl).sort();
+    const t = tiles([
+      {lb:'Volátil total', un:'kg', vl:KG(A.kgVol), sub:`${PC(A.volPc,2)} de la masa procesada`},
+      {lb:'Procesos con volátil', un:'de '+A.n, vl:String(rows.length), sub:rows.length<A.n?`${A.n-rows.length} sin registro de volátil`:'todos registran'}
+    ].concat(pls.map(p=>({lb:p, un:'kg volátil', vl:KG(byPl[p].v), sub:`${PC(byPl[p].m?byPl[p].v/byPl[p].m:0,2)} de su MP`}))));
+    const TOP=12, head=rows.slice(0,TOP), tail=rows.slice(TOP);
+    const items=head.map(r=>({k:r.proceso, v:r.kgVolatil, color:SC[0],
+      suf:PC(r.kgMP?r.kgVolatil/r.kgMP:0,2),
+      tip:[['Planta',r.planta],['Volátil',KGU(r.kgVolatil)],['MP del proceso',KGU(r.kgMP)],['% de la masa',PC(r.kgMP?r.kgVolatil/r.kgMP:0,2)]]}));
+    if(tail.length){
+      const tv=tail.reduce((s,r)=>s+r.kgVolatil,0), tm=tail.reduce((s,r)=>s+r.kgMP,0);
+      items.push({k:`otros ${tail.length} procesos`, v:tv, color:SC[0], suf:PC(tm?tv/tm:0,2),
+        tip:[['Procesos',tail.map(r=>r.proceso).join(', ')],['Volátil',KGU(tv)],['% de su masa',PC(tm?tv/tm:0,2)]]});
+    }
+    const html = t + (rows.length? '<div style="margin-top:15px">'
+        + `<p class="src" style="margin:0 0 7px">${rows.length>TOP?'Los 12 procesos con más volátil; el resto agrupado. Los 27 están en la tabla.':'Volátil por proceso'}</p>`
+        + hBars({items, rowH:24, L:126, R:176, alt:'Kg de volátil por proceso'})+'</div>'
+      : '<div class="empty">Ningún proceso del filtro registra volátil.</div>');
+    return {html, tables:[{caption:'Volátil por proceso', head:['Proceso','Planta','Volátil kg','MP kg','% de la masa'],
+      rows:rows.map(r=>({cells:[r.proceso,r.planta,KG(r.kgVolatil),KG(r.kgMP),PC(r.kgMP?r.kgVolatil/r.kgMP:0,2)]}))
+        .concat([{tot:true,cells:['Total','',KG(A.kgVol),KG(A.kgMP),PC(A.volPc,2)]}])}]};
+  }}
+]},
+
+{ title:'Calidad y eficiencia', hint:'ítems 3 · 4 · 5 · 6 · 7', cards:[
+
+{ item:'3', src:'Daños MP PY Real', scope:'Planta · Proceso', cls:'c6',
+  title:'Calidad de la MP al ingreso',
+  desc:'Total de defectos de la materia prima, abierto daño por daño y ponderado por los kg de cada proceso.',
+  render:A=>{
+    const items=DANOS.map(d=>({k:d,v:A.danMPp[d],color:SC[0],
+      tip:[['% sobre la masa',PC(A.danMPp[d],2)],['Parte del TD',PC(A.tdMP?A.danMPp[d]/A.tdMP:0)]]}))
+      .filter(i=>i.v>0).sort((a,b)=>b.v-a.v);
+    return {html: tiles([
+        {lb:'TD de la MP', un:'total defectos', vl:PC(A.tdMP), hero:true, sub:'suma de los 13 daños, ponderada por kg'},
+        {lb:'Daño principal', un:items[0]?items[0].k:'', vl:items[0]?PC(items[0].v):'—', sub:items[0]?`${PC(A.tdMP?items[0].v/A.tdMP:0)} del total de defectos`:''}
+      ]) + '<div style="margin-top:15px">'+hBars({items, fmt:v=>PC(v,2), rowH:22, L:146, R:104, alt:'Daños de la MP'})+'</div>',
+      tables:[{caption:'Daños de la MP', head:['Daño','% sobre la masa','Parte del TD'],
+        rows:items.map(i=>({cells:[i.k,PC(i.v,2),PC(A.tdMP?i.v/A.tdMP:0)]}))
+          .concat([{tot:true,cells:['Total defectos',PC(A.tdMP,2),'100,0 %']}])}]};
+  }},
+
+{ item:'4', src:'Daños MP PY Real · Base Datos GZ', scope:'Planta · Proceso · Calibre', cls:'c6',
+  title:'Calidad del producto terminado',
+  desc:'TD del PT y su composición por calibre comercial. El filtro de calibre acota el TD por calibre de la tabla.',
+  render:A=>{
+    const items=DANOS.map(d=>({k:d,v:A.danPTp[d],color:SC[0],
+      tip:[['% sobre la masa',PC(A.danPTp[d],2)],['MP comparable',PC(A.danMPp[d],2)]]}))
+      .filter(i=>i.v>0).sort((a,b)=>b.v-a.v);
+    let cals=Object.keys(A.tdCalKg).filter(c=>A.tdCalKg[c]>0);
+    if(ST.calibre!=='*') cals=cals.filter(c=>c===ST.calibre);
+    cals.sort((a,b)=>A.tdCalKg[b]-A.tdCalKg[a]);
+    const calItems=cals.map(c=>({k:c,v:A.tdCalKg[c],color:SC[0],suf:PC(A.tdCal[c]),
+      tip:[['Kg',KGU(A.tdCalKg[c])],['TD del calibre',PC(A.tdCal[c],2)]]}));
+    return {html: tiles([
+        {lb:'TD del PT', un:'total defectos', vl:PC(A.tdPT), hero:true, sub:`contra ${PC(A.tdMP)} de la MP`,
+         delta:{dir:dirOf(A.tdPT-A.tdMP,true), text:PP(A.tdPT-A.tdMP)+' vs MP'}},
+        {lb:'Calibres comerciales', un:'kg PT', vl:KG(cals.reduce((s,c)=>s+A.tdCalKg[c],0)), sub:cals.join(' · ')||'—'}
+      ])
+      + (calItems.length?'<div style="margin-top:15px"><p class="src" style="margin:0 0 7px">Kg por calibre, con su TD al lado</p>'
+        + hBars({items:calItems, rowH:24, L:112, R:186, alt:'Kg y TD por calibre'})+'</div>':'')
+      + '<div style="margin-top:15px"><p class="src" style="margin:0 0 7px">Daños del PT</p>'
+        + hBars({items, fmt:v=>PC(v,2), rowH:22, L:146, R:104, alt:'Daños del PT'})+'</div>',
+      tables:[
+        {caption:'TD por calibre comercial', head:['Calibre','Kg PT','TD del calibre'],
+          rows:cals.map(c=>({cells:[c,KG(A.tdCalKg[c]),PC(A.tdCal[c],2)]}))},
+        {caption:'Daños del PT contra la MP', head:['Daño','MP','PT','Desvío'],
+          rows:DANOS.map(d=>({cells:[d,PC(A.danMPp[d],2),PC(A.danPTp[d],2),PP(A.danPTp[d]-A.danMPp[d])],
+            cls:['','','',A.danPTp[d]<A.danMPp[d]?'g':A.danPTp[d]>A.danMPp[d]?'b':'']}))
+            .concat([{tot:true,cells:['Total defectos',PC(A.tdMP,2),PC(A.tdPT,2),PP(A.tdPT-A.tdMP)]}])}]};
+  }},
+
+{ item:'5', src:'Daños MP PY Real', scope:'Planta · Proceso', cls:'c12',
+  title:'Daño por daño: MP contra PT',
+  desc:'La comparación directa que pide el ítem. Cada par de columnas es un daño; la barra naranja por debajo de la azul significa que la planta lo bajó.',
+  render:A=>{
+    const cats=DANOS.filter(d=>A.danMPp[d]>0||A.danPTp[d]>0);
+    const mp=cats.map(d=>A.danMPp[d]), pt=cats.map(d=>A.danPTp[d]);
+    const worst=cats.reduce((bi,d,i)=>Math.abs(pt[i]-mp[i])>Math.abs(pt[bi]-mp[bi])?i:bi,0);
+    return {html: groupedCols({cats, series:[
+        {name:'MP (ingreso)', color:'var(--s1)', values:mp},
+        {name:'PT (salida)', color:'var(--s2)', values:pt}
+      ], fmt:PC, H:290, labelIdx:[worst], alt:'MP contra PT daño por daño'}),
+      tables:[{caption:'MP contra PT, daño por daño', head:['Daño','MP','PT','Desvío','Reducción'],
+        rows:cats.map((d,i)=>({cells:[d,PC(mp[i],2),PC(pt[i],2),PP(pt[i]-mp[i]),mp[i]?PC((mp[i]-pt[i])/mp[i]):'—'],
+          cls:['','','',pt[i]<mp[i]?'g':pt[i]>mp[i]?'b':'','']}))
+          .concat([{tot:true,cells:['Total defectos',PC(A.tdMP,2),PC(A.tdPT,2),PP(A.tdPT-A.tdMP),PC(A.efic)]}])}]};
+  }},
+
+{ item:'6', src:'MP vs PT · Daños MP PY Real', scope:'Planta · Proceso', cls:'c5',
+  title:'Eficiencia de planta',
+  desc:'Cuánto del TD que entró con la materia prima logró remover la planta: (TD&nbsp;MP &minus; TD&nbsp;PT) / TD&nbsp;MP.',
+  render:A=>{
+    const byPl={};
+    A.rows.forEach(r=>{
+      if(!r.danos||!r.danos.MP) return;
+      byPl[r.planta]=byPl[r.planta]||{w:0,mp:0,pt:0};
+      byPl[r.planta].w+=r.kgMP; byPl[r.planta].mp+=td(r.danos.MP)*r.kgMP; byPl[r.planta].pt+=td(r.danos.PT)*r.kgMP;
+    });
+    const pls=Object.keys(byPl).sort();
+    const ef=p=>{const o=byPl[p]; const m=o.mp/o.w; return m?(m-o.pt/o.w)/m:0;};
+    return {html: tiles([{lb:'Eficiencia global', un:'del TD removido', vl:PC(A.efic), hero:true,
+        sub:`TD MP ${PC(A.tdMP)} → TD PT ${PC(A.tdPT)}`}]
+        .concat(pls.map(p=>({lb:p, un:'eficiencia', vl:PC(ef(p)), sub:`${KGU(byPl[p].w)} procesados`}))))
+      + '<div style="margin-top:15px">'+groupedCols({cats:pls.concat(['Global']),
+          series:[{name:'TD MP', color:'var(--s1)', values:pls.map(p=>byPl[p].mp/byPl[p].w).concat([A.tdMP])},
+                  {name:'TD PT', color:'var(--s2)', values:pls.map(p=>byPl[p].pt/byPl[p].w).concat([A.tdPT])}],
+          fmt:PC, H:240, rot:false, labelIdx:pls.map((_,i)=>i).concat([pls.length]), L:52, W:520,
+          alt:'TD de MP y PT por planta'})+'</div>',
+      tables:[{caption:'Eficiencia por planta', head:['Planta','MP kg','TD MP','TD PT','Eficiencia'],
+        rows:pls.map(p=>({cells:[p,KG(byPl[p].w),PC(byPl[p].mp/byPl[p].w,2),PC(byPl[p].pt/byPl[p].w,2),PC(ef(p))]}))
+          .concat([{tot:true,cells:['Global',KG(A.danKg),PC(A.tdMP,2),PC(A.tdPT,2),PC(A.efic)]}])},
+        {caption:'Eficiencia por proceso', head:['Proceso','Planta','TD MP','TD PT','Eficiencia'],
+        rows:A.rows.filter(r=>r.danos&&r.danos.MP).map(r=>{
+          const m=td(r.danos.MP), p=td(r.danos.PT);
+          return {cells:[r.proceso,r.planta,PC(m,2),PC(p,2),m?PC((m-p)/m):'—'],cls:['','','','',p<m?'g':'b']};
+        })}]};
+  }},
+
+{ item:'7', src:'Daños MP PY Real', scope:'Planta · Proceso', cls:'c7',
+  title:'Eficiencia de planta frente a cada daño',
+  desc:'Barras horizontales agrupadas: eje Y los tipos de daño, eje X el % de eficiencia, una barra por planta. Arriba, la eficiencia general de cada una.',
+  render:A=>{
+    const byPl={};
+    A.rows.forEach(r=>{
+      if(!r.danos||!r.danos.MP) return;
+      byPl[r.planta]=byPl[r.planta]||{w:0,mp:{},pt:{}};
+      byPl[r.planta].w+=r.kgMP;
+      DANOS.forEach(d=>{
+        byPl[r.planta].mp[d]=(byPl[r.planta].mp[d]||0)+(r.danos.MP[d]||0)*r.kgMP;
+        byPl[r.planta].pt[d]=(byPl[r.planta].pt[d]||0)+(r.danos.PT[d]||0)*r.kgMP;
+      });
+    });
+    const pls=Object.keys(byPl).sort();
+    const efD=(p,d)=>{const o=byPl[p], m=o.mp[d]/o.w; return m>0.00002?Math.max(-1,Math.min(1,(m-o.pt[d]/o.w)/m)):null;};
+    const cats=DANOS.filter(d=>pls.some(p=>efD(p,d)!==null));
+    const glob=p=>{const o=byPl[p]; const m=DANOS.reduce((s,d)=>s+o.mp[d],0)/o.w, q=DANOS.reduce((s,d)=>s+o.pt[d],0)/o.w; return m?(m-q)/m:0;};
+    const html = tiles(pls.map((p,i)=>({lb:p, un:'eficiencia general', vl:PC(glob(p)), flag:i===0})))
+      + (cats.length? '<div style="margin-top:15px">'+hGrouped({cats,
+          series:pls.map((p,i)=>({name:p, color:SC[i%3], values:cats.map(d=>Math.max(0,efD(p,d)||0))})),
+          fmt:PC, rowH:pls.length>1?30:24, L:150, R:56, alt:'Eficiencia por daño y planta'})+'</div>'
+        : '<div class="empty">No hay daños con MP suficiente para calcular eficiencia en este filtro.</div>')
+      + '<div style="margin-top:15px">'+matrix({corner:'Calidad', cols:cats, totalLabel:'TD',
+          rows:[
+            {k:'MP', values:cats.map(d=>A.danMPp[d]), total:A.tdMP},
+            {k:'Proyectado', values:cats.map(d=>A.danPYp[d]), total:A.tdPY},
+            {k:'Real', values:cats.map(d=>A.danPTp[d]), total:A.tdPT},
+            {k:'Desvío', dv:true, values:cats.map(d=>A.danPTp[d]-A.danPYp[d]), total:A.tdPT-A.tdPY}
+          ]})+'</div>'
+      + '<div class="warnbox">La fila <b>Desvío</b> es Real menos Proyectado en puntos porcentuales: <b>▼ verde</b> es mejor que lo proyectado, <b>▲ rojo</b> es peor. La eficiencia se recorta a 0 cuando la planta empeoró el daño, para que la barra no se lea como mejora.</div>';
+    return {html, tables:[{caption:'Eficiencia por daño y planta', head:['Daño'].concat(pls).concat(['MP','PT']),
+      rows:cats.map(d=>({cells:[d].concat(pls.map(p=>{const v=efD(p,d); return v===null?'—':PC(v);})).concat([PC(A.danMPp[d],2),PC(A.danPTp[d],2)])}))
+        .concat([{tot:true,cells:['General'].concat(pls.map(p=>PC(glob(p)))).concat([PC(A.tdMP,2),PC(A.tdPT,2)])}])}]};
+  }}
+]},
+
+{ title:'Proyección contra realidad', hint:'ítems 8 · 9 · 15 · 16 · 16-bis', cards:[
+
+{ item:'8', src:'PY vs. Real GZ', scope:'Planta · Proceso', cls:'c6',
+  title:'Desvío de kg entre proyectado y real',
+  desc:'Kg totales proyectados contra kg reales. Se toma de PY vs. Real GZ y no de las filas PY de Base Datos GZ, por el motivo 2 de las notas.',
+  render:A=>{
+    const py=A.escPY.total||0, real=A.escReal.total||0, sim=A.escSim.total||0;
+    const dev=real-py;
+    return {html: tiles([
+        {lb:'Proyectado', un:'kg PY', vl:KG(py)},
+        {lb:'Real', un:'kg PT', vl:KG(real)},
+        {lb:'Simulación', un:'kg', vl:KG(sim)},
+        {lb:'Desvío', un:'real vs PY', vl:SKG(dev), flag:true,
+          delta:{dir:dirOf(dev,false), text:py?PP(dev/py):'—'}}
+      ])
+      + '<div style="margin-top:15px">'+groupedCols({cats:CALORD.filter(c=>(A.escReal[c]||A.escPY[c]||A.escSim[c])),
+          series:[{name:'PY', color:'var(--s1)', values:CALORD.filter(c=>(A.escReal[c]||A.escPY[c]||A.escSim[c])).map(c=>A.escPY[c]||0)},
+                  {name:'Real', color:'var(--s2)', values:CALORD.filter(c=>(A.escReal[c]||A.escPY[c]||A.escSim[c])).map(c=>A.escReal[c]||0)}],
+          H:250, rot:false, alt:'Kg proyectados y reales por calibre'})+'</div>',
+      tables:[{caption:'Kg proyectados y reales por proceso', head:['Proceso','Planta','PY kg','Real kg','Desvío kg','Desvío %'],
+        rows:A.rows.filter(r=>r.esc.py&&r.esc.real).map(r=>{
+          const d=r.esc.real.total-r.esc.py.total;
+          return {cells:[r.proceso,r.planta,KG(r.esc.py.total),KG(r.esc.real.total),SKG(d),r.esc.py.total?PP(d/r.esc.py.total):'—'],
+            cls:['','','','',d<0?'b':d>0?'g':'',d<0?'b':d>0?'g':'']};
+        }).concat([{tot:true,cells:['Total','',KG(py),KG(real),SKG(dev),py?PP(dev/py):'—']}])}]};
+  }},
+
+{ item:'9', src:'Daños MP PY Real', scope:'Planta · Proceso', cls:'c6',
+  title:'Desvío total de daños entre proyectado y real',
+  desc:'El TD que se proyectó contra el que efectivamente salió. La matriz completa daño por daño está en el ítem 7.',
+  render:A=>{
+    const dev=A.tdPT-A.tdPY;
+    const peor=DANOS.map(d=>({d,v:A.danPTp[d]-A.danPYp[d]})).sort((a,b)=>b.v-a.v)[0];
+    const mejor=DANOS.map(d=>({d,v:A.danPTp[d]-A.danPYp[d]})).sort((a,b)=>a.v-b.v)[0];
+    const cats=DANOS.filter(d=>A.danPYp[d]>0||A.danPTp[d]>0);
+    return {html: tiles([
+        {lb:'TD proyectado', un:'total defectos', vl:PC(A.tdPY)},
+        {lb:'TD real', un:'total defectos', vl:PC(A.tdPT)},
+        {lb:'Desvío', un:'puntos porcentuales', vl:PP(dev), flag:true,
+          delta:{dir:dirOf(dev,true), text:A.tdPY?PC(dev/A.tdPY)+' del TD PY':'—'}},
+        {lb:'Peor desvío', un:peor?peor.d:'', vl:peor?PP(peor.v):'—'},
+        {lb:'Mejor desvío', un:mejor?mejor.d:'', vl:mejor?PP(mejor.v):'—'}
+      ])
+      + '<div style="margin-top:15px">'+groupedCols({cats,
+          series:[{name:'Proyectado', color:'var(--s1)', values:cats.map(d=>A.danPYp[d])},
+                  {name:'Real', color:'var(--s2)', values:cats.map(d=>A.danPTp[d])}],
+          fmt:PC, H:280, alt:'Daños proyectados contra reales'})+'</div>',
+      tables:[{caption:'Proyectado contra real, daño por daño', head:['Daño','Proyectado','Real','Desvío'],
+        rows:cats.map(d=>({cells:[d,PC(A.danPYp[d],2),PC(A.danPTp[d],2),PP(A.danPTp[d]-A.danPYp[d])],
+          cls:['','','',A.danPTp[d]<A.danPYp[d]?'g':A.danPTp[d]>A.danPYp[d]?'b':'']}))
+          .concat([{tot:true,cells:['Total defectos',PC(A.tdPY,2),PC(A.tdPT,2),PP(dev)]}])}]};
+  }},
+
+{ item:'15', src:'PY vs. Real GZ', scope:'Planta · Proceso · Calibre', cls:'c12',
+  title:'PT contra PY contra Simulación',
+  desc:'Los tres escenarios lado a lado por calibre. Van como columnas agrupadas y no como líneas: los calibres son categorías, y una línea entre ellos sugeriría valores intermedios que no existen.',
+  render:A=>{
+    let cats=CALORD.filter(c=>(A.escReal[c]||A.escPY[c]||A.escSim[c]));
+    if(ST.calibre!=='*') cats=cats.filter(c=>c===ST.calibre);
+    if(!cats.length) return {html:'<div class="empty">Sin datos para el calibre elegido.</div>',tables:[]};
+    const S=[{name:'Real (PT)', color:'var(--s1)', values:cats.map(c=>A.escReal[c]||0)},
+             {name:'PY', color:'var(--s2)', values:cats.map(c=>A.escPY[c]||0)},
+             {name:'Simulación', color:'var(--s3)', values:cats.map(c=>A.escSim[c]||0)}];
+    const big=cats.reduce((bi,c,i)=>(A.escReal[c]||0)>(A.escReal[cats[bi]]||0)?i:bi,0);
+    return {html: groupedCols({cats, series:S, H:300, rot:false, labelIdx:[big], alt:'Real, PY y simulación por calibre'}),
+      tables:[{caption:'Kg por calibre y escenario', head:['Calibre','Real','PY','Simulación','Real − PY','Real − Sim'],
+        rows:cats.map(c=>{
+          const r=A.escReal[c]||0,p=A.escPY[c]||0,s=A.escSim[c]||0;
+          return {cells:[c,KG(r),KG(p),KG(s),SKG(r-p),SKG(r-s)]};
+        }).concat([{tot:true,cells:['Total',KG(A.escReal.total||0),KG(A.escPY.total||0),KG(A.escSim.total||0),
+          SKG((A.escReal.total||0)-(A.escPY.total||0)),SKG((A.escReal.total||0)-(A.escSim.total||0))]}])}]};
+  }},
+
+{ item:'16', src:'PY vs. Real GZ', scope:'Planta · Proceso', cls:'c6',
+  title:'Qué método le pegó más: PY o Simulación',
+  desc:'Los kg reales cuyo proceso quedó más cerca del PY frente a los que quedaron más cerca de la simulación, según la columna SE ACERCO A del sheet. Debajo, el desvío absoluto de cada método contra lo real.',
+  render:A=>{
+    const kPY=A.seAcercoKg.PY, kSim=A.seAcercoKg.Simulacion, tot=kPY+kSim;
+    const dPY=A.devKg?A.devPY/A.devKg:0, dSim=A.devKg?A.devSim/A.devKg:0;
+    return {html: tiles([
+        {lb:'Ganó el PY', un:'kg reales', vl:KG(kPY), hero:true, sub:`${tot?PC(kPY/tot):'—'} de los kg · ${A.seAcercoN.PY} proceso${A.seAcercoN.PY===1?'':'s'}`},
+        {lb:'Ganó la simulación', un:'kg reales', vl:KG(kSim), sub:`${tot?PC(kSim/tot):'—'} de los kg · ${A.seAcercoN.Simulacion} proceso${A.seAcercoN.Simulacion===1?'':'s'}`},
+        {lb:'Desvío del PY', un:'sobre kg reales', vl:PC(dPY), sub:'suma de diferencias por calibre'},
+        {lb:'Desvío de la simulación', un:'sobre kg reales', vl:PC(dSim), sub:dSim<dPY?'más ajustada en el agregado':'menos ajustada en el agregado'}
+      ])
+      + '<div style="margin-top:15px">'+split100({segs:[
+          {k:'Más cerca del PY',v:kPY,color:'var(--s1)'},
+          {k:'Más cerca de la simulación',v:kSim,color:'var(--s2)'}], alt:'Reparto de kg por método ganador'})+'</div>',
+      tables:[{caption:'Método ganador y desvío por proceso', head:['Proceso','Planta','Real kg','Se acercó a','Desvío PY','Desvío Sim'],
+        rows:A.rows.filter(r=>r.esc.real&&r.esc.py&&r.esc.sim).map(r=>{
+          const t=r.esc.real.total||1;
+          const dp=CALORD.reduce((s,c)=>s+Math.abs((r.esc.py[c]||0)-(r.esc.real[c]||0)),0)/t;
+          const ds=CALORD.reduce((s,c)=>s+Math.abs((r.esc.sim[c]||0)-(r.esc.real[c]||0)),0)/t;
+          return {cells:[r.proceso,r.planta,KG(r.esc.real.total),r.seAcerco||'—',PC(dp),PC(ds)],
+            cls:['','','','',dp<ds?'g':'',ds<dp?'g':'']};
+        }).concat([{tot:true,cells:['Total','',KG(A.escReal.total||0),'',PC(dPY),PC(dSim)]}])}]};
+  }},
+
+{ item:'16', src:'PY vs. Real GZ · Daños MP PY Real', scope:'Planta · Proceso', cls:'c6',
+  title:'Los cuatro KPI del cuadrante',
+  desc:'TD PY contra TD PT y kg PY contra kg PT, con la mejora en puntos porcentuales, en un solo bloque como pedía la nota del mockup.',
+  render:A=>{
+    const dTD=A.tdPT-A.tdPY, py=A.escPY.total||0, real=A.escReal.total||0;
+    return {html: tiles([
+      {lb:'TD PY', un:'proyectado', vl:PC(A.tdPY)},
+      {lb:'TD PT', un:'real', vl:PC(A.tdPT), delta:{dir:dirOf(dTD,true), text:PP(dTD)}},
+      {lb:'Kg PY', un:'proyectado', vl:KG(py)},
+      {lb:'Kg PT', un:'real', vl:KG(real), delta:{dir:dirOf(real-py,false), text:py?PP((real-py)/py):'—'}},
+      {lb:'Mejora de TD', un:'PY → PT', vl:PP(-dTD), flag:true,
+        sub:dTD<0?'salió mejor de lo proyectado':dTD>0?'salió peor de lo proyectado':'clavado'},
+      {lb:'Cumplimiento de kg', un:'PT sobre PY', vl:py?PC(real/py):'—', flag:true,
+        sub:`sobre ${A.n} proceso${A.n===1?'':'s'}`}
+    ]), tables:[{caption:'Los cuatro KPI', head:['KPI','Proyectado','Real','Desvío'],
+      rows:[{cells:['Total defectos',PC(A.tdPY,2),PC(A.tdPT,2),PP(dTD)],cls:['','','',dTD<0?'g':'b']},
+            {cells:['Kg totales',KG(py),KG(real),SKG(real-py)],cls:['','','',real>=py?'g':'b']}]}]};
+  }},
+
+{ item:'16-bis', src:'Base Datos GZ · Daños MP PY Real', scope:'Planta · Proceso', cls:'c12',
+  title:'¿Mejor TD que lo proyectado significa más merma?',
+  desc:'La pregunta del último ítem. Cada punto es un proceso: en el eje X el TD proyectado, en el eje Y el TD real. Por debajo de la diagonal, la planta salió mejor que la proyección. El coeficiente de correlación de abajo responde si eso se pagó con merma.',
+  render:A=>{
+    const rows=A.rows.filter(r=>r.danos&&r.danos.PY&&r.danos.PT&&r.mvp&&r.mvp.mermaReal!=null);
+    if(rows.length<3) return {html:'<div class="empty">Hacen falta al menos 3 procesos con TD proyectado y merma cargados. Ampliá el filtro.</div>',tables:[]};
+    const pls=[...new Set(rows.map(r=>r.planta))].sort();
+    const pts=rows.map(r=>({x:td(r.danos.PY), y:td(r.danos.PT), label:r.proceso,
+      color:SC[pls.indexOf(r.planta)%3],
+      tip:[['Planta',r.planta],['TD proyectado',PC(td(r.danos.PY),2)],['TD real',PC(td(r.danos.PT),2)],
+           ['Mejora',PP(td(r.danos.PY)-td(r.danos.PT))],['Merma real',PC(r.mvp.mermaReal,2)],
+           ['Merma solicitada',PC(r.mvp.mermaSol,2)]]}));
+    // correlacion: mejora de TD (PY - PT) contra desvio de merma (real - solicitada)
+    const xs=rows.map(r=>td(r.danos.PY)-td(r.danos.PT));
+    const ys=rows.map(r=>(r.mvp.mermaReal||0)-(r.mvp.mermaSol||0));
+    const n=xs.length, mx=xs.reduce((a,b)=>a+b,0)/n, my=ys.reduce((a,b)=>a+b,0)/n;
+    let sxy=0,sxx=0,syy=0;
+    for(let i=0;i<n;i++){ const a=xs[i]-mx,b=ys[i]-my; sxy+=a*b; sxx+=a*a; syy+=b*b; }
+    const r = (sxx>0&&syy>0)? sxy/Math.sqrt(sxx*syy) : 0;
+    const fuerza = Math.abs(r)<0.2?'prácticamente nula':Math.abs(r)<0.4?'débil':Math.abs(r)<0.6?'moderada':Math.abs(r)<0.8?'fuerte':'muy fuerte';
+    const signo = r>0?'positiva':'negativa';
+    const veredicto = Math.abs(r)<0.2
+      ? `Con estos ${n} procesos la relación es <b>prácticamente nula</b> (r = ${nf2.format(r)}): mejorar el TD por encima de lo proyectado no vino sistemáticamente acompañado de más merma.`
+      : `Con estos ${n} procesos la relación es <b>${fuerza} y ${signo}</b> (r = ${nf2.format(r)}): ${r>0?'cuanto más se mejoró el TD contra lo proyectado, más se pasó la merma de lo solicitado':'mejorar el TD contra lo proyectado no costó merma extra, al contrario'}.`;
+    return {html: scatter({pts, xlab:'TD proyectado (PY)', ylab:'TD real (PT)', H:400,
+        series:pls.map((p,i)=>({name:p,color:SC[i%3]})), alt:'TD proyectado contra TD real por proceso'})
+      + `<div class="warnbox">${veredicto} Ojo con el alcance: la calidad proyectada existe <b>por proceso</b>, no por calibre &mdash; en el libro no hay TD de PY abierto calibre por calibre, así que el "calibre x calibre" del pedido sólo se puede resolver del lado real.</div>`,
+      tables:[{caption:'TD y merma por proceso', head:['Proceso','Planta','TD PY','TD PT','Mejora','Merma solicitada','Merma real','Desvío merma'],
+        rows:rows.map(r=>{
+          const mj=td(r.danos.PY)-td(r.danos.PT), dm=(r.mvp.mermaReal||0)-(r.mvp.mermaSol||0);
+          return {cells:[r.proceso,r.planta,PC(td(r.danos.PY),2),PC(td(r.danos.PT),2),PP(mj),
+            PC(r.mvp.mermaSol||0,2),PC(r.mvp.mermaReal||0,2),PP(dm)],
+            cls:['','','','',mj>0?'g':'b','','',dm>0?'b':'g']};
+        })}]};
+  }}
+]},
+
+{ title:'Descartes y mermas', hint:'ítems 10 · 11 · 13', cards:[
+
+{ item:'10', src:'Base Datos GZ', scope:'Planta · Proceso', cls:'c6',
+  title:'Composición de los descartes de PT',
+  desc:'Los 13 tipos de descarte reales, con su peso y qué fracción de la masa de PT representan. Van como barras ordenadas y no como torta: con 13 clases una torta deja de ser legible.',
+  render:A=>{
+    const ks=Object.keys(A.descReal).filter(k=>A.descReal[k]>0).sort((a,b)=>A.descReal[b]-A.descReal[a]);
+    if(!ks.length) return {html:'<div class="empty">Sin descartes en este filtro.</div>',tables:[]};
+    const items=ks.map(k=>({k, v:A.descReal[k], color:SC[0], suf:PC(A.kgPT?A.descReal[k]/A.kgPT:0,2),
+      tip:[['Kg',KGU(A.descReal[k])],['% de la masa de PT',PC(A.kgPT?A.descReal[k]/A.kgPT:0,2)],
+           ['% de los descartes',PC(A.kgDesc?A.descReal[k]/A.kgDesc:0)]]}));
+    return {html: tiles([
+        {lb:'Descarte total', un:'kg', vl:KG(A.kgDesc), sub:`${PC(A.descPc)} de la MP`},
+        {lb:'Tipos con peso', un:'de 13', vl:String(ks.length), sub:`${ks[0]} es el mayor con ${PC(A.kgDesc?A.descReal[ks[0]]/A.kgDesc:0)}`}
+      ]) + '<div style="margin-top:15px">'+hBars({items, rowH:22, L:132, R:174, alt:'Descartes por tipo'})+'</div>',
+      tables:[{caption:'Descartes de PT por tipo', head:['Tipo','Kg','% de la masa PT','% de los descartes'],
+        rows:ks.map(k=>({cells:[k,KG(A.descReal[k]),PC(A.kgPT?A.descReal[k]/A.kgPT:0,2),PC(A.kgDesc?A.descReal[k]/A.kgDesc:0)]}))
+          .concat([{tot:true,cells:['Total',KG(A.kgDesc),PC(A.kgPT?A.kgDesc/A.kgPT:0,2),'100,0 %']}])}]};
+  }},
+
+{ item:'10', src:'Base Datos GZ · Descartes PY', scope:'Planta · Proceso', cls:'c6',
+  title:'Descarte por descarte: real contra proyectado',
+  desc:'Sólo los cinco tipos que existen en las dos puntas. Las tres mesas reales se suman en MESA y COLORIMETRICA se lee como el COLOR proyectado.',
+  render:A=>{
+    const MAP={'MESA':'MESA','MESA 7mm':'MESA','MESA 8mm':'MESA','MESA 9mm':'MESA',
+      'COLORIMETRICA':'COLOR','ME/CICLON':'ME/CICLON','PRELIMPIEZA':'PRELIMPIEZA','BAJO ZARANDA':'BAJO ZARANDA'};
+    const realMap={}, sinPY={};
+    for(const k in A.descReal){
+      if(MAP[k]) realMap[MAP[k]]=(realMap[MAP[k]]||0)+A.descReal[k];
+      else sinPY[k]=A.descReal[k];
+    }
+    const cats=['PRELIMPIEZA','ME/CICLON','BAJO ZARANDA','MESA','COLOR'].filter(c=>(realMap[c]||A.descPY[c]));
+    if(!cats.length) return {html:'<div class="empty">Sin descartes comparables en este filtro.</div>',tables:[]};
+    const pyV=cats.map(c=>A.descPY[c]||0), reV=cats.map(c=>realMap[c]||0);
+    const totPY=pyV.reduce((a,b)=>a+b,0), totRe=reV.reduce((a,b)=>a+b,0);
+    const sinKs=Object.keys(sinPY).filter(k=>sinPY[k]>0).sort((a,b)=>sinPY[b]-sinPY[a]);
+    return {html: tiles([
+        {lb:'Proyectado', un:'kg comparables', vl:KG(totPY)},
+        {lb:'Real', un:'kg comparables', vl:KG(totRe)},
+        {lb:'Desvío', un:'real vs PY', vl:SKG(totRe-totPY), flag:true,
+          delta:{dir:dirOf(totRe-totPY,true), text:totPY?PP((totRe-totPY)/totPY):'—'}}
+      ])
+      + '<div style="margin-top:15px">'+groupedCols({cats,
+          series:[{name:'Proyectado', color:'var(--s1)', values:pyV},{name:'Real', color:'var(--s2)', values:reV}],
+          H:250, alt:'Descartes proyectados contra reales'})+'</div>'
+      + (sinKs.length? `<div class="warnbox">Sin contraparte proyectada: <b>${sinKs.map(k=>esc(k)+' '+KG(sinPY[k])+' kg').join(' · ')}</b>. Suman ${KGU(sinKs.reduce((s,k)=>s+sinPY[k],0))} que el PY nunca previó.</div>`:''),
+      tables:[{caption:'Descartes comparables', head:['Tipo','Proyectado kg','Real kg','Desvío kg','Desvío %'],
+        rows:cats.map((c,i)=>({cells:[c,KG(pyV[i]),KG(reV[i]),SKG(reV[i]-pyV[i]),pyV[i]?PP((reV[i]-pyV[i])/pyV[i]):'—'],
+          cls:['','','',reV[i]>pyV[i]?'b':'g',reV[i]>pyV[i]?'b':'g']}))
+          .concat([{tot:true,cells:['Total',KG(totPY),KG(totRe),SKG(totRe-totPY),totPY?PP((totRe-totPY)/totPY):'—']}])},
+        {caption:'Descartes sin proyección', head:['Tipo','Real kg'],
+          rows:sinKs.map(k=>({cells:[k,KG(sinPY[k])]}))}]};
+  }},
+
+{ item:'11', src:'Daños MP PY Real · Merma estimada vs Real', scope:'Planta · Proceso', cls:'c6',
+  title:'Partido: real contra estimado',
+  desc:'Dos lecturas del mismo daño. Arriba en kg, contra la merma estimada; abajo el partido como porcentaje de la masa, a la entrada y a la salida.',
+  render:A=>{
+    const pe=A.merma['PARTIDO ESTIMADO']||0, pr=A.merma['PARTIDO REAL']||0;
+    const dev=pr-pe;
+    return {html: tiles([
+        {lb:'Partido estimado', un:'kg', vl:KG(pe)},
+        {lb:'Partido real', un:'kg', vl:KG(pr)},
+        {lb:'Desvío', un:'real vs estimado', vl:SKG(dev), flag:true,
+          delta:{dir:dirOf(dev,true), text:pe?PP(dev/pe):'—'}},
+        {lb:'Partido MP', un:'% de la masa', vl:PC(A.danMPp['Partidos'],2)},
+        {lb:'Partido PT', un:'% de la masa', vl:PC(A.danPTp['Partidos'],2),
+          delta:{dir:dirOf(A.danPTp['Partidos']-A.danMPp['Partidos'],true), text:PP(A.danPTp['Partidos']-A.danMPp['Partidos'])+' vs MP'}}
+      ])
+      + '<div style="margin-top:15px">'+groupedCols({cats:['Partido'],
+          series:[{name:'Estimado', color:'var(--s1)', values:[pe]},{name:'Real', color:'var(--s2)', values:[pr]}],
+          H:210, rot:false, labelIdx:[0], W:420, L:58, alt:'Partido estimado contra real'})+'</div>',
+      tables:[{caption:'Partido por proceso', head:['Proceso','Planta','MP kg','Estimado kg','Real kg','Desvío kg'],
+        rows:A.rows.filter(r=>r.merma&&r.merma['PARTIDO REAL']!=null).map(r=>{
+          const e=r.merma['PARTIDO ESTIMADO']||0, a=r.merma['PARTIDO REAL']||0;
+          return {cells:[r.proceso,r.planta,KG(r.kgMP),KG(e),KG(a),SKG(a-e)],cls:['','','','','',a>e?'b':'g']};
+        }).concat([{tot:true,cells:['Total','',KG(A.kgMP),KG(pe),KG(pr),SKG(dev)]}])}]};
+  }},
+
+{ item:'13', src:'Merma estimada vs Real · Base Datos GZ', scope:'Planta · Proceso', cls:'c6',
+  title:'Arrastre: real contra estimado',
+  desc:'Arrastre de grano bueno en kg, y el arrastre efectivo que se va con cada tipo de descarte, calculado sobre el Total Granos Buenos de cada corriente.',
+  render:A=>{
+    const ae=A.merma['ARRASTRE ESTIMADO']||0, ar=A.merma['ARRASTRE REAL']||0, dev=ar-ae;
+    const ks=Object.keys(A.arrastre).filter(k=>A.descReal[k]>0).sort((a,b)=>A.arrastre[b]-A.arrastre[a]);
+    const items=ks.map(k=>({k, v:A.arrastre[k], color:SC[0],
+      suf:PC(A.descReal[k]?A.arrastre[k]/A.descReal[k]:0),
+      tip:[['Grano bueno arrastrado',KGU(A.arrastre[k])],['Kg del descarte',KGU(A.descReal[k])],
+           ['% de arrastre de la corriente',PC(A.descReal[k]?A.arrastre[k]/A.descReal[k]:0,2)],
+           ['% de la masa de PT',PC(A.kgPT?A.descReal[k]/A.kgPT:0,2)]]}));
+    const totArr=ks.reduce((s,k)=>s+A.arrastre[k],0);
+    return {html: tiles([
+        {lb:'Arrastre estimado', un:'kg', vl:KG(ae)},
+        {lb:'Arrastre real', un:'kg', vl:KG(ar)},
+        {lb:'Desvío', un:'real vs estimado', vl:SKG(dev), flag:true,
+          delta:{dir:dirOf(dev,true), text:ae?PP(dev/ae):'—'}},
+        {lb:'Grano bueno en descartes', un:'kg calculados', vl:KG(totArr), sub:`${PC(A.kgDesc?totArr/A.kgDesc:0)} de los descartes`}
+      ])
+      + (items.length?'<div style="margin-top:15px"><p class="src" style="margin:0 0 7px">Grano bueno arrastrado por tipo de descarte, con su tasa de arrastre</p>'
+        + hBars({items, rowH:22, L:132, R:174, alt:'Arrastre por tipo de descarte'})+'</div>':''),
+      tables:[
+        {caption:'Arrastre por proceso', head:['Proceso','Planta','Estimado kg','Real kg','Desvío kg'],
+          rows:A.rows.filter(r=>r.merma&&r.merma['ARRASTRE REAL']!=null).map(r=>{
+            const e=r.merma['ARRASTRE ESTIMADO']||0, a=r.merma['ARRASTRE REAL']||0;
+            return {cells:[r.proceso,r.planta,KG(e),KG(a),SKG(a-e)],cls:['','','','',a>e?'b':'g']};
+          }).concat([{tot:true,cells:['Total','',KG(ae),KG(ar),SKG(dev)]}])},
+        {caption:'Arrastre por tipo de descarte', head:['Tipo','Descarte kg','Grano bueno kg','Tasa de arrastre','% masa PT'],
+          rows:ks.map(k=>({cells:[k,KG(A.descReal[k]),KG(A.arrastre[k]),
+            PC(A.descReal[k]?A.arrastre[k]/A.descReal[k]:0,2),PC(A.kgPT?A.descReal[k]/A.kgPT:0,2)]}))
+            .concat([{tot:true,cells:['Total',KG(A.kgDesc),KG(totArr),PC(A.kgDesc?totArr/A.kgDesc:0,2),PC(A.kgPT?A.kgDesc/A.kgPT:0,2)]}])}]};
+  }},
+
+{ item:'11·13', src:'MP vs PT', scope:'Planta · Proceso', cls:'c12',
+  title:'Merma solicitada contra merma real',
+  desc:'El cierre económico de los dos ítems anteriores: la merma que el cliente pidió contra la que efectivamente ocurrió, y los kg que esa diferencia representa proceso por proceso.',
+  render:A=>{
+    const rows=A.rows.filter(r=>r.mvp&&r.mvp.mermaReal!=null&&r.mvp.kg);
+    if(!rows.length) return {html:'<div class="empty">Sin datos de merma en este filtro. PR 603 todavía no está en MP vs PT.</div>',tables:[]};
+    const w=rows.reduce((s,r)=>s+r.mvp.kg,0);
+    const sol=rows.reduce((s,r)=>s+r.mvp.mermaSol*r.mvp.kg,0)/w;
+    const re=rows.reduce((s,r)=>s+r.mvp.mermaReal*r.mvp.kg,0)/w;
+    const kgDif=rows.reduce((s,r)=>s+(r.mvp.kgDif||0),0);
+    const cats=rows.map(r=>r.proceso);
+    return {html: tiles([
+        {lb:'Merma solicitada', un:'ponderada por kg', vl:PC(sol,2)},
+        {lb:'Merma real', un:'s/ volátil', vl:PC(re,2), delta:{dir:dirOf(re-sol,true), text:PP(re-sol)}},
+        {lb:'Desvío', un:'puntos porcentuales', vl:PP(re-sol), flag:true},
+        {lb:'Kg de diferencia', un:'según MP vs PT', vl:SKG(kgDif), flag:true,
+          sub:`sobre ${KGU(w)} procesados`}
+      ])
+      + '<div style="margin-top:15px">'+groupedCols({cats,
+          series:[{name:'Solicitada', color:'var(--s1)', values:rows.map(r=>r.mvp.mermaSol)},
+                  {name:'Real', color:'var(--s2)', values:rows.map(r=>r.mvp.mermaReal)}],
+          fmt:PC, H:290, alt:'Merma solicitada contra real por proceso'})+'</div>',
+      tables:[{caption:'Merma por proceso', head:['Proceso','Planta','MP kg','Solicitada','Real','Desvío','Kg diferencia'],
+        rows:rows.map(r=>({cells:[r.proceso,r.planta,KG(r.mvp.kg),PC(r.mvp.mermaSol,2),PC(r.mvp.mermaReal,2),
+          PP(r.mvp.mermaReal-r.mvp.mermaSol),SKG(r.mvp.kgDif||0)],
+          cls:['','','','','',r.mvp.mermaReal>r.mvp.mermaSol?'b':'g',(r.mvp.kgDif||0)<0?'b':'g']}))
+          .concat([{tot:true,cells:['Total','',KG(w),PC(sol,2),PC(re,2),PP(re-sol),SKG(kgDif)]}])}]};
+  }}
+]}
+];
+
+/* ---------- render ---------- */
+function buildShell(){
+  const host=document.getElementById('sections');
+  host.innerHTML = SECTIONS.map((s,si)=>
+    `<section class="sec"><header><h2>${esc(s.title)}</h2><span>${esc(s.hint)}</span></header>
+     <div class="grid">${s.cards.map((c,ci)=>`
+       <article class="card ${c.cls||'c6'}">
+         <header>
+           <div class="eyebrow"><span class="pin">ÍTEM ${esc(c.item)}</span>
+             <span class="src">${esc(c.src)}</span>
+             <span class="scope">responde a: ${esc(c.scope)}</span></div>
+           <h3>${esc(c.title)}</h3><p>${c.desc}</p>
+         </header>
+         <div class="body" id="b${si}_${ci}"></div>
+         <div class="foot"><p id="f${si}_${ci}"></p>
+           <button class="ghost" data-tbl="t${si}_${ci}">Tabla</button></div>
+         <div id="t${si}_${ci}"></div>
+       </article>`).join('')}</div></section>`).join('');
+}
+
+function paint(){
+  const rows=subset(), A=agg(rows);
+
+  document.getElementById('idstrip').innerHTML =
+    [['Campaña',META.campania.replace('_','/')],
+     ['Procesos',String(A.n)],
+     ['MP procesada',KG(A.kgMP)+' kg'],
+     ['Ventana',(A.fMin||'—').slice(8)+'/'+(A.fMin||'--/--').slice(5,7)+' – '+(A.fMax||'—').slice(8)+'/'+(A.fMax||'--/--').slice(5,7)]]
+    .map(([k,v])=>`<div><dt>${esc(k)}</dt><dd>${esc(v)}</dd></div>`).join('');
+
+  SECTIONS.forEach((s,si)=>s.cards.forEach((c,ci)=>{
+    const body=document.getElementById('b'+si+'_'+ci);
+    const tb=document.getElementById('t'+si+'_'+ci);
+    const foot=document.getElementById('f'+si+'_'+ci);
+    let out;
+    try{ out=c.render(A); }
+    catch(e){ out={html:'<div class="empty">No se pudo calcular con este filtro.</div>',tables:[]}; }
+    body.innerHTML=out.html;
+    const on = tb.firstElementChild && tb.firstElementChild.classList.contains('on');
+    tb.innerHTML=(out.tables||[]).map(table).join('');
+    if(on) [...tb.children].forEach(x=>x.classList.add('on'));
+    const rn = A.n===PROCS.length ? 'los 27 procesos' : `${A.n} de ${PROCS.length} procesos`;
+    foot.textContent = `Calculado sobre ${rn}` + (ST.calibre!=='*' && c.scope.indexOf('Calibre')>=0 ? ` · calibre ${ST.calibre}` : '');
+  }));
+}
+
+/* tooltips */
+document.addEventListener('mouseover', e=>{
+  const hit=e.target.closest('.hit'); if(!hit) return;
+  const box=hit.closest('.chart'); if(!box) return;
+  const tip=box.querySelector('.tip'); if(!tip) return;
+  tip.innerHTML=hit.getAttribute('data-tip')||''; tip.style.opacity='1';
+});
+document.addEventListener('mousemove', e=>{
+  const hit=e.target.closest('.hit'); if(!hit) return;
+  const box=hit.closest('.chart'); if(!box) return;
+  const tip=box.querySelector('.tip'); if(!tip) return;
+  const r=box.getBoundingClientRect();
+  let x=e.clientX-r.left+14, y=e.clientY-r.top-10;
+  if(x+tip.offsetWidth>r.width) x=e.clientX-r.left-tip.offsetWidth-14;
+  tip.style.left=Math.max(0,x)+'px'; tip.style.top=Math.max(0,y)+'px';
+});
+document.addEventListener('mouseout', e=>{
+  const hit=e.target.closest('.hit'); if(!hit) return;
+  const box=hit.closest('.chart'); if(box){ const t=box.querySelector('.tip'); if(t) t.style.opacity='0'; }
+});
+
+/* tablas */
+document.addEventListener('click', e=>{
+  const b=e.target.closest('[data-tbl]'); if(!b) return;
+  const host=document.getElementById(b.getAttribute('data-tbl'));
+  const on=[...host.children].some(x=>x.classList.contains('on'));
+  [...host.children].forEach(x=>x.classList.toggle('on',!on));
+  b.textContent = on?'Tabla':'Ocultar tabla';
+});
+
+/* filtros */
+function fillSelects(){
+  const P=document.getElementById('fPlanta'), Q=document.getElementById('fProceso'), C=document.getElementById('fCalibre');
+  P.innerHTML='<option value="*">Todas</option>'+META.plantas.map(p=>`<option>${esc(p)}</option>`).join('');
+  const procs=PROCS.filter(r=>ST.planta==='*'||r.planta===ST.planta).map(r=>r.proceso);
+  Q.innerHTML='<option value="*">Todos</option>'+procs.map(p=>`<option>${esc(p)}</option>`).join('');
+  if(procs.indexOf(ST.proceso)<0) ST.proceso='*';
+  Q.value=ST.proceso; P.value=ST.planta;
+  const cals=[...new Set(PROCS.flatMap(r=>Object.keys(r.kgCal||{})))].sort();
+  C.innerHTML='<option value="*">Todos</option>'+cals.map(c=>`<option>${esc(c)}</option>`).join('');
+  C.value=ST.calibre;
+}
+document.getElementById('fPlanta').addEventListener('change', e=>{ ST.planta=e.target.value; fillSelects(); paint(); });
+document.getElementById('fProceso').addEventListener('change', e=>{ ST.proceso=e.target.value; paint(); });
+document.getElementById('fCalibre').addEventListener('change', e=>{ ST.calibre=e.target.value; paint(); });
+document.getElementById('fFix').addEventListener('change', e=>{ ST.fix=e.target.checked; paint(); });
+document.getElementById('bTabs').addEventListener('click', e=>{
+  const any=[...document.querySelectorAll('.tbl')].some(t=>t.classList.contains('on'));
+  document.querySelectorAll('.tbl').forEach(t=>t.classList.toggle('on',!any));
+  document.querySelectorAll('[data-tbl]').forEach(b=>b.textContent=any?'Tabla':'Ocultar tabla');
+  e.target.textContent = any?'Mostrar todas las tablas':'Ocultar todas las tablas';
+});
+document.getElementById('bTheme').addEventListener('click', ()=>{
+  const cur=document.documentElement.getAttribute('data-theme');
+  const dark=cur? cur==='dark' : matchMedia('(prefers-color-scheme: dark)').matches;
+  document.documentElement.setAttribute('data-theme', dark?'light':'dark');
+});
+
+buildShell(); fillSelects(); paint();
+</script>
+</body>
+</html>
